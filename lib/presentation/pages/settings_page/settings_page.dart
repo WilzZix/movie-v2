@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/application/auth/auth_bloc.dart';
+import 'package:movie/presentation/pages/settings_page/sort_widget_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -47,26 +49,54 @@ class _SettingsPageState extends State<SettingsPage> {
             }
             if (state is UserLoginStatus) {
               return state.loggedIn
-                  ? GestureDetector(
-                      onTap: () {
-                        BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
-                      },
-                      child: Center(
-                        child: Container(
-                          height: 40,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            shape: BoxShape.rectangle,
-                            color: Colors.blue,
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Log out',
-                              style: TextStyle(color: Colors.white),
+                  ? Center(
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(LogoutEvent());
+                            },
+                            child: Container(
+                              height: 40,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                shape: BoxShape.rectangle,
+                                color: Colors.blue,
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Log out',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.pushNamed(SortWidgetPage.tag);
+                            },
+                            child: Container(
+                              height: 40,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                shape: BoxShape.rectangle,
+                                color: Colors.blue,
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Sort widgets',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   : GestureDetector(

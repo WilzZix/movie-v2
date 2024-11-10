@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceService {
@@ -22,7 +24,21 @@ class SharedPreferenceService {
   }
 
   Future<void> setAccountId(int accountId) async {
-    _instance?.setInt(SharedPrefsKeyStrings.accountId, accountId);
+    _instance?.setInt(
+      SharedPrefsKeyStrings.accountId,
+      accountId,
+    );
+  }
+
+  Future<void> setSortedHomeWidgets(Map<String, int> sortedData) async {
+    final jsonString = jsonEncode(sortedData);
+    _instance?.setString(SharedPrefsKeyStrings.sortedHomeWidget, jsonString);
+  }
+
+  static Map<String, dynamic> getSortedHomeWidgets() {
+    String? jsonString =
+        _instance!.getString(SharedPrefsKeyStrings.sortedHomeWidget);
+    return jsonDecode(jsonString!);
   }
 
   static String? getUserRequestToken() =>
@@ -48,4 +64,5 @@ class SharedPrefsKeyStrings {
   static String userRequestTokenKey = 'requestToken';
   static String userSessionIdKey = 'requestToken';
   static String accountId = 'accountId';
+  static String sortedHomeWidget = 'sortedHomePage';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:movie/application/actors/actors_bloc.dart';
+import 'package:movie/application/sort_home_widgets/sort_home_widget_cubit.dart';
 import 'package:movie/routes/go_router/go_router.dart';
 
 import 'application/auth/auth_bloc.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
-        BlocProvider(create: (context) => SeeAllMoviesBloc())
+        BlocProvider(create: (context) => SeeAllMoviesBloc()),
+        BlocProvider(create: (context) => SortHomeWidgetCubit())
       ],
       child: MaterialApp.router(
         color: Colors.black,

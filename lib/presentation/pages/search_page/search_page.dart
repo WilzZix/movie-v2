@@ -316,8 +316,7 @@ class _SearchPageState extends State<SearchPage> {
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return GenreBuilder(
-                                              genreId:
-                                                  state.data[index].genreIds!,
+                                              genreId: [0],
                                             );
                                           },
                                         ),
