@@ -20,7 +20,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
   ScrollController scrollController = ScrollController();
-  bool dontScroll = false;
+  bool donotScroll = false;
 
   @override
   void dispose() {
@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void searchMovie() {
-    dontScroll = false;
+    donotScroll = false;
     if (controller.text.isNotEmpty) {
       BlocProvider.of<MoviesBloc>(context)
           .add(SearchMovieEvent(controller.text));
@@ -56,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
   void _loadMore() {
     if (scrollController.position.pixels ==
             scrollController.position.maxScrollExtent &&
-        !dontScroll) {
+        !donotScroll) {
       BlocProvider.of<MoviesBloc>(context).add(LoadMoreEvent());
     }
   }
@@ -247,7 +247,7 @@ class _SearchPageState extends State<SearchPage> {
                 );
               }
               if (state is LastSearchedMovieLoadedState) {
-                dontScroll = true;
+                donotScroll = true;
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: state.data.length,
