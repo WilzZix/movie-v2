@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDRl2nqt2R7lxAX0hAUgEI7-fRO39OFQ1k',
-    appId: '1:502197851017:android:35a9fb733d85102c60c758',
-    messagingSenderId: '502197851017',
-    projectId: 'movie-77e42',
-    storageBucket: 'movie-77e42.appspot.com',
+    apiKey: 'AIzaSyBJgr1j1sXcrxAFZ1I138EU4tenf3B98A4',
+    appId: '1:255882946919:android:a83a80d6cfdfc0ba5727c2',
+    messagingSenderId: '255882946919',
+    projectId: 'movie-c67ca',
+    storageBucket: 'movie-c67ca.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAUlecfDh5E1bTffO2_NDfryOTAX91jOEg',
-    appId: '1:502197851017:ios:ebc1972f235a8a3760c758',
-    messagingSenderId: '502197851017',
-    projectId: 'movie-77e42',
-    storageBucket: 'movie-77e42.appspot.com',
-    iosBundleId: 'com.example.movies',
+    apiKey: 'AIzaSyCKkAAGasvpDFU9NjQKt9JjNk61wlYICcM',
+    appId: '1:255882946919:ios:9a35bcae332d88605727c2',
+    messagingSenderId: '255882946919',
+    projectId: 'movie-c67ca',
+    storageBucket: 'movie-c67ca.firebasestorage.app',
+    iosBundleId: 'com.example.movie',
   );
+
 }
