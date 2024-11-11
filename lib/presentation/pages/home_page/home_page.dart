@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 Text(
-                  'John David.',
+                  'John',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
