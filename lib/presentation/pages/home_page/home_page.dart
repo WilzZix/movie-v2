@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/auth/auth_bloc.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
@@ -134,24 +133,6 @@ class _HomePageState extends State<HomePage> {
             ],
           )
         ],
-        title: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome Back',
-                  style: TextStyle(color: Colors.white),
-                ),
-                Text(
-                  'John',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ],
-            );
-          },
-        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -68,34 +68,31 @@ class MyWatchlistWidget extends StatefulWidget {
 class _MyWatchlistWidgetState extends State<MyWatchlistWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: GestureDetector(
-        onTap: () {
-          context.pushNamed(WatchList.tag);
-        },
-        child: Container(
-          height: 40,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: AppColors.tabletCardColor,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(
-                  'My watchlist',
-                  style: TextStyle(color: Colors.white),
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  color: Colors.white,
-                )
-              ],
-            ),
+    return GestureDetector(
+      onTap: () {
+        context.pushNamed(WatchList.tag);
+      },
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: AppColors.tabletCardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Text(
+                'My watchlist',
+                style: TextStyle(color: Colors.white),
+              ),
+              Spacer(),
+              Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: Colors.white,
+              )
+            ],
           ),
         ),
       ),
@@ -148,23 +145,20 @@ class _WatchListState extends State<WatchList> {
             );
           }
           if (state is WatchListMoviesLoadedState) {
-            return SizedBox(
-              height: 250,
-              child: ListView.builder(
-                itemCount: state.data.results!.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      context.pushNamed(MovieDetailPage.tag,
-                          extra: state.data.results![index].id);
-                    },
-                    child: MovieListItem(
-                      moviesResult: state.data.results![index],
-                    ),
-                  );
-                },
-              ),
+            return ListView.builder(
+              itemCount: state.data.results!.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    context.pushNamed(MovieDetailPage.tag,
+                        extra: state.data.results![index].id);
+                  },
+                  child: MovieListItem(
+                    moviesResult: state.data.results![index],
+                  ),
+                );
+              },
             );
           }
           return const SizedBox();
