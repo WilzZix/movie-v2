@@ -7,6 +7,7 @@ import 'package:movie/core/utils/extensions.dart';
 import 'package:movie/presentation/pages/home_page/components/genre_builder.dart';
 import 'package:movie/presentation/pages/home_page/components/text_container_widget.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
+import 'package:movie/presentation/pages/search_page/search_filter_page.dart';
 
 import '../home_page/components/add_to_watch_list_widget.dart';
 
@@ -68,13 +69,18 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         centerTitle: false,
         actions: [
-          SizedBox(
-              height: 20,
-              width: 20,
-              child: SvgPicture.asset(
-                'assets/icons/filter-6535.svg',
-                color: Colors.white,
-              ))
+          GestureDetector(
+            onTap: () {
+              context.pushNamed(SearchFilterPage.tag);
+            },
+            child: SizedBox(
+                height: 20,
+                width: 20,
+                child: SvgPicture.asset(
+                  'assets/icons/filter-6535.svg',
+                  color: Colors.white,
+                )),
+          )
         ],
         backgroundColor: Colors.black,
         title: const Text(

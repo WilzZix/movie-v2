@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:movie/presentation/pages/home_page/home_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
+import 'package:movie/presentation/pages/search_page/search_filter_page.dart';
 import 'package:movie/presentation/tablet/home_page.dart';
 
 import '../../presentation/pages/favourite_page/favourite_page.dart';
@@ -37,7 +38,11 @@ class AppRouter {
             builder: (_, state) => SeeAllMoviesPage(
               seeAllMoviesEntity: state.extra as SeeAllMoviesEntity,
             ),
-          )
+          ),
+          GoRoute(
+              path: SearchFilterPage.tag,
+              name: SearchFilterPage.tag,
+              builder: (_, __) => const SearchFilterPage())
         ],
       ),
     ],
