@@ -104,40 +104,94 @@ class _SettingsPageState extends State<SettingsPage> {
             }
             return Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white30,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(Icons.language),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Language',
-                            style: AppTypography.sampleText
-                                .copyWith(color: Colors.grey),
-                          ),
-                          const Spacer(),
-                          Text(
-                            'English',
-                            style: AppTypography.sampleText
-                                .copyWith(color: Colors.grey),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          const Icon(Icons.keyboard_arrow_down)
-                        ],
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () async {
+                    final result = await showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.grey,
+                      builder: (context) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SizedBox(
+                              height: 25,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset('assets/icons/ic_uzb_flag.svg'),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Uz',
+                                    style: AppTypography.sampleText,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 25,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset('assets/icons/ic_uzb_flag.svg'),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Ru',
+                                    style: AppTypography.sampleText,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 25,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset('assets/icons/ic_uzb_flag.svg'),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'En',
+                                    style: AppTypography.sampleText,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white30,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(Icons.language),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'Language',
+                              style: AppTypography.sampleText
+                                  .copyWith(color: Colors.grey),
+                            ),
+                            const Spacer(),
+                            Text(
+                              'English',
+                              style: AppTypography.sampleText
+                                  .copyWith(color: Colors.grey),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            const Icon(Icons.keyboard_arrow_down)
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
