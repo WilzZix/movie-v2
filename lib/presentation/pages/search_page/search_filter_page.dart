@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/utils/bottom_tab.dart';
 import 'package:movie/utils/typography.dart';
@@ -13,11 +12,14 @@ class SearchFilterPage extends StatefulWidget {
 }
 
 class _SearchFilterPageState extends State<SearchFilterPage> {
+  int selectedType = 0;
+  int sortType = 0;
+  RangeValues _currentRangeValues = const RangeValues(20, 80);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      bottomNavigationBar: BottomTab(),
+      bottomNavigationBar: const BottomTab(),
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
@@ -48,24 +50,84 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
               Container(
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.white30,
+                  color: const Color(0xFF101010),
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      'All',
-                      style: AppTypography.sampleText,
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          selectedType = 0;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: selectedType == 0
+                                ? const Color(0xFF3C3C3C)
+                                : null,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'All',
+                              style: AppTypography.sampleText,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    Text(
-                      'Movies',
-                      style: AppTypography.sampleText,
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          selectedType = 1;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: selectedType == 1
+                                ? const Color(0xFF3C3C3C)
+                                : null,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Movies',
+                              style: AppTypography.sampleText,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    Text(
-                      'Series',
-                      style: AppTypography.sampleText,
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          selectedType = 2;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: selectedType == 2
+                                ? const Color(0xFF3C3C3C)
+                                : null,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Series',
+                              style: AppTypography.sampleText,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -74,7 +136,7 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white30,
+                  color: const Color(0xFF101010),
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -88,7 +150,7 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
                           style: AppTypography.sampleText,
                         ),
                         Text(
-                          'triller',
+                          'любой',
                           style: AppTypography.sampleText
                               .copyWith(color: Colors.grey),
                         )
@@ -99,11 +161,11 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Жанры',
+                          'Страна',
                           style: AppTypography.sampleText,
                         ),
                         Text(
-                          'triller',
+                          'любой',
                           style: AppTypography.sampleText
                               .copyWith(color: Colors.grey),
                         )
@@ -114,14 +176,14 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Жанры',
+                          'Год',
                           style: AppTypography.sampleText,
                         ),
                         Text(
-                          'triller',
+                          'любой',
                           style: AppTypography.sampleText
                               .copyWith(color: Colors.grey),
-                        )
+                        ),
                       ],
                     ),
                   ],
@@ -131,7 +193,7 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white30,
+                  color: const Color(0xFF101010),
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -141,11 +203,11 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Rayting',
+                          'Рейтинг',
                           style: AppTypography.sampleText,
                         ),
                         Text(
-                          'ot 8',
+                          'от 8',
                           style: AppTypography.sampleText
                               .copyWith(color: Colors.grey),
                         )
@@ -164,29 +226,112 @@ class _SearchFilterPageState extends State<SearchFilterPage> {
               ),
               const SizedBox(height: 16),
               Text(
-                'Sortirovat po',
+                'Сортировать по',
                 style: AppTypography.sampleText,
               ),
               const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.all(8),
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.white30,
+                  color: const Color(0xFF101010),
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      'Rayting',
-                      style: AppTypography.sampleText,
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          sortType = 0;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color:
+                                sortType == 0 ? const Color(0xFF3C3C3C) : null,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Рейтингу',
+                              style: AppTypography.sampleText,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    CupertinoCheckbox(value: true, onChanged: (value) {})
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          sortType = 1;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color:
+                                sortType == 1 ? const Color(0xFF3C3C3C) : null,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Популярности',
+                              style: AppTypography.sampleText,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          sortType = 2;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color:
+                                sortType == 2 ? const Color(0xFF3C3C3C) : null,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Дате',
+                              style: AppTypography.sampleText,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
+              const SizedBox(height: 8),
+              // Container(
+              //   padding: const EdgeInsets.all(8),
+              //   height: 40,
+              //   decoration: BoxDecoration(
+              //     color: Colors.white30,
+              //     shape: BoxShape.rectangle,
+              //     borderRadius: BorderRadius.circular(12),
+              //   ),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Text(
+              //         'Скрывать просмотренное',
+              //         style: AppTypography.sampleText,
+              //       ),
+              //       CupertinoCheckbox(value: true, onChanged: (value) {})
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

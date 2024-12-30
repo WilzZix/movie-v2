@@ -10,7 +10,7 @@ class BottomTab extends StatelessWidget {
       padding: EdgeInsets.only(
           left: 8.0, right: 8, bottom: MediaQuery.of(context).padding.bottom),
       child: Container(
-        height: 40,
+        height: 60,
         decoration: BoxDecoration(
           color: Colors.orange,
           shape: BoxShape.rectangle,
