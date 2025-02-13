@@ -113,13 +113,17 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
   FutureOr<void> _getPreviousSearchResult(
       GetPreviousSearchResult event, Emitter<MoviesState> emit) async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String>? movieJsonList =
-        prefs.getStringList('movie_results')!.reversed.toList();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      List<String>? movieJsonList =
+          prefs.getStringList('movie_results')!.reversed.toList();
 
-    emit(LastSearchedMovieLoadedState(movieJsonList
-        .map((movieJson) => Result.fromJson(jsonDecode(movieJson)))
-        .toList()));
+      emit(LastSearchedMovieLoadedState(movieJsonList
+          .map((movieJson) => Result.fromJson(jsonDecode(movieJson)))
+          .toList()));
+    } catch (e) {
+      emit(SearchMovieLoadErrorState(e.toString()));
+    }
   }
 
   Future<void> _addSearchResultMovieToPreviousSearchResult(

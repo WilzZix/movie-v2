@@ -9,7 +9,6 @@ import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
 import 'package:movie/data/models/user_model.dart';
 
-
 part 'auth_event.dart';
 
 part 'auth_state.dart';
@@ -28,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _checkUserLoginStatus(
       CheckUserLogInStatus event, Emitter<AuthState> emit) async {
-    emit(UserLoginStatus(SharedPreferenceService.getUserAuthStatus()!));
+    emit(UserLoginStatus(SharedPreferenceService.getUserAuthStatus() ?? false));
   }
 
   Future<void> _getRequestToken(

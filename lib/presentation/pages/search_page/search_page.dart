@@ -118,6 +118,9 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 );
               }
+              if (state is SearchMovieLoadErrorState) {
+                return const SizedBox();
+              }
               if (state is SearchMovieLoadedState) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
