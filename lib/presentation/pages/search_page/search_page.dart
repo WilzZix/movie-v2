@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/core/utils/extensions.dart';
@@ -67,15 +66,6 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         centerTitle: false,
-        actions: [
-          SizedBox(
-              height: 20,
-              width: 20,
-              child: SvgPicture.asset(
-                'assets/icons/filter-6535.svg',
-                color: Colors.white,
-              ))
-        ],
         backgroundColor: Colors.black,
         title: const Text(
           'Search',

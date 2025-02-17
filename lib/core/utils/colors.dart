@@ -6,6 +6,21 @@ class AppColors {
   static Color tabletHeaderColor = const Color(0xFF868584);
 }
 
+class AppGradient {
+  static Gradient mainGradient = const LinearGradient(
+    colors: [
+      Color(0xFF4AB9FF),
+      Color(0xFF0084F3),
+    ],
+  );
+  static Gradient secondaryGradient = const LinearGradient(
+    colors: [
+      Color(0xFFFF4A4A),
+      Color(0xFFF30000),
+    ],
+  );
+}
+
 class MainPrimaryColor {
   static Color primary500 = const Color(0xFF1b9ceb);
   static Color primary400 = const Color(0xFF3ba9ed);

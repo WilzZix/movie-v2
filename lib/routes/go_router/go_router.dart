@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:movie/presentation/pages/home_page/home_page.dart';
+import 'package:movie/presentation/pages/bottom_navigation/bottom_navigation.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 import 'package:movie/presentation/tablet/home_page.dart';
 
