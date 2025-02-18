@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:movie/application/actors/actors_bloc.dart';
+import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
 
 import 'application/auth/auth_bloc.dart';
 import 'application/movies_blocs/movies/movies_bloc.dart';
 import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'core/network_provider.dart';
+import 'core/utils/colors.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
 import 'firebase_options.dart';
 
@@ -53,9 +55,14 @@ class MyApp extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.black,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: const Color(0xD9181A20),
             type: BottomNavigationBarType.fixed,
+            unselectedItemColor: GreyScale.grayScale500,
+            selectedItemColor:MainPrimaryColor.primary500 ,
+            selectedLabelStyle: Typographies.bodyXSmallSemiBold
+                .copyWith(color: MainPrimaryColor.primary500),
+            unselectedLabelStyle: Typographies.bodyXSmallSemiBold,
           ),
           inputDecorationTheme: InputDecorationTheme(
             fillColor: Colors.black,

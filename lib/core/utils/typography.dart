@@ -109,10 +109,10 @@ class Typographies {
   );
 
   ///Body XSmall
-  static TextStyle? bodyXSmallBold = const TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.bold,
-  );
+  static get bodyXSmallBold => const TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+      );
   static TextStyle bodyXSmallSemiBold = const TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w600,

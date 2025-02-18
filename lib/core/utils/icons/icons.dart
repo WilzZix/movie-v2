@@ -17,4 +17,10 @@ class AppIcons {
   static final icLiveIcon = _svgAsset('ic_live_icon.svg');
   static final icMyListIcon = _svgAsset('ic_mylist_icon.svg');
   static final icProfileIcon = _svgAsset('ic_profile.svg');
+  static final icHomeIconUnselected = _svgAsset('ic_home_icon_unselected.svg');
+  static final icExploreIconUnselected =
+      _svgAsset('ic_explore_icon_unselected.svg');
+  static final icLiveIconSelected = _svgAsset('ic_live_icon_selected.svg');
+  static final icMyListIconSelected = _svgAsset('ic_my_list_icon_selected.svg');
+  static final icProfileIconSelected = _svgAsset('ic_profile_icon_selected.svg');
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/presentation/pages/home_page/home_page.dart';
 
 import '../favourite_page/favourite_page.dart';
@@ -31,6 +32,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     const SearchPage(),
     const FavouritePage(),
     const SettingsPage(),
+    const SettingsPage(),
   ];
 
   int selectedItem = 0;
@@ -43,38 +45,30 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           selectedItem = value;
           setState(() {});
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            label: '',
-            icon: Icon(
-              Icons.home_outlined,
-              size: 35,
-              color: Colors.white,
-            ),
+            label: 'Home',
+            activeIcon: AppIcons.icHomeIcon,
+            icon: AppIcons.icHomeIconUnselected,
           ),
           BottomNavigationBarItem(
-            label: '',
-            icon: Icon(
-              Icons.search,
-              size: 35,
-              color: Colors.white,
-            ),
+            activeIcon: AppIcons.icExploreIconUnselected,
+            label: 'Explore',
+            icon: AppIcons.icExploreIcon,
           ),
           BottomNavigationBarItem(
-            label: '',
-            icon: Icon(
-              Icons.list,
-              size: 35,
-              color: Colors.white,
-            ),
+            label: 'Live TV',
+            activeIcon: AppIcons.icLiveIconSelected,
+            icon: AppIcons.icLiveIcon,
           ),
           BottomNavigationBarItem(
-            label: '',
-            icon: Icon(
-              Icons.person,
-              size: 35,
-              color: Colors.white,
-            ),
+              label: 'My List',
+              icon: AppIcons.icMyListIcon,
+              activeIcon: AppIcons.icMyListIconSelected),
+          BottomNavigationBarItem(
+            label: 'Profile',
+            icon: AppIcons.icProfileIcon,
+            activeIcon: AppIcons.icProfileIconSelected,
           ),
         ],
       ),
