@@ -15,7 +15,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF181a1f),
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Colors.transparent,
@@ -29,6 +28,14 @@ class _HomePageState extends State<HomePage> {
               height: 466,
               width: 428,
               decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(
+                    45,
+                  ),
+                  bottomRight: Radius.circular(
+                    45,
+                  ),
+                ),
                 image: DecorationImage(
                   fit: BoxFit.fitHeight,
                   image: NetworkImage(
@@ -63,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
