@@ -15,12 +15,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        title: AppIcons.icAppIcon,
-        actions: [AppIcons.icNotification],
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
