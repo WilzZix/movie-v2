@@ -58,8 +58,14 @@ class MyApp extends StatelessWidget {
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: const Color(0xD9181A20),
             type: BottomNavigationBarType.fixed,
+            selectedIconTheme: IconThemeData(
+              color: MainPrimaryColor.primary500,
+            ),
+            unselectedIconTheme: IconThemeData(
+              color: GreyScale.grayScale500,
+            ),
             unselectedItemColor: GreyScale.grayScale500,
-            selectedItemColor:MainPrimaryColor.primary500 ,
+            selectedItemColor: MainPrimaryColor.primary500,
             selectedLabelStyle: Typographies.bodyXSmallSemiBold
                 .copyWith(color: MainPrimaryColor.primary500),
             unselectedLabelStyle: Typographies.bodyXSmallSemiBold,

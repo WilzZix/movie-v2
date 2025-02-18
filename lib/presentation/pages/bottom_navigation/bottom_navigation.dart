@@ -48,27 +48,23 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         items: [
           BottomNavigationBarItem(
             label: 'Home',
-            activeIcon: AppIcons.icHomeIcon,
             icon: AppIcons.icHomeIconUnselected,
           ),
           BottomNavigationBarItem(
-            activeIcon: AppIcons.icExploreIconUnselected,
-            label: 'Explore',
             icon: AppIcons.icExploreIcon,
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             label: 'Live TV',
-            activeIcon: AppIcons.icLiveIconSelected,
             icon: AppIcons.icLiveIcon,
           ),
           BottomNavigationBarItem(
-              label: 'My List',
-              icon: AppIcons.icMyListIcon,
-              activeIcon: AppIcons.icMyListIconSelected),
+            label: 'My List',
+            icon: AppIcons.icMyListIcon,
+          ),
           BottomNavigationBarItem(
             label: 'Profile',
             icon: AppIcons.icProfileIcon,
-            activeIcon: AppIcons.icProfileIconSelected,
           ),
         ],
       ),
