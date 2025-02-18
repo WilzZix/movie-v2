@@ -45,26 +45,32 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           selectedItem = value;
           setState(() {});
         },
+        currentIndex: selectedItem,
         items: [
           BottomNavigationBarItem(
             label: 'Home',
             icon: AppIcons.icHomeIconUnselected,
+            activeIcon: AppIcons.icHomeIcon,
           ),
           BottomNavigationBarItem(
             icon: AppIcons.icExploreIcon,
+            activeIcon: AppIcons.icExploreIconUnselected,
             label: 'Explore',
           ),
           BottomNavigationBarItem(
             label: 'Live TV',
             icon: AppIcons.icLiveIcon,
+            activeIcon: AppIcons.icLiveIconSelected,
           ),
           BottomNavigationBarItem(
             label: 'My List',
             icon: AppIcons.icMyListIcon,
+            activeIcon: AppIcons.icMyListIconSelected,
           ),
           BottomNavigationBarItem(
             label: 'Profile',
             icon: AppIcons.icProfileIcon,
+            activeIcon: AppIcons.icProfileIconSelected,
           ),
         ],
       ),
