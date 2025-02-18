@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-SvgPicture _svgAsset(String assetName) {
+IconTheme _svgAsset(String assetName) {
   final path = 'assets/icons/$assetName';
-  return SvgPicture.asset(
-    path,
+  return IconTheme(
+    data: const IconThemeData(color: Colors.transparent),
+    child: SvgPicture.asset(
+      path,
+      cacheColorFilter: false,
+    ),
   );
 }
 
@@ -23,4 +28,5 @@ class AppIcons {
   static final icLiveIconSelected = _svgAsset('ic_live_icon_selected.svg');
   static final icMyListIconSelected = _svgAsset('ic_my_list_icon_selected.svg');
   static final icProfileIconSelected = _svgAsset('ic_profile_icon_selected.svg');
+  static final icPlayVideoIcon = _svgAsset('ic_play_video_icon.svg');
 }
