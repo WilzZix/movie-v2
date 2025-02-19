@@ -1,4 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
@@ -18,66 +21,88 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 466,
-              width: 428,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(
-                    45,
+            BlocBuilder<MoviesBloc, MoviesState>(builder: (context, state) {
+              if (state is UpcomingMoviesLoadedState) {
+                return CarouselSlider(
+
+                  items: state.data.results!.map(
+                    (i) {
+                      return Container(
+                        height: 466,
+                        width: 428,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(
+                              45,
+                            ),
+                            bottomRight: Radius.circular(
+                              45,
+                            ),
+                          ),
+                          image: DecorationImage(
+                            fit: BoxFit.fitHeight,
+                            image: NetworkImage(
+                              'https://image.tmdb.org/t/p/w1280${i.backdropPath!}',
+                            ),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 24 + MediaQuery.of(context).padding.top,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AppIcons.icAppIcon,
+                                  AppIcons.icNotification
+                                ],
+                              ),
+                            ),
+                            const Spacer(),
+                            AppIcons.icPlayVideoIcon,
+                            const SizedBox(height: 16),
+                            Text(
+                              i.originalTitle!,
+                              style: Typographies.heading4
+                                  .copyWith(color: MainPrimaryColor.primary100),
+                            ),
+                            const SizedBox(height: 16),
+                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TagComponent(
+                                  title: i.genreIds.toString(),
+                                ),
+                                const SizedBox(width: 12),
+                                TagComponent(
+                                  title: i.releaseDate!,
+                                ),
+                                const SizedBox(width: 12),
+                                TagComponent(
+                                  title: i.originalLanguage!,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  options: CarouselOptions(
+                    height: 466,
+                    autoPlay: true,
+                    viewportFraction: 1
                   ),
-                  bottomRight: Radius.circular(
-                    45,
-                  ),
-                ),
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: NetworkImage(
-                    'https://wallpapercat.com/w/full/4/e/a/33262-3376x1899-desktop-hd-star-wars-background.jpg',
-                  ),
-                ),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 24 + MediaQuery.of(context).padding.top,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [AppIcons.icAppIcon, AppIcons.icNotification],
-                    ),
-                  ),
-                  const Spacer(),
-                  AppIcons.icPlayVideoIcon,
-                  const SizedBox(height: 16),
-                  Text(
-                    'Star Wars: The Last Jedi',
-                    style: Typographies.heading4
-                        .copyWith(color: MainPrimaryColor.primary100),
-                  ),
-                  const SizedBox(height: 16),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TagComponent(
-                        title: 'Action',
-                      ),
-                      SizedBox(width: 12),
-                      TagComponent(
-                        title: '2022',
-                      ),
-                      SizedBox(width: 12),
-                      TagComponent(
-                        title: 'United States',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                ],
-              ),
-            ),
+                );
+              }
+              return const CircularProgressIndicator();
+            }),
             const SizedBox(height: 24),
             SizedBox(
               height: 50,
@@ -142,12 +167,19 @@ class _HomePageState extends State<HomePage> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const SizedBox(
-                        height: 25,
-                        width: 68,
-                        child: IMDbTag(
-                          title: '9.8',
-                        )),
+                    child: const Padding(
+                      padding: EdgeInsets.only(top: 8.0, left: 8),
+                      child: SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            IMDbTag(
+                              title: '9.8',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),

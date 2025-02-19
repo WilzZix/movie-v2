@@ -50,26 +50,22 @@ class IMDbTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 25,
+      width: 68,
       padding: const EdgeInsets.only(top: 6, right: 10, bottom: 6, left: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFF757f8b),
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(
-          width: 1,
-          color: const Color(0xFF4AB9FF),
-        ),
+        color: const Color(0x59757F8B),
+        borderRadius: BorderRadius.circular(6),
       ),
-      child: Center(
-        child: Row(
-          children: [
-            AppIcons.icIMDbIcon,
-            const SizedBox(width: 8),
-            Text(
-              title,
-              style: Typographies.bodyXSmallSemiBold,
-            ),
-          ],
-        ),
+      child: Row(
+        children: [
+          Image.asset(AppPngIcons.icImdb),
+          const SizedBox(width: 5),
+          Text(
+            title,
+            style: Typographies.bodyXSmallSemiBold,
+          ),
+        ],
       ),
     );
   }

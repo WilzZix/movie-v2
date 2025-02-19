@@ -7,7 +7,6 @@ IconTheme _svgAsset(String assetName) {
     data: const IconThemeData(color: Colors.transparent),
     child: SvgPicture.asset(
       path,
-      cacheColorFilter: false,
     ),
   );
 }
@@ -27,7 +26,12 @@ class AppIcons {
       _svgAsset('ic_explore_icon_unselected.svg');
   static final icLiveIconSelected = _svgAsset('ic_live_icon_selected.svg');
   static final icMyListIconSelected = _svgAsset('ic_my_list_icon_selected.svg');
-  static final icProfileIconSelected = _svgAsset('ic_profile_icon_selected.svg');
+  static final icProfileIconSelected =
+      _svgAsset('ic_profile_icon_selected.svg');
   static final icPlayVideoIcon = _svgAsset('ic_play_video_icon.svg');
   static final icIMDbIcon = _svgAsset('ic_imdb_icon.svg');
+}
+
+class AppPngIcons {
+  static const String icImdb = 'assets/icons/ic_imdb.png';
 }
