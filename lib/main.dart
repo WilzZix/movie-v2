@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ActorsBloc(),
         ),
         BlocProvider(
-          create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
+          create: (context) => AuthBloc()..add( CheckUserLogInStatus()),
         ),
         BlocProvider(create: (context) => SeeAllMoviesBloc())
       ],
