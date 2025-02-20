@@ -15,9 +15,6 @@ import 'data/datasources/local_data_source/shared_preference_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
   NetworkProvider.initApp();
   Bloc.observer = MyGlobalObserver();
   await SharedPreferenceService.init();
