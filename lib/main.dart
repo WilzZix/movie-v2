@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
@@ -12,9 +11,9 @@ import 'core/network_provider.dart';
 import 'core/utils/colors.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   NetworkProvider.initApp();
   Bloc.observer = MyGlobalObserver();
   await SharedPreferenceService.init();
