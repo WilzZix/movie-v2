@@ -13,4 +13,4 @@ class FetchSeeAllMoviesEvent extends SeeAllMoviesEvent {
   });
 }
 
-enum MovieType { topMoviesPick, upcoming, popular }
+enum MovieType { topMoviesPick, upcoming, popular, tvShow }

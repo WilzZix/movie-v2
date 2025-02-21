@@ -12,6 +12,8 @@ abstract class IMoviesRepository {
 
   Future<MoviesResult> getPopularMovies({required int page});
 
+  Future<MoviesResult> getTrendingTVShow({required int page});
+
   Future<MovieDetailsPage> getMovieDetails({required int movieId});
 
   Future<List<MovieVideos>> getMovieVideos({required int movieId});

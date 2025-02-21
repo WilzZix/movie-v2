@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
@@ -25,8 +27,14 @@ class SeeAllMoviesBloc extends Bloc<SeeAllMoviesEvent, SeeAllMoviesState> {
           case MovieType.popular:
             final result = await dataSource.getPopularMovies(page: event.page);
             emit(SeeAllMoviesLoaded(result));
+
+          case MovieType.tvShow:
+            final result = await dataSource.getTrendingTVShow(page: event.page);
+            emit(SeeAllMoviesLoaded(result));
         }
-      } catch (e) {}
+      } catch (e) {
+        log(e.toString());
+      }
     });
   }
 }

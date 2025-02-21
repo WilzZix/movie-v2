@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
+import 'package:movie/core/utils/components/tags.dart';
+import 'package:movie/core/utils/typography.dart';
 import 'package:movie/data/models/movies_model.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 
@@ -40,14 +42,10 @@ class _SeeAllMoviesPageState extends State<SeeAllMoviesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
         title: Text(
           widget.seeAllMoviesEntity.title,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+          style: Typographies.heading4,
         ),
       ),
       body: BlocBuilder<SeeAllMoviesBloc, SeeAllMoviesState>(
@@ -62,55 +60,37 @@ class _SeeAllMoviesPageState extends State<SeeAllMoviesPage> {
               controller: scrollController,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                mainAxisSpacing: 8,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          context.pushNamed(MovieDetailPage.tag,
-                              extra: results![index].id);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.network(
-                              'https://image.tmdb.org/t/p/w1280${results![index].backdropPath!}',
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              results![index].originalTitle!,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 24,
-                        width: 40,
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    context.pushNamed(MovieDetailPage.tag,
+                        extra: results![index].id);
+                  },
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 190,
+                        height: 248,
                         decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            results![index].voteAverage!.toStringAsFixed(1),
-                            style: const TextStyle(color: Colors.white),
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                'https://image.tmdb.org/t/p/w1280${results![index].backdropPath!}'),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, top: 8),
+                        child: IMDbTag(
+                            title:
+                                results![index].voteAverage!.toStringAsFixed(1)),
+                      )
+                    ],
+                  ),
                 );
               },
             );

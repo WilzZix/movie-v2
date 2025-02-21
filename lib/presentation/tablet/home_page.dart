@@ -23,6 +23,7 @@ class _TabletHomePageState extends State<TabletHomePage> {
     BlocProvider.of<MoviesBloc>(context).add(GetPopularMoviesEvent(1));
     BlocProvider.of<MoviesBloc>(context).add(GetTopRatedMoviesEvent(1));
     BlocProvider.of<MoviesBloc>(context).add(GetUpcomingMoviesEvent(1));
+    BlocProvider.of<MoviesBloc>(context).add(GetTrendingTVShowEvent(1));
   }
 
   @override

@@ -139,6 +139,21 @@ class NetworkMoviesDataSource extends IMoviesRepository {
       throw e.getServerError;
     }
   }
+
+  @override
+  Future<MoviesResult> getTrendingTVShow({required int page}) async {
+    try {
+      final Response response = await NetworkProvider.dio.get(
+        IRoutes.trending,
+        queryParameters: {
+          'page': page,
+        },
+      );
+      return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
 }
 //5098792b57de08b1d83cdd2235dc6cd03714e0cc - wilzix
 //7b82dde7ac6df73a63be7600003899f23451e31c - Nodirbekwilzix

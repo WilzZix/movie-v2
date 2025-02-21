@@ -46,8 +46,9 @@ class MyApp extends StatelessWidget {
             : AppRouter().router,
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
+            color: Colors.transparent,
             iconTheme: IconThemeData(
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(

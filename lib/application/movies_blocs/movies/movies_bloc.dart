@@ -28,6 +28,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     on<AddMovieToPreviousSearchResult>(
         _addSearchResultMovieToPreviousSearchResult);
     on<GetWatchListMoviesEvent>(_getWatchListMovies);
+    on<GetTrendingTVShowEvent>(_getTrendingTVShow);
   }
 
   NetworkMoviesDataSource dataSource = NetworkMoviesDataSource();
@@ -148,6 +149,17 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       emit(WatchListMoviesLoadedState(result));
     } catch (e) {
       emit(WatchListMoviesLoadedErrorState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _getTrendingTVShow(
+      GetTrendingTVShowEvent event, Emitter<MoviesState> emit) async {
+    emit(TrendingTVShowLoadingState());
+    try {
+      final result = await dataSource.getTrendingTVShow(page: page);
+      emit(TrendingTVShowLoadedState(result));
+    } catch (e) {
+      emit(TrendingTVShowLoadingErrorState(e.toString()));
     }
   }
 }

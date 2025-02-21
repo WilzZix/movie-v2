@@ -25,6 +25,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     super.initState();
     BlocProvider.of<MoviesBloc>(context).add(GetUpcomingMoviesEvent(1));
     BlocProvider.of<MoviesBloc>(context).add(GetPopularMoviesEvent(1));
+    BlocProvider.of<MoviesBloc>(context).add(GetTrendingTVShowEvent(1));
   }
 
   List<Widget> screens = [

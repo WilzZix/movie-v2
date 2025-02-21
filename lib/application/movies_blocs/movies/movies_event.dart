@@ -47,3 +47,10 @@ class LoadMoreEvent extends MoviesEvent {}
 
 ///Watchlist movies
 class GetWatchListMoviesEvent extends MoviesEvent {}
+
+///TVShow
+class GetTrendingTVShowEvent extends MoviesEvent {
+  final int page;
+
+  GetTrendingTVShowEvent(this.page);
+}

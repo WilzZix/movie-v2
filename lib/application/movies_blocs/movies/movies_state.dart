@@ -106,3 +106,16 @@ class SeeAllMoviesLoadMoreLoaded extends MoviesState {
 
   SeeAllMoviesLoadMoreLoaded(this.moviesResult);
 }
+
+///Trending TVShow
+class TrendingTVShowLoadingState extends MoviesState{}
+class TrendingTVShowLoadedState extends MoviesState{
+  final MoviesResult moviesResult;
+
+  TrendingTVShowLoadedState(this.moviesResult);
+}
+class TrendingTVShowLoadingErrorState extends MoviesState{
+  final String msg;
+
+  TrendingTVShowLoadingErrorState(this.msg);
+}
