@@ -5,6 +5,7 @@ import 'package:movie/data/models/default_model.dart';
 import 'package:movie/data/models/movie_videos.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/data/models/trailer_model.dart';
 import 'package:movie/domain/repositories/i_movies_repository.dart';
 
 import '../../../core/utils/error_to_user_message.dart';
@@ -150,6 +151,18 @@ class NetworkMoviesDataSource extends IMoviesRepository {
         },
       );
       return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<List<TrailerVideo>> getMovieTrailer({required int movieId}) async {
+    try {
+      final Response response = await NetworkProvider.dio.get(
+        '${IRoutes.movieVideos}/$movieId/videos',
+      );
+      return TrailerVideo.fetchData(response.data ?? {});
     } on DioExceptions catch (e) {
       throw e.getServerError;
     }

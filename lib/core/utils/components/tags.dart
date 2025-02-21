@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 
@@ -67,6 +68,23 @@ class IMDbTag extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class VotingStarWithRating extends StatelessWidget {
+  const VotingStarWithRating({super.key, required this.averageVote});
+
+  final String averageVote;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        AppIcons.icStarHalfColored,
+        const SizedBox(width: 8),
+        Text(averageVote,style: Typographies.bodySmallBold.copyWith(color: MainPrimaryColor.primary500),)
+      ],
     );
   }
 }

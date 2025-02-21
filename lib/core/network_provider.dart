@@ -46,4 +46,5 @@ class IRoutes {
   static const String nowPlaying = '/movie/now_playing';
   static const String search = '/search';
   static const String trending = '/trending/tv/day';
+  static const String movieVideos = '/movie/';
 }
