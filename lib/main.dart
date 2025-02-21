@@ -1,10 +1,6 @@
-import 'dart:ui';
-
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
@@ -15,19 +11,10 @@ import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'core/network_provider.dart';
 import 'core/utils/colors.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
   NetworkProvider.initApp();
   Bloc.observer = MyGlobalObserver();
   await SharedPreferenceService.init();
