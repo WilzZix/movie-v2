@@ -23,12 +23,14 @@ class MovieDetailPage extends StatefulWidget {
   State<MovieDetailPage> createState() => _MovieDetailPageState();
 }
 
-class _MovieDetailPageState extends State<MovieDetailPage> {
-  late YoutubePlayerController _controller;
+class _MovieDetailPageState extends State<MovieDetailPage>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     BlocProvider.of<MoviesBloc>(context)
         .add(GetMovieDetailsEvent(widget.movieId));
     BlocProvider.of<ActorsBloc>(context)
@@ -51,12 +53,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         body: BlocBuilder<MoviesBloc, MoviesState>(
           builder: (context, state) {
             if (state is MovieDetailsLoadedState) {
-              _controller = YoutubePlayerController(
-                initialVideoId: state.data.$2,
-                flags: const YoutubePlayerFlags(
-                  autoPlay: false,
-                ),
-              );
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,43 +212,81 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     ),
                     const SizedBox(height: 24),
                     BlocBuilder<TrailerVideosCubit, TrailerVideosState>(
-                        builder: (context, state) {
-                      if (state is TrailerVideosLoadedState) {
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Row(
-                              children: [
-                                SizedBox(
-                                    height: 114,
-                                    width: 189,
-                                    child:
-                                        YoutubePlayer(controller: _controller)),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      state.data[index].name,
-                                      style: Typographies.bodyMediumBold,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      '2 min 14 sec',
-                                      style: Typographies.bodySmallSemiBold,
-                                    )
-                                  ],
-                                )
-                              ],
-                            );
-                          },
+                      buildWhen: (context, state) {
+                        return state is TrailerVideosLoadedState;
+                      },
+                      builder: (context, state) {
+                        if (state is TrailerVideosLoadedState) {
+                          return ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            shrinkWrap: true,
+                            itemCount: state.data.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        height: 114,
+                                        width: 189,
+                                        child: YoutubePlayer(
+                                          controller: YoutubePlayerController(
+                                            initialVideoId:
+                                                state.data[index].key,
+                                            flags: const YoutubePlayerFlags(
+                                              autoPlay: false,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          softWrap: true,
+                                          state.data[index].name,
+                                          style: Typographies.bodyMediumBold,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 24)
+                                ],
+                              );
+                            },
+                          );
+                        }
+                        return CircularProgressIndicator(
+                          color: MainPrimaryColor.primary500,
                         );
-                      }
-                      return const CircularProgressIndicator();
-                    })
+                      },
+                    ),
+                    TabBar(
+                      controller: _tabController,
+                      indicatorColor: Colors.blue,
+                      labelColor: Colors.blue,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: const [
+                        Tab(text: 'More Like This'),
+                        Tab(text: 'About'),
+                        Tab(text: 'Comments'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 300, // Adjust the height for the tab content
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: const [
+                          Center(child: Text('About the Movie')),
+                          Center(child: Text('Comments Section')),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );

@@ -154,13 +154,17 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 );
                               }
-                              return const CircularProgressIndicator();
+                              return CircularProgressIndicator(
+                                color: MainPrimaryColor.primary500,
+                              );
                             },
                           ),
                         ],
                       );
                     }
-                    return const CircularProgressIndicator();
+                    return CircularProgressIndicator(
+                      color: MainPrimaryColor.primary500,
+                    );
                   },
                 ),
                 Padding(
@@ -256,7 +260,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                return const CircularProgressIndicator();
+                return CircularProgressIndicator(
+                  color: MainPrimaryColor.primary500,
+                );
               },
             ),
             const SizedBox(
@@ -341,7 +347,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                return const CircularProgressIndicator();
+                return CircularProgressIndicator(
+                  color: MainPrimaryColor.primary500,
+                );
               },
             ),
             const SizedBox(
@@ -426,7 +434,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                return const CircularProgressIndicator();
+                return CircularProgressIndicator(
+                  color: MainPrimaryColor.primary500,
+                );
               },
             ),
             const SizedBox(

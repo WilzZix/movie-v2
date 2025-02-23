@@ -15,7 +15,7 @@ class TrailerVideosCubit extends Cubit<TrailerVideosState> {
     emit(TrailerVideosLoadingState());
     try {
       final result = await dataSource.getMovieTrailer(movieId: movieId);
-      emit(TrailerVideosLoadedState(data: result));
+      emit(TrailerVideosLoadedState(data: [result.first,result.last]));
     } catch (e) {
       emit(TrailerVideosLoadErrorState(e.toString()));
     }
