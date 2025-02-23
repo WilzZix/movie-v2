@@ -38,4 +38,5 @@ abstract class IMoviesRepository {
   });
 
   Future<List<TrailerVideo>> getMovieTrailer({required int movieId});
+  Future<MoviesResult> getRecommendedMovies({required int movieId});
 }

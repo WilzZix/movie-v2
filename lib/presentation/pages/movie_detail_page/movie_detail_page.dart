@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/application/movies_blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie/application/movies_blocs/movie_trailer_videos/trailer_videos_cubit.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/add_button.dart';
 import 'package:movie/core/utils/components/tags.dart';
@@ -48,6 +50,10 @@ class _MovieDetailPageState extends State<MovieDetailPage>
           create: (context) =>
               TrailerVideosCubit()..getTrailerVideos(movieId: widget.movieId),
         ),
+        BlocProvider(
+          create: (context) => RecommendedMoviesCubit()
+            ..getRecommendedMovies(movieId: widget.movieId),
+        )
       ],
       child: Scaffold(
         body: BlocBuilder<MoviesBloc, MoviesState>(
@@ -281,9 +287,68 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                       height: 300, // Adjust the height for the tab content
                       child: TabBarView(
                         controller: _tabController,
-                        children: const [
-                          Center(child: Text('About the Movie')),
-                          Center(child: Text('Comments Section')),
+                        children: [
+                          BlocBuilder<RecommendedMoviesCubit,
+                              RecommendedMoviesState>(
+                            builder: (context, state) {
+                              if (state is RecommendedVideosLoadedState) {
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.data.results!.length,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () {
+                                        context.pushNamed(MovieDetailPage.tag,
+                                            extra:
+                                                state.data.results![index].id);
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.only(right: 8),
+                                        height: 200,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              'https://image.tmdb.org/t/p/w1280${state.data.results![index].backdropPath}',
+                                            ),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0, left: 8),
+                                          child: SizedBox(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                IMDbTag(
+                                                  title: state
+                                                      .data
+                                                      .results![index]
+                                                      .voteAverage!
+                                                      .toStringAsFixed(1),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                              return CircularProgressIndicator(
+                                  color: MainPrimaryColor.primary500);
+                            },
+                          ),
+                          const Center(child: Text('About the Movie')),
+                          const Center(child: Text('Comments Section')),
                         ],
                       ),
                     ),
