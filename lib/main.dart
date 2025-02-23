@@ -51,6 +51,12 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          tabBarTheme: TabBarTheme(
+            labelStyle: Typographies.bodyLargeSemiBold.copyWith(
+              color: MainPrimaryColor.primary500,
+            ),
+            unselectedLabelStyle: Typographies.bodyLargeSemiBold,
+          ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: const Color(0xD9181A20),
             type: BottomNavigationBarType.fixed,

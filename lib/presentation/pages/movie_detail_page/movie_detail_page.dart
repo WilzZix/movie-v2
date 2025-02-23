@@ -12,6 +12,7 @@ import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/data/models/user_model.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -347,7 +348,87 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                   color: MainPrimaryColor.primary500);
                             },
                           ),
-                          const Center(child: Text('About the Movie')),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'Subtitles:',
+                                    style: Typographies.bodyMediumSemiBold
+                                        .copyWith(
+                                            color: GreyScale.grayScale400),
+                                  ),
+                                  Text(
+                                    state.data.$1.originalLanguage!,
+                                    style: Typographies.bodyMediumSemiBold,
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Audio Track:',
+                                    style: Typographies.bodyMediumSemiBold
+                                        .copyWith(
+                                            color: GreyScale.grayScale400),
+                                  ),
+                                  Text(
+                                    state.data.$1.originalLanguage!,
+                                    style: Typographies.bodyMediumSemiBold,
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                'Cast and Crew',
+                                style: Typographies.heading2,
+                              ),
+                              const SizedBox(height: 24),
+                              SizedBox( height: 70,
+                                child: ListView.builder(
+                                  itemCount: 10,
+                                  scrollDirection: Axis.horizontal,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,vertical: 8
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      height: 70,
+                                      margin: const EdgeInsets.only(right: 8),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 70,
+                                            width: 70,
+                                            child: const Icon(Icons.add),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                'Nodir Barotov',
+                                                style:
+                                                    Typographies.bodySmallSemiBold,
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text(
+                                                'Nodir',
+                                                style:
+                                                    Typographies.bodySmallRegular,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
                           const Center(child: Text('Comments Section')),
                         ],
                       ),
