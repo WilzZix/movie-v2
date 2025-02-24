@@ -505,9 +505,13 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                   },
                                   builder: (context, state) {
                                     if (state is MovieGalleryLoadedState) {
+                                      if (state.data.isEmpty) {
+                                        return Center(
+                                          child: Text('No data found'),
+                                        );
+                                      }
                                       return SizedBox(
                                         height: 113,
-                                        width: 189,
                                         child: ListView.builder(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 16,
@@ -516,10 +520,13 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return Container(
+                                              height: 113,
+                                              width: 189,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 image: DecorationImage(
+                                                  fit: BoxFit.cover,
                                                   image: NetworkImage(
                                                       "https://image.tmdb.org/t/p/w1280${state.data[index].filePath}"),
                                                 ),
