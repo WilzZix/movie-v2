@@ -19,3 +19,18 @@ class AddingMovieToWatchlistError extends MovieDetailState {
 
   AddingMovieToWatchlistError(this.msg);
 }
+
+/// Movie gallery
+class MovieGalleryLoadingState extends MovieDetailState {}
+
+class MovieGalleryLoadedState extends MovieDetailState {
+  final List<ImageData> data;
+
+  MovieGalleryLoadedState({required this.data});
+}
+
+class MovieGalleryLoadErrorState extends MovieDetailState {
+  final String msg;
+
+  MovieGalleryLoadErrorState({required this.msg});
+}

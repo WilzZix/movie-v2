@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:movie/core/network_provider.dart';
 import 'package:movie/data/models/actor_model.dart';
 import 'package:movie/data/models/default_model.dart';
+import 'package:movie/data/models/movie_gallery_model.dart';
 import 'package:movie/data/models/movie_videos.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
@@ -175,6 +176,18 @@ class NetworkMoviesDataSource extends IMoviesRepository {
         '/movie/$movieId/recommendations',
       );
       return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<List<ImageData>> getMovieGallery({required int movieId}) async {
+    try {
+      final Response response = await NetworkProvider.dio.get(
+        '/movie/$movieId/images',
+      );
+      return ImageData.fetchData(response.data ?? {});
     } on DioExceptions catch (e) {
       throw e.getServerError;
     }

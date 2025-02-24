@@ -12,7 +12,6 @@ import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
-import 'package:movie/data/models/user_model.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -45,7 +44,8 @@ class _MovieDetailPageState extends State<MovieDetailPage>
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => MovieDetailBloc(),
+          create: (context) => MovieDetailBloc()
+            ..add(GetMovieGalleryEvent(movieId: widget.movieId)),
         ),
         BlocProvider(
           create: (context) =>
@@ -348,86 +348,190 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                   color: MainPrimaryColor.primary500);
                             },
                           ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Subtitles:',
-                                    style: Typographies.bodyMediumSemiBold
-                                        .copyWith(
-                                            color: GreyScale.grayScale400),
-                                  ),
-                                  Text(
-                                    state.data.$1.originalLanguage!,
-                                    style: Typographies.bodyMediumSemiBold,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 16),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Audio Track:',
-                                    style: Typographies.bodyMediumSemiBold
-                                        .copyWith(
-                                            color: GreyScale.grayScale400),
-                                  ),
-                                  Text(
-                                    state.data.$1.originalLanguage!,
-                                    style: Typographies.bodyMediumSemiBold,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 24),
-                              Text(
-                                'Cast and Crew',
-                                style: Typographies.heading2,
-                              ),
-                              const SizedBox(height: 24),
-                              SizedBox( height: 70,
-                                child: ListView.builder(
-                                  itemCount: 10,
-                                  scrollDirection: Axis.horizontal,
+                          SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,vertical: 8
-                                  ),
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      height: 70,
-                                      margin: const EdgeInsets.only(right: 8),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 70,
-                                            width: 70,
-                                            child: const Icon(Icons.add),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                'Nodir Barotov',
-                                                style:
-                                                    Typographies.bodySmallSemiBold,
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text(
-                                                'Nodir',
-                                                style:
-                                                    Typographies.bodySmallRegular,
-                                              ),
-                                            ],
-                                          )
-                                        ],
+                                      horizontal: 16.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Subtitles:',
+                                        style: Typographies.bodyMediumSemiBold
+                                            .copyWith(
+                                                color: GreyScale.grayScale400),
                                       ),
+                                      const SizedBox(width: 16),
+                                      Text(
+                                        state.data.$1.originalLanguage!,
+                                        style: Typographies.bodyMediumSemiBold,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Audio Track:',
+                                        style: Typographies.bodyMediumSemiBold
+                                            .copyWith(
+                                                color: GreyScale.grayScale400),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Text(
+                                        state.data.$1.originalLanguage!,
+                                        style: Typographies.bodyMediumSemiBold,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Text(
+                                    'Cast and Crew',
+                                    style: Typographies.heading4,
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                BlocBuilder<ActorsBloc, ActorsState>(
+                                  buildWhen: (context, state) {
+                                    return state is MovieActorsLoadedState;
+                                  },
+                                  builder: (context, state) {
+                                    if (state is MovieActorsLoadedState) {
+                                      return SizedBox(
+                                        height: 70,
+                                        child: ListView.builder(
+                                          itemCount: 10,
+                                          scrollDirection: Axis.horizontal,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16, vertical: 8),
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              height: 70,
+                                              margin: const EdgeInsets.only(
+                                                  right: 8),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    height: 70,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            "https://image.tmdb.org/t/p/w1280${state.data[index].profilePath}"),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 12),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        state.data[index].name!,
+                                                        style: Typographies
+                                                            .bodySmallSemiBold,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 4,
+                                                      ),
+                                                      Text(
+                                                        state.data[index]
+                                                            .originalName!,
+                                                        style: Typographies
+                                                            .bodySmallRegular,
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                    return CircularProgressIndicator(
+                                      color: MainPrimaryColor.primary500,
                                     );
                                   },
                                 ),
-                              )
-                            ],
+                                const SizedBox(height: 24),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Gallery',
+                                        style: Typographies.heading5,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Text(
+                                          'See all',
+                                          style: Typographies.bodyMediumSemiBold
+                                              .copyWith(
+                                                  color: MainPrimaryColor
+                                                      .primary500),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                BlocBuilder<MovieDetailBloc, MovieDetailState>(
+                                  buildWhen: (context, state) {
+                                    return state is MovieGalleryLoadedState;
+                                  },
+                                  builder: (context, state) {
+                                    if (state is MovieGalleryLoadedState) {
+                                      return SizedBox(
+                                        height: 113,
+                                        width: 189,
+                                        child: ListView.builder(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 16,
+                                          ),
+                                          itemCount: state.data.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://image.tmdb.org/t/p/w1280${state.data[index].filePath}"),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                    return CircularProgressIndicator(
+                                        color: MainPrimaryColor.primary500);
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                           const Center(child: Text('Comments Section')),
                         ],
