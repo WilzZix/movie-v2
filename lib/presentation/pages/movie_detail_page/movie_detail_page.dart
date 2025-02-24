@@ -15,6 +15,8 @@ import 'package:movie/core/utils/typography.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../home_page/components/video_player_page.dart';
+
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key, required this.movieId});
 
@@ -70,7 +72,10 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                           children: [
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
-                              onTap: () {},
+                              onTap: () {
+                                context.pushNamed(VideoPlayerPage.tag,
+                                    extra: state.data.$1.id.toString());
+                              },
                               child: Container(
                                 height: 440,
                                 width: 428,
@@ -227,6 +232,7 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                           return ListView.builder(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: state.data.length,
                             itemBuilder: (context, index) {
                               return Column(
@@ -510,9 +516,6 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return Container(
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),

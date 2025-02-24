@@ -95,301 +95,303 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          BlocBuilder<MoviesBloc, MoviesState>(
-            buildWhen: (context, state) {
-              return state is SearchMovieLoadedState ||
-                  state is LastSearchedMovieLoadedState;
-            },
-            builder: (context, state) {
-              if (state is SearchMovieLoadingState) {
-                return const SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-              if (state is SearchMovieLoadErrorState) {
-                return const SizedBox();
-              }
-              if (state is SearchMovieLoadedState) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                      childCount: state.data.results!.length, (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        BlocProvider.of<MoviesBloc>(context).add(
-                            AddMovieToPreviousSearchResult(
-                                state.data.results![index]));
-                        context.pushNamed(MovieDetailPage.tag,
-                            extra: state.data.results![index].id);
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
+          SliverToBoxAdapter(
+            child: BlocBuilder<MoviesBloc, MoviesState>(
+              buildWhen: (context, state) {
+                return state is SearchMovieLoadedState ||
+                    state is LastSearchedMovieLoadedState;
+              },
+              builder: (context, state) {
+                if (state is SearchMovieLoadingState) {
+                  return const SliverToBoxAdapter(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                if (state is SearchMovieLoadErrorState) {
+                  return const SizedBox();
+                }
+                if (state is SearchMovieLoadedState) {
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        childCount: state.data.results!.length, (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<MoviesBloc>(context).add(
+                              AddMovieToPreviousSearchResult(
+                                  state.data.results![index]));
+                          context.pushNamed(MovieDetailPage.tag,
+                              extra: state.data.results![index].id);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16),
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 200,
-                              width: 100,
-                              child: state.data.results![index].backdropPath !=
-                                      null
-                                  ? Image(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        'https://image.tmdb.org/t/p/w1280${state.data.results![index].posterPath!}',
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 100,
-                                  height: 20,
-                                  child: ListView.builder(
-                                    itemCount: state
-                                        .data.results![index].genreIds!.length,
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GenreBuilder(
-                                        genreId: state
-                                            .data.results![index].genreIds!,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Text(
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  state.data.results![index].originalTitle!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Row(
-                                  children: [
-                                    TextContainerWidget(
-                                      title: !state.data.results![index].adult!
-                                          ? '17+'
-                                          : 'GP',
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    TextContainerWidget(
-                                      title: state.data.results![index]
-                                              .releaseDate ??
-                                          '1999-07-07'.formatedYearOfDateTime(),
-                                    ),
-                                    const SizedBox(height: 32)
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 32,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                width: 100,
+                                child: state.data.results![index].backdropPath !=
+                                        null
+                                    ? Image(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                          'https://image.tmdb.org/t/p/w1280${state.data.results![index].posterPath!}',
                                         ),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        Text(
-                                          '${state.data.results![index].voteAverage!}',
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 55),
-                                    const AddToWatchListWidget()
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-                );
-              }
-              if (state is LastSearchedMovieLoadedState) {
-                donotScroll = true;
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: state.data.length,
-                    (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          if (index == 0)
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                'Previous Search',
-                                style: TextStyle(color: Colors.white),
+                                      )
+                                    : null,
                               ),
-                            ),
-                          GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<MoviesBloc>(context).add(
-                                  AddMovieToPreviousSearchResult(
-                                      state.data[index]));
-                              context.pushNamed(MovieDetailPage.tag,
-                                  extra: state.data[index].id);
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.all(8),
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16),
-                                ),
+                              const SizedBox(
+                                width: 16,
                               ),
-                              child: Row(
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: 200,
                                     width: 100,
-                                    child:
-                                        state.data[index].backdropPath != null
-                                            ? Image(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(
-                                                  'https://image.tmdb.org/t/p/w1280${state.data[index].posterPath!}',
-                                                ),
-                                              )
-                                            : null,
+                                    height: 20,
+                                    child: ListView.builder(
+                                      itemCount: state
+                                          .data.results![index].genreIds!.length,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GenreBuilder(
+                                          genreId: state
+                                              .data.results![index].genreIds!,
+                                        );
+                                      },
+                                    ),
                                   ),
                                   const SizedBox(
-                                    width: 16,
+                                    height: 16,
                                   ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Text(
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    state.data.results![index].originalTitle!,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
                                     children: [
-                                      SizedBox(
-                                        width: 100,
-                                        height: 20,
-                                        child: ListView.builder(
-                                          itemCount: state
-                                              .data[index].genreIds!.length,
-                                          scrollDirection: Axis.vertical,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return GenreBuilder(
-                                              genreId:
-                                                  state.data[index].genreIds!,
-                                            );
-                                          },
-                                        ),
+                                      TextContainerWidget(
+                                        title: !state.data.results![index].adult!
+                                            ? '17+'
+                                            : 'GP',
                                       ),
                                       const SizedBox(
-                                        height: 16,
+                                        width: 8,
                                       ),
-                                      Text(
-                                        softWrap: true,
-                                        overflow: TextOverflow.ellipsis,
-                                        state.data[index].originalTitle!,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      TextContainerWidget(
+                                        title: state.data.results![index]
+                                                .releaseDate ??
+                                            '1999-07-07'.formatedYearOfDateTime(),
                                       ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
+                                      const SizedBox(height: 32)
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 32,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Row(
                                         children: [
-                                          TextContainerWidget(
-                                            title: !state.data[index].adult!
-                                                ? '17+'
-                                                : 'GP',
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
                                           ),
                                           const SizedBox(
-                                            width: 8,
+                                            width: 4,
                                           ),
-                                          TextContainerWidget(
-                                            title: state
-                                                    .data[index].releaseDate ??
-                                                '1999-07-07'
-                                                    .formatedYearOfDateTime(),
+                                          Text(
+                                            '${state.data.results![index].voteAverage!}',
+                                            style: const TextStyle(
+                                                color: Colors.white),
                                           ),
-                                          const SizedBox(height: 32)
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 32,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.star,
-                                                color: Colors.amber,
-                                              ),
-                                              const SizedBox(
-                                                width: 4,
-                                              ),
-                                              Text(
-                                                '${state.data[index].voteAverage!}',
-                                                style: const TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(width: 55),
-                                          const AddToWatchListWidget()
-                                        ],
-                                      )
+                                      const SizedBox(width: 55),
+                                      const AddToWatchListWidget()
                                     ],
                                   )
                                 ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  );
+                }
+                if (state is LastSearchedMovieLoadedState) {
+                  donotScroll = true;
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      childCount: state.data.length,
+                      (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            if (index == 0)
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Previous Search',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<MoviesBloc>(context).add(
+                                    AddMovieToPreviousSearchResult(
+                                        state.data[index]));
+                                context.pushNamed(MovieDetailPage.tag,
+                                    extra: state.data[index].id);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
+                                decoration: const BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 200,
+                                      width: 100,
+                                      child:
+                                          state.data[index].backdropPath != null
+                                              ? Image(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                    'https://image.tmdb.org/t/p/w1280${state.data[index].posterPath!}',
+                                                  ),
+                                                )
+                                              : null,
+                                    ),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 100,
+                                          height: 20,
+                                          child: ListView.builder(
+                                            itemCount: state
+                                                .data[index].genreIds!.length,
+                                            scrollDirection: Axis.vertical,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return GenreBuilder(
+                                                genreId:
+                                                    state.data[index].genreIds!,
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        Text(
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
+                                          state.data[index].originalTitle!,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        Row(
+                                          children: [
+                                            TextContainerWidget(
+                                              title: !state.data[index].adult!
+                                                  ? '17+'
+                                                  : 'GP',
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            TextContainerWidget(
+                                              title: state
+                                                      .data[index].releaseDate ??
+                                                  '1999-07-07'
+                                                      .formatedYearOfDateTime(),
+                                            ),
+                                            const SizedBox(height: 32)
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 32,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                ),
+                                                const SizedBox(
+                                                  width: 4,
+                                                ),
+                                                Text(
+                                                  '${state.data[index].voteAverage!}',
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 55),
+                                            const AddToWatchListWidget()
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                );
-              }
-              return const SliverToBoxAdapter();
-            },
+                          ],
+                        );
+                      },
+                    ),
+                  );
+                }
+                return const SliverToBoxAdapter();
+              },
+            ),
           ),
         ],
       ),
