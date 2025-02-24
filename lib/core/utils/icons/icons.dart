@@ -36,6 +36,10 @@ class AppIcons {
   static final icBookMark = _svgAsset('ic_bookmark.svg');
   static final icSend = _svgAsset('ic_send.svg');
   static final icMoreCircle = _svgAsset('ic_more_circle.svg');
+  static final icFilter = _svgAsset('ic_filter.svg');
+  static final icSearch = _svgAsset('ic_search.svg');
+  static final icDivider = _svgAsset('ic_trailing_divider_icon.svg');
+  static final icRecord = _svgAsset('ic_record.svg');
 }
 
 class AppPngIcons {
