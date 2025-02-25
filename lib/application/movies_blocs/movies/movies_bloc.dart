@@ -9,6 +9,7 @@ import 'package:movie/data/datasources/network_data_source/network_movies_dataso
 import 'package:movie/data/models/movie_videos.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/presentation/pages/search_page/search_arguments.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,9 +91,9 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     emit(SearchMovieLoadingState());
     page = 1;
     try {
-      keyword = event.keyword;
+      keyword = event.keyword!;
       final result = await dataSource.searchMovies(
-        keyword: event.keyword,
+        keyword: event.keyword!,
         page: page,
       );
       results!.addAll(result.results!);
