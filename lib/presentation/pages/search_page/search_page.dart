@@ -10,6 +10,7 @@ import 'package:movie/core/utils/typography.dart';
 import 'package:movie/data/models/movies_model.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 
+import 'components/media_type_widget.dart';
 import 'components/search_bar_component.dart';
 
 class SearchPage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _SearchPageState extends State<SearchPage> {
   ScrollController scrollController = ScrollController();
   bool donotScroll = false;
   List<Result>? results = [];
+  int selectedMediaType = 0;
 
   @override
   void dispose() {
@@ -80,14 +82,90 @@ class _SearchPageState extends State<SearchPage> {
             GestureDetector(
               onTap: () {
                 showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
+                  showDragHandle: true,
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(builder: (context, modalSheetState) {
                       return SingleChildScrollView(
-                        child: Column(
-                          children: [],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          selectedMediaType = 0;
+                                          modalSheetState(() {});
+                                        },
+                                        child: MediaTypeWidget(
+                                          title: 'Movies',
+                                          isChecked: selectedMediaType == 0,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          selectedMediaType = 1;
+                                          modalSheetState(() {});
+                                        },
+                                        child: MediaTypeWidget(
+                                          title: 'Series',
+                                          isChecked: selectedMediaType == 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 24),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          selectedMediaType = 2;
+                                          modalSheetState(() {});
+                                        },
+                                        child: MediaTypeWidget(
+                                          title: 'Anime',
+                                          isChecked: selectedMediaType == 2,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 24),
+                                      GestureDetector(
+                                        onTap: () {
+                                          selectedMediaType = 3;
+                                          modalSheetState(() {});
+                                        },
+                                        child: MediaTypeWidget(
+                                          title: 'TV',
+                                          isChecked: selectedMediaType == 3,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                'Genre',
+                                style: Typographies.heading5,
+                              ),
+                              const SizedBox(height: 24),
+                              SizedBox(
+                                height: MediaQuery.of(context).padding.bottom,
+                              )
+                            ],
+                          ),
                         ),
                       );
                     });
+                  },
+                );
               },
               child: Container(
                 height: 56,

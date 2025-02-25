@@ -45,6 +45,10 @@ class MyApp extends StatelessWidget {
             ? AppRouter().tabletRouter
             : AppRouter().router,
         theme: ThemeData(
+          bottomSheetTheme: BottomSheetThemeData(
+            dragHandleColor: GreyScale.grayScale200,
+            backgroundColor: GreyScale.grayScale100,
+          ),
           appBarTheme: const AppBarTheme(
             color: Colors.transparent,
             iconTheme: IconThemeData(
