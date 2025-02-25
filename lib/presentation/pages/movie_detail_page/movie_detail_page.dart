@@ -505,23 +505,17 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                   },
                                   builder: (context, state) {
                                     if (state is MovieGalleryLoadedState) {
-                                      if (state.data.isEmpty) {
-                                        return Center(
-                                          child: Text('No data found'),
-                                        );
-                                      }
                                       return SizedBox(
                                         height: 113,
                                         child: ListView.builder(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 16,
-                                          ),
                                           itemCount: state.data.length,
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return Container(
                                               height: 113,
                                               width: 189,
+                                              margin: const EdgeInsets.symmetric(
+                                                  horizontal: 8),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
@@ -540,6 +534,9 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                         color: MainPrimaryColor.primary500);
                                   },
                                 ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).padding.bottom,
+                                )
                               ],
                             ),
                           ),
