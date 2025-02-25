@@ -1,6 +1,4 @@
 class GenreIdTOStringName {
-
-
   static String getGenreName(int genreId) {
     switch (genreId) {
       case 28:
@@ -44,5 +42,14 @@ class GenreIdTOStringName {
       default:
         return "Unknown";
     }
+  }
+}
+
+class MinutesToHourAndMin {
+  static String minutesToHours(int min) {
+    int hours = min ~/ 60; // Integer division to get hours
+    int minutes = min % 60; // Modulus to get remaining minutes
+
+    return '${hours}h ${minutes}m';
   }
 }

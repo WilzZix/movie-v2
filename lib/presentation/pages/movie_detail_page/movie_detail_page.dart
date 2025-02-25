@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating/flutter_rating.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/application/movies_blocs/movie_detail/movie_detail_bloc.dart';
+import 'package:movie/application/movies_blocs/movie_trailer_videos/trailer_videos_cubit.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
-import 'package:movie/core/utils/extensions.dart';
-import 'package:movie/data/models/actor_model.dart';
-import 'package:movie/presentation/pages/home_page/components/genre_builder.dart';
+import 'package:movie/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
+import 'package:movie/core/utils/colors.dart';
+import 'package:movie/core/utils/components/add_button.dart';
+import 'package:movie/core/utils/components/tags.dart';
+import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
+import 'package:movie/core/utils/icons/icons.dart';
+import 'package:movie/core/utils/typography.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../home_page/components/text_container_widget.dart';
+import '../home_page/components/video_player_page.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key, required this.movieId});
@@ -22,12 +27,14 @@ class MovieDetailPage extends StatefulWidget {
   State<MovieDetailPage> createState() => _MovieDetailPageState();
 }
 
-class _MovieDetailPageState extends State<MovieDetailPage> {
-  late YoutubePlayerController _controller;
+class _MovieDetailPageState extends State<MovieDetailPage>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     BlocProvider.of<MoviesBloc>(context)
         .add(GetMovieDetailsEvent(widget.movieId));
     BlocProvider.of<ActorsBloc>(context)
@@ -36,243 +43,507 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MovieDetailBloc(),
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          title: const Text(
-            'Movie Details',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.black,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MovieDetailBloc()
+            ..add(GetMovieGalleryEvent(movieId: widget.movieId)),
         ),
+        BlocProvider(
+          create: (context) =>
+              TrailerVideosCubit()..getTrailerVideos(movieId: widget.movieId),
+        ),
+        BlocProvider(
+          create: (context) => RecommendedMoviesCubit()
+            ..getRecommendedMovies(movieId: widget.movieId),
+        )
+      ],
+      child: Scaffold(
         body: BlocBuilder<MoviesBloc, MoviesState>(
           builder: (context, state) {
             if (state is MovieDetailsLoadedState) {
-              _controller = YoutubePlayerController(
-                initialVideoId: state.data.$2,
-                flags: const YoutubePlayerFlags(
-                  autoPlay: false,
-                ),
-              );
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    YoutubePlayer(controller: _controller),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    SizedBox(
-                      width: 100,
-                      height: 20,
-                      child: ListView.builder(
-                        itemCount: state.data.$1.genres!.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (BuildContext context, int index) {
-                          List<int> genreIds = state.data.$1.genres!
-                              .map((genre) => genre.id!)
-                              .toList();
-                          return GenreBuilder(
-                            genreId: genreIds,
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      state.data.$1.originalTitle!,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        TextContainerWidget(
-                          title: !state.data.$1.adult! ? '17+' : 'GP',
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        TextContainerWidget(
-                          title: state.data.$1.releaseDate!
-                              .formatedYearOfDateTime(),
-                        ),
-                        const SizedBox(height: 32)
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      state.data.$1.overview!,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    BlocBuilder<MovieDetailBloc, MovieDetailState>(
-                      builder: (context, state) {
-                        if (state is MovieAddedToWatchList) {
-                          return Container(
-                            height: 50,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(
-                                6,
-                              ),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Movie added to watchlist',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        if (state is AddingMovieToWatchList) {
-                          return Container(
-                            height: 50,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(
-                                6,
-                              ),
-                            ),
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            ),
-                          );
-                        }
-                        return GestureDetector(
-                          onTap: () {
-                            BlocProvider.of<MovieDetailBloc>(context)
-                                .add(AddMovieToWatchList(widget.movieId));
-                          },
-                          child: Container(
-                            height: 50,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(
-                                6,
-                              ),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Add to watchlist',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Stack(
                       children: [
                         Column(
                           children: [
-                            const Text(
-                              'Overall Rating',
-                              style: TextStyle(color: Colors.white),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                context.pushNamed(VideoPlayerPage.tag,
+                                    extra: state.data.$1.id.toString());
+                              },
+                              child: Container(
+                                height: 440,
+                                width: 428,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(
+                                      45,
+                                    ),
+                                    bottomRight: Radius.circular(
+                                      45,
+                                    ),
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.fitHeight,
+                                    image: NetworkImage(
+                                      'https://image.tmdb.org/t/p/w1280${state.data.$1.backdropPath}',
+                                    ),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    const Spacer(),
+                                    AppIcons.icPlayVideoIcon,
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      state.data.$1.originalTitle!,
+                                      style: Typographies.heading4.copyWith(
+                                          color: MainPrimaryColor.primary100),
+                                    ),
+                                    const SizedBox(height: 30),
+                                  ],
+                                ),
+                              ),
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text('${state.data.$1.voteAverage}',
-                                style: const TextStyle(color: Colors.white)),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            StarRatingWidget(
-                                voteRating: state.data.$1.voteAverage! / 2)
+                            const SizedBox(height: 24),
                           ],
                         ),
-                        const VerticalDivider(
-                          width: 20,
-                          thickness: 1,
-                          indent: 20,
-                          endIndent: 0,
-                          color: Colors.white,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 24.0,
+                            right: 24,
+                            top: 24 + MediaQuery.of(context).padding.top,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppIcons.icAppIcon,
+                              AppIcons.icChromeCastIcon,
+                            ],
+                          ),
                         ),
-                        const Column(
-                          children: [
-                            Text('Your Rating',
-                                style: TextStyle(color: Colors.white)),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text('0', style: TextStyle(color: Colors.white)),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            StarRatingWidget(
-                              voteRating: 0,
-                            )
-                          ],
-                        )
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        AddButton(
+                          icon: AppIcons.icDownloadIcon,
+                        ),
+                        AddButton(
+                          icon: AppIcons.icBookMark,
+                        ),
+                        AddButton(
+                          icon: AppIcons.icSend,
+                        ),
+                        AddButton(
+                          icon: AppIcons.icMoreCircle,
+                        ),
+                      ],
                     ),
-                    BlocBuilder<ActorsBloc, ActorsState>(
-                      builder: (context, state) {
-                        if (state is MovieActorsLoadingState) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (state is MovieActorsLoadedState) {
-                          return MoviePersonsWidget(
-                            data: state.data,
-                          );
-                        }
-                        if (state is MovieActorLoadingErrorState) {
-                          return Center(
-                            child: Text(
-                              state.msg,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 24),
-                            ),
-                          );
-                        }
-                        return const SizedBox();
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          VotingStarWithRating(
+                            averageVote:
+                                state.data.$1.voteAverage!.toStringAsFixed(1),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '•',
+                            style: Typographies.bodySmallBold,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            MinutesToHourAndMin.minutesToHours(
+                                state.data.$1.runtime!),
+                            style: Typographies.bodySmallBold,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '•',
+                            style: Typographies.bodySmallBold,
+                          ),
+                          const SizedBox(width: 8),
+                          // SizedBox(
+                          //   height: 20,
+                          //   child: ListView.builder(
+                          //     scrollDirection: Axis.horizontal,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     itemCount: state.data.$1.genres!.length,
+                          //     itemBuilder: (context, index) {
+                          //       return Text(
+                          //         GenreIdTOStringName.getGenreName(
+                          //             state.data.$1.genres![index].id!),
+                          //         style: Typographies.bodySmallBold,
+                          //       );
+                          //     },
+                          //   ),
+                          // )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          TagComponent(
+                            title: GenreIdTOStringName.getGenreName(
+                                state.data.$1.genres!.first.id!),
+                          ),
+                          const SizedBox(width: 12),
+                          TagComponent(
+                            title: DateTime.parse(state.data.$1.releaseDate!)
+                                .year
+                                .toString(),
+                          ),
+                          const SizedBox(width: 12),
+                          TagComponent(
+                            title: state.data.$1.originalLanguage!,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        state.data.$1.overview!,
+                        style: Typographies.bodyMediumMedium,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    BlocBuilder<TrailerVideosCubit, TrailerVideosState>(
+                      buildWhen: (context, state) {
+                        return state is TrailerVideosLoadedState;
                       },
-                    )
+                      builder: (context, state) {
+                        if (state is TrailerVideosLoadedState) {
+                          return ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: state.data.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        height: 114,
+                                        width: 189,
+                                        child: YoutubePlayer(
+                                          controller: YoutubePlayerController(
+                                            initialVideoId:
+                                                state.data[index].key,
+                                            flags: const YoutubePlayerFlags(
+                                              autoPlay: false,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          softWrap: true,
+                                          state.data[index].name,
+                                          style: Typographies.bodyMediumBold,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 24)
+                                ],
+                              );
+                            },
+                          );
+                        }
+                        return CircularProgressIndicator(
+                          color: MainPrimaryColor.primary500,
+                        );
+                      },
+                    ),
+                    TabBar(
+                      controller: _tabController,
+                      indicatorColor: Colors.blue,
+                      labelColor: Colors.blue,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: const [
+                        Tab(text: 'More Like This'),
+                        Tab(text: 'About'),
+                        Tab(text: 'Comments'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 300, // Adjust the height for the tab content
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          BlocBuilder<RecommendedMoviesCubit,
+                              RecommendedMoviesState>(
+                            builder: (context, state) {
+                              if (state is RecommendedVideosLoadedState) {
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.data.results!.length,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () {
+                                        context.pushNamed(MovieDetailPage.tag,
+                                            extra:
+                                                state.data.results![index].id);
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.only(right: 8),
+                                        height: 200,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              'https://image.tmdb.org/t/p/w1280${state.data.results![index].backdropPath}',
+                                            ),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0, left: 8),
+                                          child: SizedBox(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                IMDbTag(
+                                                  title: state
+                                                      .data
+                                                      .results![index]
+                                                      .voteAverage!
+                                                      .toStringAsFixed(1),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                              return CircularProgressIndicator(
+                                  color: MainPrimaryColor.primary500);
+                            },
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Subtitles:',
+                                        style: Typographies.bodyMediumSemiBold
+                                            .copyWith(
+                                                color: GreyScale.grayScale400),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Text(
+                                        state.data.$1.originalLanguage!,
+                                        style: Typographies.bodyMediumSemiBold,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Audio Track:',
+                                        style: Typographies.bodyMediumSemiBold
+                                            .copyWith(
+                                                color: GreyScale.grayScale400),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Text(
+                                        state.data.$1.originalLanguage!,
+                                        style: Typographies.bodyMediumSemiBold,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Text(
+                                    'Cast and Crew',
+                                    style: Typographies.heading4,
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                BlocBuilder<ActorsBloc, ActorsState>(
+                                  buildWhen: (context, state) {
+                                    return state is MovieActorsLoadedState;
+                                  },
+                                  builder: (context, state) {
+                                    if (state is MovieActorsLoadedState) {
+                                      return SizedBox(
+                                        height: 70,
+                                        child: ListView.builder(
+                                          itemCount: 10,
+                                          scrollDirection: Axis.horizontal,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16, vertical: 8),
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              height: 70,
+                                              margin: const EdgeInsets.only(
+                                                  right: 8),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    height: 70,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            "https://image.tmdb.org/t/p/w1280${state.data[index].profilePath}"),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 12),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        state.data[index].name!,
+                                                        style: Typographies
+                                                            .bodySmallSemiBold,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 4,
+                                                      ),
+                                                      Text(
+                                                        state.data[index]
+                                                            .originalName!,
+                                                        style: Typographies
+                                                            .bodySmallRegular,
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                    return CircularProgressIndicator(
+                                      color: MainPrimaryColor.primary500,
+                                    );
+                                  },
+                                ),
+                                const SizedBox(height: 24),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Gallery',
+                                        style: Typographies.heading5,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Text(
+                                          'See all',
+                                          style: Typographies.bodyMediumSemiBold
+                                              .copyWith(
+                                                  color: MainPrimaryColor
+                                                      .primary500),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                BlocBuilder<MovieDetailBloc, MovieDetailState>(
+                                  buildWhen: (context, state) {
+                                    return state is MovieGalleryLoadedState;
+                                  },
+                                  builder: (context, state) {
+                                    if (state is MovieGalleryLoadedState) {
+                                      return SizedBox(
+                                        height: 113,
+                                        child: ListView.builder(
+                                          itemCount: state.data.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              height: 113,
+                                              width: 189,
+                                              margin: const EdgeInsets.symmetric(
+                                                  horizontal: 8),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      "https://image.tmdb.org/t/p/w1280${state.data[index].filePath}"),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                    return CircularProgressIndicator(
+                                        color: MainPrimaryColor.primary500);
+                                  },
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).padding.bottom,
+                                )
+                              ],
+                            ),
+                          ),
+                          const Center(child: Text('Comments Section')),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -281,118 +552,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           },
         ),
       ),
-    );
-  }
-}
-
-class MoviePersonsWidget extends StatelessWidget {
-  const MoviePersonsWidget({
-    super.key,
-    required this.data,
-  });
-
-  final List<ActorModel> data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Row(
-          children: [
-            Text(
-              'Cast',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              '·',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              'Writter',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              '·',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              'Director',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Spacer(),
-            Text(
-              'See all',
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        SizedBox(
-          height: 140,
-          child: ListView.builder(
-            itemCount: data.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(data[index].profilePath == null
-                              ? 'https://stock.adobe.com/uz/images/monochrome-icon/65772719'
-                              : 'https://image.tmdb.org/t/p/original${data[index].profilePath!}'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      data[index].originalName!,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class StarRatingWidget extends StatelessWidget {
-  const StarRatingWidget({super.key, required this.voteRating});
-
-  final double voteRating;
-
-  @override
-  Widget build(BuildContext context) {
-    return StarRating(
-      rating: voteRating,
     );
   }
 }

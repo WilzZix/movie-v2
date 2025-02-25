@@ -30,6 +30,16 @@ class AppIcons {
       _svgAsset('ic_profile_icon_selected.svg');
   static final icPlayVideoIcon = _svgAsset('ic_play_video_icon.svg');
   static final icIMDbIcon = _svgAsset('ic_imdb_icon.svg');
+  static final icChromeCastIcon = _svgAsset('ic_chrome_cast.svg');
+  static final icDownloadIcon = _svgAsset('ic_download.svg');
+  static final icStarHalfColored = _svgAsset('ic_star_with_half_colored.svg');
+  static final icBookMark = _svgAsset('ic_bookmark.svg');
+  static final icSend = _svgAsset('ic_send.svg');
+  static final icMoreCircle = _svgAsset('ic_more_circle.svg');
+  static final icFilter = _svgAsset('ic_filter.svg');
+  static final icSearch = _svgAsset('ic_search.svg');
+  static final icDivider = _svgAsset('ic_trailing_divider_icon.svg');
+  static final icRecord = _svgAsset('ic_record.svg');
 }
 
 class AppPngIcons {

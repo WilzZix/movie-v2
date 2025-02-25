@@ -51,6 +51,12 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          tabBarTheme: TabBarTheme(
+            labelStyle: Typographies.bodyLargeSemiBold.copyWith(
+              color: MainPrimaryColor.primary500,
+            ),
+            unselectedLabelStyle: Typographies.bodyLargeSemiBold,
+          ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: const Color(0xD9181A20),
             type: BottomNavigationBarType.fixed,
@@ -67,27 +73,25 @@ class MyApp extends StatelessWidget {
             unselectedLabelStyle: Typographies.bodyXSmallSemiBold,
           ),
           inputDecorationTheme: InputDecorationTheme(
-            fillColor: Colors.black,
-            hintStyle: const TextStyle(
-              color: Colors.white,
-            ),
+            fillColor: GreyScale.grayScale100,
+            focusColor: const Color(0xFFedf3ff),
+            hintStyle: Typographies.bodyMediumRegular,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(32),
+              borderSide: const BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(12),
             ),
-            outlineBorder: const BorderSide(
-              color: Colors.white,
+            outlineBorder: const BorderSide(),
+            disabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(12),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(32),
-              borderSide: const BorderSide(
-                color: Colors.white,
-              ),
+              borderSide: BorderSide(color: MainPrimaryColor.primary500),
+              borderRadius: BorderRadius.circular(12),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(32),
-              borderSide: const BorderSide(
-                color: Colors.white,
-              ),
+              borderSide: const BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
         ),
