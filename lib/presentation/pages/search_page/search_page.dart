@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
+import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
@@ -23,7 +23,6 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
   ScrollController scrollController = ScrollController();
-  bool donotScroll = false;
   List<Result>? results = [];
   int selectedMediaType = 0;
 
@@ -39,43 +38,40 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     controller.addListener(searchMovie);
     scrollController.addListener(_loadMore);
-    BlocProvider.of<MoviesBloc>(context).add(GetPreviousSearchResult());
   }
 
   void searchMovie() {
-    donotScroll = false;
     if (controller.text.isNotEmpty) {
-      BlocProvider.of<MoviesBloc>(context)
-          .add(SearchMovieEvent(keyword: controller.text));
-    } else {
-      BlocProvider.of<MoviesBloc>(context).add(GetPreviousSearchResult());
-    }
+      context
+          .read<SearchMovieBloc>()
+          .add(SearchMovieEventInitial(keyword: controller.text));
+    } else {}
     setState(() {});
   }
 
   void cleanSearch() {
     controller.clear();
-    BlocProvider.of<MoviesBloc>(context).add(GetPreviousSearchResult());
   }
 
   void _loadMore() {
     if (scrollController.position.pixels ==
-            scrollController.position.maxScrollExtent &&
-        !donotScroll) {
-      BlocProvider.of<MoviesBloc>(context).add(LoadMoreEvent());
+        scrollController.position.maxScrollExtent) {
+      BlocProvider.of<SearchMovieBloc>(context).add(LoadMoreEvent());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) =>
-              RecommendedMoviesCubit()..getRecommendedMovies(movieId: 238),
-        )
-      ],
-      child: Scaffold(
+  providers: [
+    BlocProvider(
+      create: (context) => SearchMovieBloc(),
+),
+    BlocProvider(
+      create: (context) => RecommendedMoviesCubit()..getRecommendedMovies(movieId: 238),
+    ),
+  ],
+  child: Scaffold(
         appBar: AppBar(
           title: SearchBarComponent(controller: controller),
           actions: [
@@ -180,7 +176,7 @@ class _SearchPageState extends State<SearchPage> {
             const SizedBox(width: 20)
           ],
         ),
-        body: BlocBuilder<MoviesBloc, MoviesState>(
+        body: BlocBuilder<SearchMovieBloc, SearchMovieState>(
           buildWhen: (context, state) {
             return state is SearchMovieLoadedState;
           },
@@ -214,7 +210,7 @@ class _SearchPageState extends State<SearchPage> {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  'https://image.tmdb.org/t/p/w1280${results![index].backdropPath!}'),
+                                  'https://image.tmdb.org/t/p/w1280${results![index].backdropPath ?? ''}'),
                             ),
                           ),
                         ),
@@ -306,6 +302,6 @@ class _SearchPageState extends State<SearchPage> {
           },
         ),
       ),
-    );
+);
   }
 }

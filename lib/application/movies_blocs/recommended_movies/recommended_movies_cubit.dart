@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -16,6 +17,7 @@ class RecommendedMoviesCubit extends Cubit<RecommendedMoviesState> {
       final result = await dataSource.getRecommendedMovies(movieId: movieId);
       emit(RecommendedVideosLoadedState(data: result));
     } catch (e) {
+      log('line 20 ${e.toString()}');
       emit(RecommendedVideosLoadErrorState(e.toString()));
     }
   }

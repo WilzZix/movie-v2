@@ -43,8 +43,7 @@ class AddMovieToPreviousSearchResult extends MoviesEvent {
 
 class GetPreviousSearchResult extends MoviesEvent {}
 
-///Load more
-class LoadMoreEvent extends MoviesEvent {}
+
 
 ///Watchlist movies
 class GetWatchListMoviesEvent extends MoviesEvent {}
