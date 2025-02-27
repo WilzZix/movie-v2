@@ -63,15 +63,16 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-  providers: [
-    BlocProvider(
-      create: (context) => SearchMovieBloc(),
-),
-    BlocProvider(
-      create: (context) => RecommendedMoviesCubit()..getRecommendedMovies(movieId: 238),
-    ),
-  ],
-  child: Scaffold(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchMovieBloc(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              RecommendedMoviesCubit()..getRecommendedMovies(movieId: 238),
+        ),
+      ],
+      child: Scaffold(
         appBar: AppBar(
           title: SearchBarComponent(controller: controller),
           actions: [
@@ -302,6 +303,6 @@ class _SearchPageState extends State<SearchPage> {
           },
         ),
       ),
-);
+    );
   }
 }
