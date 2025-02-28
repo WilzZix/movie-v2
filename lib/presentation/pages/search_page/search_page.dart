@@ -9,6 +9,7 @@ import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/data/models/movies_model.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
+import 'package:movie/presentation/pages/search_page/components/genre_type_widget.dart';
 
 import 'components/media_type_widget.dart';
 import 'components/search_bar_component.dart';
@@ -76,16 +77,19 @@ class _SearchPageState extends State<SearchPage> {
                   builder: (context) {
                     return StatefulBuilder(builder: (context, modalSheetState) {
                       return SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
@@ -109,8 +113,12 @@ class _SearchPageState extends State<SearchPage> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 24),
-                                  Row(
+                                ),
+                                const SizedBox(height: 24),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -137,19 +145,40 @@ class _SearchPageState extends State<SearchPage> {
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                              const SizedBox(height: 24),
-                              Text(
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Text(
                                 'Genre',
                                 style: Typographies.heading5,
                               ),
-                              const SizedBox(height: 24),
-                              SizedBox(
-                                height: MediaQuery.of(context).padding.bottom,
-                              )
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 24),
+                            SizedBox(
+                              height: 38,
+                              child: ListView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                itemCount: 10,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return const GenreTypeWidget(
+                                    title: 'Comedy',
+                                    isChecked: false,
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+
+                            SizedBox(
+                              height: MediaQuery.of(context).padding.bottom,
+                            )
+                          ],
                         ),
                       );
                     });
