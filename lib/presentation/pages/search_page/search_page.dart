@@ -42,8 +42,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void searchMovie() {
     if (controller.text.isNotEmpty) {
-      context
-          .read<SearchMovieBloc>()
+      BlocProvider.of<SearchMovieBloc>(context)
           .add(SearchMovieEventInitial(keyword: controller.text));
     } else {}
     setState(() {});
@@ -62,16 +61,9 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => SearchMovieBloc(),
-        ),
-        BlocProvider(
-          create: (context) =>
-              RecommendedMoviesCubit()..getRecommendedMovies(movieId: 238),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) =>
+          RecommendedMoviesCubit()..getRecommendedMovies(movieId: 238),
       child: Scaffold(
         appBar: AppBar(
           title: SearchBarComponent(controller: controller),
@@ -183,11 +175,10 @@ class _SearchPageState extends State<SearchPage> {
           },
           builder: (context, state) {
             if (state is SearchMovieLoadedState) {
-              results!.addAll(state.data.results!);
               return GridView.builder(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                itemCount: results!.length,
+                itemCount: state.data.results!.length,
                 controller: scrollController,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -198,7 +189,7 @@ class _SearchPageState extends State<SearchPage> {
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
                       context.pushNamed(MovieDetailPage.tag,
-                          extra: results![index].id);
+                          extra: state.data.results![index].id);
                     },
                     child: Stack(
                       children: [
@@ -211,15 +202,14 @@ class _SearchPageState extends State<SearchPage> {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  'https://image.tmdb.org/t/p/w1280${results![index].backdropPath ?? ''}'),
+                                  'https://image.tmdb.org/t/p/w1280${state.data.results![index].posterPath ?? ''}'),
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: IMDbTag(
-                              title: results![index]
-                                  .voteAverage!
+                              title: state.data.results![index].voteAverage!
                                   .toStringAsFixed(1)),
                         )
                       ],
