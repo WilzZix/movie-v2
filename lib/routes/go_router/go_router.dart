@@ -17,37 +17,35 @@ class AppRouter {
         name: BottomNavigationPage.tag,
         path: BottomNavigationPage.tag,
         builder: (context, state) => const BottomNavigationPage(),
-        routes: [
-          GoRoute(
-            path: MovieDetailPage.tag,
-            name: MovieDetailPage.tag,
-            builder: (_, state) => MovieDetailPage(
-              movieId: state.extra as int,
-            ),
-          ),
-          GoRoute(
-            path: WatchList.tag,
-            name: WatchList.tag,
-            builder: (_, __) {
-              return const WatchList();
-            },
-          ),
-          GoRoute(
-            path: SeeAllMoviesPage.tag,
-            name: SeeAllMoviesPage.tag,
-            builder: (_, state) => SeeAllMoviesPage(
-              seeAllMoviesEntity: state.extra as SeeAllMoviesEntity,
-            ),
-          ),
-          GoRoute(
-            path: VideoPlayerPage.tag,
-            name: VideoPlayerPage.tag,
-            builder: (_, state) => VideoPlayerPage(
-              videoId: state.extra as String,
-            ),
-          )
-        ],
       ),
+      GoRoute(
+        path: MovieDetailPage.tag,
+        name: MovieDetailPage.tag,
+        builder: (_, state) => MovieDetailPage(
+          movieId: state.extra as int,
+        ),
+      ),
+      GoRoute(
+        path: WatchList.tag,
+        name: WatchList.tag,
+        builder: (_, __) {
+          return const WatchList();
+        },
+      ),
+      GoRoute(
+        path: SeeAllMoviesPage.tag,
+        name: SeeAllMoviesPage.tag,
+        builder: (_, state) => SeeAllMoviesPage(
+          seeAllMoviesEntity: state.extra as SeeAllMoviesEntity,
+        ),
+      ),
+      GoRoute(
+        path: VideoPlayerPage.tag,
+        name: VideoPlayerPage.tag,
+        builder: (_, state) => VideoPlayerPage(
+          videoId: state.extra as String,
+        ),
+      )
     ],
   );
 

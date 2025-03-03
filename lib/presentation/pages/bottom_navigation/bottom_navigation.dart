@@ -76,7 +76,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           ),
         ],
       ),
-      body: BlocProvider(
+      body: BlocProvider<SearchMovieBloc>(
         create: (context) => SearchMovieBloc(),
         child: IndexedStack(
           index: selectedItem,

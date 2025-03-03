@@ -32,6 +32,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
     emit(SearchMovieLoadingState());
     page = 1;
     try {
+      await Future.delayed(const Duration(seconds: 1));
       keyword = event.keyword!;
       final result = await dataSource.searchMovies(
         keyword: event.keyword!,
