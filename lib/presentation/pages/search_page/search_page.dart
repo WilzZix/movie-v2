@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie/application/movies_blocs/filter_genre/filter_genre_cubit.dart';
 import 'package:movie/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
 import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
+import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
@@ -26,6 +28,7 @@ class _SearchPageState extends State<SearchPage> {
   ScrollController scrollController = ScrollController();
   List<Result>? results = [];
   int selectedMediaType = 0;
+  int genreSelectedType = 0;
 
   @override
   void dispose() {
@@ -73,6 +76,7 @@ class _SearchPageState extends State<SearchPage> {
               onTap: () {
                 showModalBottomSheet(
                   showDragHandle: true,
+                  isScrollControlled: true,
                   context: context,
                   builder: (context) {
                     return StatefulBuilder(builder: (context, modalSheetState) {
@@ -107,7 +111,7 @@ class _SearchPageState extends State<SearchPage> {
                                           modalSheetState(() {});
                                         },
                                         child: MediaTypeWidget(
-                                          title: 'Series',
+                                          title: 'Person',
                                           isChecked: selectedMediaType == 1,
                                         ),
                                       ),
@@ -128,7 +132,7 @@ class _SearchPageState extends State<SearchPage> {
                                           modalSheetState(() {});
                                         },
                                         child: MediaTypeWidget(
-                                          title: 'Anime',
+                                          title: 'Multi',
                                           isChecked: selectedMediaType == 2,
                                         ),
                                       ),
@@ -158,23 +162,147 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                             const SizedBox(height: 24),
-                            SizedBox(
-                              height: 38,
-                              child: ListView.builder(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                itemCount: 10,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return const GenreTypeWidget(
-                                    title: 'Comedy',
-                                    isChecked: false,
+                            BlocProvider(
+                              create: (context) =>
+                                  FilterGenreCubit()..loadMovieGenres(),
+                              child: BlocBuilder<FilterGenreCubit,
+                                  FilterGenreState>(
+                                builder: (context, state) {
+                                  if (state is MovieGenresLoadedState) {
+                                    return SizedBox(
+                                      height: 38,
+                                      child: ListView.builder(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        itemCount: 10,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              genreSelectedType = index;
+                                              modalSheetState(() {});
+                                            },
+                                            child: GenreTypeWidget(
+                                              title: state.data[index].name,
+                                              isChecked:
+                                                  genreSelectedType == index,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
                                   );
                                 },
                               ),
                             ),
+                            const SizedBox(height: 44),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white,
+                              ),
+                              child: Row(
+                                children: [
+                                  AppIcons.icCalendar,
+                                  const SizedBox(width: 15),
+                                  Text(
+                                    'Realese Year',
+                                    style: Typographies.bodyLargeBold,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '2023',
+                                    style: Typographies.bodyLargeRegular,
+                                  )
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 24),
-
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white,
+                              ),
+                              child: Row(
+                                children: [
+                                  AppIcons.icGlobe,
+                                  const SizedBox(width: 15),
+                                  Text(
+                                    'Country',
+                                    style: Typographies.bodyLargeBold,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    'All',
+                                    style: Typographies.bodyLargeRegular,
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white,
+                              ),
+                              child: Row(
+                                children: [
+                                  AppIcons.icSort,
+                                  const SizedBox(width: 15),
+                                  Text(
+                                    'Sort By',
+                                    style: Typographies.bodyLargeBold,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    'Recommended',
+                                    style: Typographies.bodyLargeRegular,
+                                  )
+                                ],
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 24.0),
+                              child: Divider(
+                                color: Color(0xFFebebeb),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Buttons.secondary(
+                                      text: 'Reset',
+                                      onTap: () {},
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Buttons.primary(
+                                      text: 'Apply',
+                                      onTap: () {},
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               height: MediaQuery.of(context).padding.bottom,
                             )

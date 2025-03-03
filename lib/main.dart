@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           bottomSheetTheme: BottomSheetThemeData(
             dragHandleColor: GreyScale.grayScale200,
-            backgroundColor: GreyScale.grayScale100,
+            backgroundColor: const Color(0xFFFEFEFE),
           ),
           appBarTheme: const AppBarTheme(
             color: Colors.transparent,

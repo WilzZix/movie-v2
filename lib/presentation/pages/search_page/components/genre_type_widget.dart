@@ -21,26 +21,24 @@ class _GenreTypeWidgetState extends State<GenreTypeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(right: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        decoration: BoxDecoration(
-          color: _isChecked ? MainPrimaryColor.primary500 : OtherColors.white,
-          borderRadius: BorderRadius.circular(100),
-          border: !_isChecked ? Border.all(color: GreyScale.grayScale100) : null,
-          shape: BoxShape.rectangle,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-          child: Text(
-            widget.title,
-            style: _isChecked
-                ? Typographies.bodyLargeSemiBold.copyWith(
-                    color: OtherColors.white,
-                  )
-                : Typographies.bodyLargeSemiBold,
-          ),
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: BoxDecoration(
+        color: _isChecked ? MainPrimaryColor.primary500 : OtherColors.white,
+        borderRadius: BorderRadius.circular(100),
+        border: !_isChecked ? Border.all(color: GreyScale.grayScale100) : null,
+        shape: BoxShape.rectangle,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+        child: Text(
+          widget.title,
+          style: _isChecked
+              ? Typographies.bodyLargeSemiBold.copyWith(
+                  color: OtherColors.white,
+                )
+              : Typographies.bodyLargeSemiBold,
         ),
       ),
     );
