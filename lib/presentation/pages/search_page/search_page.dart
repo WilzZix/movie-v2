@@ -298,9 +298,9 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                           ),
-                          // SizedBox(
-                          //   height: MediaQuery.of(context).padding.bottom,
-                          // )
+                          SizedBox(
+                            height: MediaQuery.of(context).padding.bottom,
+                          )
                         ],
                       ),
                     );
