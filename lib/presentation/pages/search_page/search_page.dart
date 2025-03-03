@@ -32,9 +32,10 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    super.dispose();
     scrollController.dispose();
     controller.dispose();
+    WidgetsBinding.instance.removeObserver;
+    super.dispose();
   }
 
   @override
@@ -48,8 +49,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void searchMovie() {
     if (controller.text.isNotEmpty) {
-      context
-          .read()<SearchMovieBloc>(context)
+      BlocProvider.of<SearchMovieBloc>(context)
           .add(SearchMovieEventInitial(keyword: controller.text));
     } else {}
     setState(() {});
@@ -62,7 +62,7 @@ class _SearchPageState extends State<SearchPage> {
   void _loadMore() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      context.read()<SearchMovieBloc>(context).add(LoadMoreEvent());
+      BlocProvider.of<SearchMovieBloc>(context).add(LoadMoreEvent());
     }
   }
 
@@ -298,9 +298,9 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).padding.bottom,
-                          )
+                          // SizedBox(
+                          //   height: MediaQuery.of(context).padding.bottom,
+                          // )
                         ],
                       ),
                     );
