@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:movie/core/network_provider.dart';
 import 'package:movie/data/models/actor_model.dart';
 import 'package:movie/data/models/default_model.dart';
+import 'package:movie/data/models/genre_model.dart';
 import 'package:movie/data/models/movie_gallery_model.dart';
 import 'package:movie/data/models/movie_videos.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
@@ -70,22 +71,6 @@ class NetworkMoviesDataSource extends IMoviesRepository {
       final Response response =
           await NetworkProvider.dio.get('/movie/$movieId/credits');
       return ActorModel.fetchData(response.data ?? {});
-    } on DioExceptions catch (e) {
-      throw e.getServerError;
-    }
-  }
-
-  @override
-  Future<MoviesResult> searchMovies({
-    required String keyword,
-    required int page,
-  }) async {
-    try {
-      Map<String, dynamic> queryParams = {'page': page};
-      final Response response = await NetworkProvider.dio.get(
-          '${IRoutes.search}/movie?query=$keyword&include_adult=false',
-          queryParameters: queryParams);
-      return MoviesResult.fromJson(response.data ?? {});
     } on DioExceptions catch (e) {
       throw e.getServerError;
     }
@@ -188,6 +173,89 @@ class NetworkMoviesDataSource extends IMoviesRepository {
         '/movie/$movieId/images',
       );
       return ImageData.fetchData(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<List<GenreModel>> getMovieGenres() async {
+    try {
+      final Response response =
+          await NetworkProvider.dio.get('/genre/movie/list');
+      return GenreModel.fetchData(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<MoviesResult> search({
+    required String keyword,
+    required int page,
+  }) async {
+    try {
+      Map<String, dynamic> queryParams = {'page': page};
+      final Response response = await NetworkProvider.dio.get(
+          '${IRoutes.search}/multi?query=$keyword',
+          queryParameters: queryParams);
+      return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<MoviesResult> searchCollection(
+      {required String keyword, required int page}) async {
+    try {
+      Map<String, dynamic> queryParams = {'page': page};
+      final Response response = await NetworkProvider.dio.get(
+          '${IRoutes.search}/collection?query=$keyword',
+          queryParameters: queryParams);
+      return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<MoviesResult> searchMovie(
+      {required String keyword, required int page}) async {
+    try {
+      Map<String, dynamic> queryParams = {'page': page};
+      final Response response = await NetworkProvider.dio.get(
+          '${IRoutes.search}/movie?query=$keyword',
+          queryParameters: queryParams);
+      return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<MoviesResult> searchPerson(
+      {required String keyword, required int page}) async {
+    try {
+      Map<String, dynamic> queryParams = {'page': page};
+      final Response response = await NetworkProvider.dio.get(
+          '${IRoutes.search}/person?query=$keyword',
+          queryParameters: queryParams);
+      return MoviesResult.fromJson(response.data ?? {});
+    } on DioExceptions catch (e) {
+      throw e.getServerError;
+    }
+  }
+
+  @override
+  Future<MoviesResult> searchTv(
+      {required String keyword, required int page}) async {
+    try {
+      Map<String, dynamic> queryParams = {'page': page};
+      final Response response = await NetworkProvider.dio.get(
+          '${IRoutes.search}/tv?query=$keyword',
+          queryParameters: queryParams);
+      return MoviesResult.fromJson(response.data ?? {});
     } on DioExceptions catch (e) {
       throw e.getServerError;
     }

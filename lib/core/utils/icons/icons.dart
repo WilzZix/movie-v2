@@ -40,6 +40,9 @@ class AppIcons {
   static final icSearch = _svgAsset('ic_search.svg');
   static final icDivider = _svgAsset('ic_trailing_divider_icon.svg');
   static final icRecord = _svgAsset('ic_record.svg');
+  static final icCalendar = _svgAsset('ic_calendar.svg');
+  static final icGlobe = _svgAsset('ic_globe.svg');
+  static final icSort = _svgAsset('ic_sort.svg');
 }
 
 class AppPngIcons {
