@@ -33,12 +33,50 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
     page = 1;
     try {
       keyword = event.keyword!;
-      final result = await dataSource.searchMovies(
-        keyword: event.keyword!,
-        page: page,
-      );
-      results!.addAll(result.results!);
-      emit(SearchMovieLoadedState(MoviesResult(results: results)));
+      switch (event.arguments!.mediaType) {
+        case null:
+          final result = await dataSource.search(
+            keyword: event.keyword!,
+            page: page,
+          );
+          results!.addAll(result.results!);
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+        case MediaType.movie:
+          final result = await dataSource.searchMovie(
+            keyword: event.keyword!,
+            page: page,
+          );
+          results!.addAll(result.results!);
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+        case MediaType.person:
+          final result = await dataSource.searchPerson(
+            keyword: event.keyword!,
+            page: page,
+          );
+          results!.addAll(result.results!);
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+        case MediaType.tv:
+          final result = await dataSource.searchTv(
+            keyword: event.keyword!,
+            page: page,
+          );
+          results!.addAll(result.results!);
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+        case MediaType.collection:
+          final result = await dataSource.searchCollection(
+            keyword: event.keyword!,
+            page: page,
+          );
+          results!.addAll(result.results!);
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+        case MediaType.all:
+          final result = await dataSource.search(
+            keyword: event.keyword!,
+            page: page,
+          );
+          results!.addAll(result.results!);
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+      }
     } catch (e) {
       emit(SearchMovieLoadErrorState(e.toString()));
     }
@@ -46,7 +84,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
 
   FutureOr<void> _loadMore(
       LoadMoreEvent event, Emitter<SearchMovieState> emit) async {
-    final result = await dataSource.searchMovies(
+    final result = await dataSource.search(
       keyword: keyword,
       page: ++page,
     );

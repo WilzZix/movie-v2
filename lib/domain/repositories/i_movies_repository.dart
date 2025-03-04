@@ -23,7 +23,27 @@ abstract class IMoviesRepository {
 
   Future<List<ActorModel>> fetchMovieActor({required int movieId});
 
-  Future<MoviesResult> searchMovies({
+  Future<MoviesResult> search({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchMovie({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchTv({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchPerson({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchCollection({
     required String keyword,
     required int page,
   });

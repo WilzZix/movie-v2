@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum MediaType { movie, series, tv }
+enum MediaType { movie, person, tv, collection, all }
 
 class SearchArguments with EquatableMixin {
   const SearchArguments({
