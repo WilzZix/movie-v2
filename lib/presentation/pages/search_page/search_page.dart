@@ -77,9 +77,9 @@ class _SearchPageState extends State<SearchPage> {
                 showDragHandle: true,
                 isScrollControlled: true,
                 context: context,
-                builder: (context) {
-                  return BlocProvider(
-                    create: (context) => SearchMovieBloc(),
+                builder: (_) {
+                  return BlocProvider.value(
+                    value: context.read<SearchMovieBloc>(),
                     child: StatefulBuilder(builder: (context, modalSheetState) {
                       return SingleChildScrollView(
                         child: Column(
