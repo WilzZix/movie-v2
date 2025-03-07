@@ -4,11 +4,11 @@ part of 'search_movie_bloc.dart';
 sealed class SearchMovieEvent {}
 
 ///Search movie
-class SearchMovieEventInitial extends SearchMovieEvent {
+class SearchEventInitial extends SearchMovieEvent {
   final String? keyword;
   final SearchArguments? arguments;
 
-  SearchMovieEventInitial({this.keyword, this.arguments});
+  SearchEventInitial({this.keyword, this.arguments});
 }
 
 class AddMovieToPreviousSearchResult extends SearchMovieEvent {

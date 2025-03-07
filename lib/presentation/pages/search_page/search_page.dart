@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void searchMovie() {
     if (controller.text.isNotEmpty) {
-      BlocProvider.of<SearchMovieBloc>(context).add(SearchMovieEventInitial(
+      BlocProvider.of<SearchMovieBloc>(context).add(SearchEventInitial(
           keyword: controller.text,
           arguments: SearchArguments(mediaType: mediaType)));
     } else {}
@@ -190,7 +190,7 @@ class _SearchPageState extends State<SearchPage> {
                                       text: 'Apply',
                                       onTap: () {
                                         context.read<SearchMovieBloc>().add(
-                                              SearchMovieEventInitial(
+                                              SearchEventInitial(
                                                 keyword: controller.text,
                                                 arguments: SearchArguments(
                                                   mediaType: mediaType,
@@ -235,6 +235,7 @@ class _SearchPageState extends State<SearchPage> {
         builder: (context, state) {
           if (state is SearchMovieLoadedState) {
             return GridView.builder(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               itemCount: state.data.results!.length,

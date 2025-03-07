@@ -15,7 +15,7 @@ part 'search_movie_state.dart';
 
 class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   SearchMovieBloc() : super(SearchMovieInitial()) {
-    on<SearchMovieEventInitial>(_searchMovie);
+    on<SearchEventInitial>(_searchMovie);
     on<LoadMoreEvent>(_loadMore);
     on<GetPreviousSearchResult>(_getPreviousSearchResult);
   }
@@ -25,15 +25,17 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   int page = 1;
   String keyword = '';
   List<Result>? results = [];
+  MediaType? mediaType;
 
   FutureOr<void> _searchMovie(
-      SearchMovieEventInitial event, Emitter<SearchMovieState> emit) async {
+      SearchEventInitial event, Emitter<SearchMovieState> emit) async {
     results!.clear();
     emit(SearchMovieLoadingState());
     page = 1;
     try {
       keyword = event.keyword!;
-      switch (event.arguments!.mediaType) {
+      mediaType = event.arguments!.mediaType!;
+      switch (mediaType) {
         case null:
           final result = await dataSource.search(
             keyword: event.keyword!,
@@ -84,12 +86,13 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
 
   FutureOr<void> _loadMore(
       LoadMoreEvent event, Emitter<SearchMovieState> emit) async {
-    final result = await dataSource.search(
-      keyword: keyword,
-      page: ++page,
-    );
-    results!.addAll(result.results!);
-    emit(SearchMovieLoadedState(MoviesResult(results: results)));
+    add(SearchEventInitial());
+    // final result = await dataSource.search(
+    //   keyword: keyword,
+    //   page: ++page,
+    // );
+    // results!.addAll(result.results!);
+    // emit(SearchMovieLoadedState(MoviesResult(results: results)));
   }
 
   FutureOr<void> _getPreviousSearchResult(
