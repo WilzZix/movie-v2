@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/presentation/pages/home_page/home_page.dart';
 
@@ -75,9 +76,12 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           ),
         ],
       ),
-      body: IndexedStack(
-        index: selectedItem,
-        children: screens,
+      body: BlocProvider<SearchMovieBloc>(
+        create: (context) => SearchMovieBloc(),
+        child: IndexedStack(
+          index: selectedItem,
+          children: screens,
+        ),
       ),
     );
   }

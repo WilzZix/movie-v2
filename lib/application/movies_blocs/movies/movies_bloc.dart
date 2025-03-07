@@ -9,6 +9,7 @@ import 'package:movie/data/datasources/network_data_source/network_movies_dataso
 import 'package:movie/data/models/movie_videos.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/presentation/pages/search_page/search_arguments.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,9 +23,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     on<GetUpcomingMoviesEvent>(_getUpcomingMovies);
     on<GetPopularMoviesEvent>(_getPopularMovies);
     on<GetMovieDetailsEvent>(_getMovieDetails);
-    on<SearchMovieEvent>(_searchMovie);
-    on<LoadMoreEvent>(_loadMore);
-    on<GetPreviousSearchResult>(_getPreviousSearchResult);
+
     on<AddMovieToPreviousSearchResult>(
         _addSearchResultMovieToPreviousSearchResult);
     on<GetWatchListMoviesEvent>(_getWatchListMovies);
@@ -84,48 +83,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     }
   }
 
-  FutureOr<void> _searchMovie(
-      SearchMovieEvent event, Emitter<MoviesState> emit) async {
-    results!.clear();
-    emit(SearchMovieLoadingState());
-    page = 1;
-    try {
-      keyword = event.keyword;
-      final result = await dataSource.searchMovies(
-        keyword: event.keyword,
-        page: page,
-      );
-      results!.addAll(result.results!);
-      emit(SearchMovieLoadedState(MoviesResult(results: results)));
-    } catch (e) {
-      emit(SearchMovieLoadErrorState(e.toString()));
-    }
-  }
 
-  FutureOr<void> _loadMore(
-      LoadMoreEvent event, Emitter<MoviesState> emit) async {
-    final result = await dataSource.searchMovies(
-      keyword: keyword,
-      page: ++page,
-    );
-    results!.addAll(result.results!);
-    emit(SearchMovieLoadedState(MoviesResult(results: results)));
-  }
-
-  FutureOr<void> _getPreviousSearchResult(
-      GetPreviousSearchResult event, Emitter<MoviesState> emit) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      List<String>? movieJsonList =
-          prefs.getStringList('movie_results')!.reversed.toList();
-
-      emit(LastSearchedMovieLoadedState(movieJsonList
-          .map((movieJson) => Result.fromJson(jsonDecode(movieJson)))
-          .toList()));
-    } catch (e) {
-      emit(SearchMovieLoadErrorState(e.toString()));
-    }
-  }
 
   Future<void> _addSearchResultMovieToPreviousSearchResult(
       AddMovieToPreviousSearchResult event, Emitter<MoviesState> emit) async {
