@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                                       image: DecorationImage(
                                         fit: BoxFit.fitHeight,
                                         image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w1280${i.backdropPath!}',
+                                          'https://image.tmdb.org/t/p/w1280${i.backdropPath ?? ''}',
                                         ),
                                       ),
                                     ),

@@ -65,26 +65,7 @@ class MoviesDetailsLoadingErrorState extends MoviesState {
   MoviesDetailsLoadingErrorState(this.msg);
 }
 
-///Search movie
-class SearchMovieLoadingState extends MoviesState {}
 
-class SearchMovieLoadedState extends MoviesState {
-  final MoviesResult data;
-
-  SearchMovieLoadedState(this.data);
-}
-
-class SearchMovieLoadErrorState extends MoviesState {
-  final String msg;
-
-  SearchMovieLoadErrorState(this.msg);
-}
-
-class LastSearchedMovieLoadedState extends MoviesState {
-  final List<Result> data;
-
-  LastSearchedMovieLoadedState(this.data);
-}
 
 ///Watchlist movies state
 class WatchListMoviesLoadedState extends MoviesState {

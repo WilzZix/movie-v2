@@ -29,9 +29,10 @@ class GetMovieDetailsEvent extends MoviesEvent {
 
 ///Search movie
 class SearchMovieEvent extends MoviesEvent {
-  final String keyword;
+  final String? keyword;
+  final SearchArguments? arguments;
 
-  SearchMovieEvent(this.keyword);
+  SearchMovieEvent({this.keyword, this.arguments});
 }
 
 class AddMovieToPreviousSearchResult extends MoviesEvent {
@@ -42,8 +43,7 @@ class AddMovieToPreviousSearchResult extends MoviesEvent {
 
 class GetPreviousSearchResult extends MoviesEvent {}
 
-///Load more
-class LoadMoreEvent extends MoviesEvent {}
+
 
 ///Watchlist movies
 class GetWatchListMoviesEvent extends MoviesEvent {}

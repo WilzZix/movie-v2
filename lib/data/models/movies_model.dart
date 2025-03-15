@@ -40,26 +40,24 @@ class MoviesResult {
 }
 
 class Result {
-  String? backdropPath;
-  int? id;
-  String? title;
-  String? originalTitle;
-  String? overview;
-  String? posterPath;
-  String? mediaType;
-  bool? adult;
-  String? originalLanguage;
-  List<int>? genreIds;
-  double? popularity;
-  String? releaseDate;
-  bool? video;
-  double? voteAverage;
-  int? voteCount;
-  String? name;
-  String? originalName;
-  String? firstAirDate;
-
-  //List<String>? originCountry;
+  final String? backdropPath;
+  final int? id;
+  final String? title;
+  final String? originalTitle;
+  final String? overview;
+  final String? posterPath;
+  final String? mediaType;
+  final bool? adult;
+  final String? originalLanguage;
+  final List<int>? genreIds;
+  final double? popularity;
+  final String? releaseDate;
+  final bool? video;
+  final double? voteAverage;
+  final int? voteCount;
+  final String? name;
+  final String? originalName;
+  final String? firstAirDate;
 
   Result({
     this.backdropPath,
@@ -80,29 +78,29 @@ class Result {
     this.name,
     this.originalName,
     this.firstAirDate,
-    //this.originCountry,
   });
 
-  Result.fromJson(Map<String, dynamic> json) {
-    backdropPath = json['backdrop_path'];
-    id = json['id'];
-    title = json['title'];
-    originalTitle = json['original_title'];
-    overview = json['overview'];
-    posterPath = json['poster_path'];
-    mediaType = json['media_type'];
-    adult = json['adult'];
-    originalLanguage = json['original_language'];
-    genreIds = json['genre_ids'].cast<int>() ?? 0;
-    popularity = json['popularity'];
-    releaseDate = json['release_date'];
-    video = json['video'];
-    voteAverage = json['vote_average'];
-    voteCount = json['vote_count'];
-    name = json['name'];
-    originalName = json['original_name'];
-    firstAirDate = json['first_air_date'];
-    //  originCountry = json['origin_country'].cast<String>() ?? '';
+  factory Result.fromJson(Map<String, dynamic> json) {
+    return Result(
+      backdropPath: json['backdrop_path'],
+      id: json['id'],
+      title: json['title'],
+      originalTitle: json['original_title'],
+      overview: json['overview'],
+      posterPath: json['poster_path'],
+      mediaType: json['media_type'],
+      adult: json['adult'],
+      originalLanguage: json['original_language'],
+      genreIds: json['genre_ids'].cast<int>() ?? 0,
+      popularity: json['popularity'],
+      releaseDate: json['release_date'],
+      video: json['video'],
+      voteAverage: json['vote_average'],
+      voteCount: json['vote_count'],
+      name: json['name'],
+      originalName: json['original_name'],
+      firstAirDate: json['first_air_date'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -125,7 +123,7 @@ class Result {
     data['name'] = name;
     data['original_name'] = originalName;
     data['first_air_date'] = firstAirDate;
-    //  data['origin_country'] = originCountry;
+
     return data;
   }
 }

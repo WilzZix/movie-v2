@@ -28,23 +28,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<MoviesBloc>(
           create: (context) => MoviesBloc()..add(GetTopRatedMoviesEvent(1)),
         ),
-        BlocProvider(
+        BlocProvider<ActorsBloc>(
           create: (context) => ActorsBloc(),
         ),
-        BlocProvider(
+        BlocProvider<AuthBloc>(
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
-        BlocProvider(create: (context) => SeeAllMoviesBloc())
+        BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc())
       ],
       child: MaterialApp.router(
         color: Colors.black,
-        routerConfig: MediaQuery.of(context).size.width >= 1280
-            ? AppRouter().tabletRouter
-            : AppRouter().router,
+        routerConfig: AppRouter().router,
         theme: ThemeData(
+          bottomSheetTheme: BottomSheetThemeData(
+            dragHandleColor: GreyScale.grayScale200,
+            backgroundColor: const Color(0xFFFEFEFE),
+          ),
           appBarTheme: const AppBarTheme(
             color: Colors.transparent,
             iconTheme: IconThemeData(

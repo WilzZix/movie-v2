@@ -1,5 +1,6 @@
 import 'package:movie/data/models/actor_model.dart';
 import 'package:movie/data/models/default_model.dart';
+import 'package:movie/data/models/genre_model.dart';
 import 'package:movie/data/models/movie_gallery_model.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
@@ -22,7 +23,27 @@ abstract class IMoviesRepository {
 
   Future<List<ActorModel>> fetchMovieActor({required int movieId});
 
-  Future<MoviesResult> searchMovies({
+  Future<MoviesResult> search({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchMovie({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchTv({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchPerson({
+    required String keyword,
+    required int page,
+  });
+
+  Future<MoviesResult> searchCollection({
     required String keyword,
     required int page,
   });
@@ -43,4 +64,6 @@ abstract class IMoviesRepository {
   Future<MoviesResult> getRecommendedMovies({required int movieId});
 
   Future<List<ImageData>> getMovieGallery({required int movieId});
+
+  Future<List<GenreModel>> getMovieGenres();
 }
