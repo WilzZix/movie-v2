@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movie/presentation/pages/bottom_navigation/bottom_navigation.dart';
 import 'package:movie/presentation/pages/home_page/components/video_player_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
+import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
 import 'package:movie/presentation/tablet/home_page.dart';
 
 import '../../presentation/pages/favourite_page/favourite_page.dart';
@@ -24,6 +25,15 @@ class AppRouter {
             builder: (_, state) => MovieDetailPage(
               movieId: state.extra as int,
             ),
+            routes: [
+              GoRoute(
+                path: PersonPage.tag,
+                name: PersonPage.tag,
+                builder: (_, state) => PersonPage(
+                  personId: state.extra as int,
+                ),
+              )
+            ],
           ),
           GoRoute(
             path: WatchList.tag,

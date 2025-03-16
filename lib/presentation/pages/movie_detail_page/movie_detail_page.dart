@@ -12,6 +12,7 @@ import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -421,47 +422,53 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 16, vertical: 8),
                                           itemBuilder: (context, index) {
-                                            return Container(
-                                              height: 70,
-                                              margin: const EdgeInsets.only(
-                                                  right: 8),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    height: 70,
-                                                    width: 70,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: NetworkImage(
-                                                            "https://image.tmdb.org/t/p/w1280${state.data[index].profilePath}"),
+                                            return GestureDetector(
+                                              onTap: () {
+                                                context.push(PersonPage.tag,extra: state.data[index].id);
+                                              },
+                                              child: Container(
+                                                height: 70,
+                                                margin: const EdgeInsets.only(
+                                                    right: 8),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      height: 70,
+                                                      width: 70,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image: NetworkImage(
+                                                              "https://image.tmdb.org/t/p/w1280${state.data[index].profilePath}"),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(width: 12),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        state.data[index].name!,
-                                                        style: Typographies
-                                                            .bodySmallSemiBold,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 4,
-                                                      ),
-                                                      Text(
-                                                        state.data[index]
-                                                            .originalName!,
-                                                        style: Typographies
-                                                            .bodySmallRegular,
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
+                                                    const SizedBox(width: 12),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          state.data[index]
+                                                              .name!,
+                                                          style: Typographies
+                                                              .bodySmallSemiBold,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          state.data[index]
+                                                              .originalName!,
+                                                          style: Typographies
+                                                              .bodySmallRegular,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             );
                                           },
@@ -514,8 +521,9 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                             return Container(
                                               height: 113,
                                               width: 189,
-                                              margin: const EdgeInsets.symmetric(
-                                                  horizontal: 8),
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
