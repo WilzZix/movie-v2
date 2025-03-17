@@ -77,28 +77,29 @@ class _HomePageState extends State<HomePage> {
                                                   MainPrimaryColor.primary100),
                                         ),
                                         const SizedBox(height: 16),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            TagComponent(
-                                              title: GenreIdTOStringName
-                                                  .getGenreName(
-                                                      i.genreIds!.first),
-                                            ),
-                                            const SizedBox(width: 12),
-                                            TagComponent(
-                                              title:
-                                                  DateTime.parse(i.releaseDate!)
-                                                      .year
-                                                      .toString(),
-                                            ),
-                                            const SizedBox(width: 12),
-                                            TagComponent(
-                                              title: i.originalLanguage!,
-                                            ),
-                                          ],
-                                        ),
+                                        if (i.genreIds!.isNotEmpty)
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              TagComponent(
+                                                title: GenreIdTOStringName
+                                                    .getGenreName(
+                                                        i.genreIds!.first ?? 0),
+                                              ),
+                                              const SizedBox(width: 12),
+                                              TagComponent(
+                                                title: DateTime.parse(
+                                                        i.releaseDate!)
+                                                    .year
+                                                    .toString(),
+                                              ),
+                                              const SizedBox(width: 12),
+                                              TagComponent(
+                                                title: i.originalLanguage!,
+                                              ),
+                                            ],
+                                          ),
                                         const SizedBox(height: 30),
                                       ],
                                     ),

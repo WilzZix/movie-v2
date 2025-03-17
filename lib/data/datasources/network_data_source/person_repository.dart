@@ -11,8 +11,7 @@ class PersonRepository extends IPerson {
   Future<PersonDetailModel> getPersonDetail({required int personId}) async {
     try {
       final Response response = await NetworkProvider.dio.get(
-        IRoutes.personDetail,
-        queryParameters: {'person_id': personId},
+        "${IRoutes.personDetail}/$personId",
       );
       return PersonDetailModel.fromJson(response.data ?? {});
     } on DioExceptions catch (e) {
@@ -25,8 +24,7 @@ class PersonRepository extends IPerson {
       {required int personId}) async {
     try {
       final Response response = await NetworkProvider.dio.get(
-        "${IRoutes.personDetail}/movie_credits",
-        queryParameters: {'person_id': personId},
+        "${IRoutes.personDetail}/$personId/movie_credits",
       );
       return Movie.fetchData(response.data ?? {});
     } on DioExceptions catch (e) {
@@ -39,8 +37,7 @@ class PersonRepository extends IPerson {
       {required int personId}) async {
     try {
       final Response response = await NetworkProvider.dio.get(
-        "${IRoutes.personDetail}/images",
-        queryParameters: {'person_id': personId},
+        "${IRoutes.personDetail}/$personId/images",
       );
       return ImageDetailModel.fetchData(response.data ?? {});
     } on DioExceptions catch (e) {

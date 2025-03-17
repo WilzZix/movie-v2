@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:movie/application/actors/actors_bloc.dart';
+import 'package:movie/application/person/person_bloc.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
-        BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc())
+        BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
       ],
       child: MaterialApp.router(
         color: Colors.black,

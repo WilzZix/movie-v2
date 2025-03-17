@@ -424,7 +424,7 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
                                               onTap: () {
-                                                context.push(PersonPage.tag,extra: state.data[index].id);
+                                                context.pushNamed(PersonPage.tag,extra: state.data[index].id);
                                               },
                                               child: Container(
                                                 height: 70,
