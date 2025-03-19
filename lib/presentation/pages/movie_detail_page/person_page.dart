@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:movie/application/person/person_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/tags.dart';
@@ -55,7 +56,6 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
               builder: (context, state) {
                 if (state is PersonMovieDetailLoadedState) {
                   return SliverAppBar(
-                    floating: true,
                     expandedHeight: 300,
                     flexibleSpace: FlexibleSpaceBar(
                         background: Column(
@@ -75,7 +75,8 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          state.data.birthday,
+                          DateFormat("dd MMM, yyyy")
+                              .format(DateTime.parse(state.data.birthday)),
                           style: Typographies.bodyLargeSemiBold,
                         ),
                         const SizedBox(height: 16),
@@ -118,9 +119,6 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                   controller: _tabController,
                   children: [
                     BlocBuilder<PersonBloc, PersonState>(
-                      buildWhen: (state, context) {
-                        return state is PersonMoviesLoadedState;
-                      },
                       builder: (context, state) {
                         if (state is PersonMoviesLoadedState) {
                           return GridView.builder(
