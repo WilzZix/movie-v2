@@ -74,7 +74,7 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                           ),
                           Positioned.fill(
                             child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Adjust blur intensity
+                              filter: ImageFilter.blur(sigmaX: 35, sigmaY: 35), // Adjust blur intensity
                               child: Container(
                                 color: Colors.black.withOpacity(0.2), // Optional tint
                               ),
@@ -99,7 +99,7 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                               Text(
                                 DateFormat("dd MMM, yyyy").format(
                                     DateTime.parse(state.data.birthday)),
-                                style: Typographies.bodyLargeSemiBold,
+                                style: Typographies.bodyLargeSemiBold.copyWith(color: Colors.white),
                               ),
                               const SizedBox(height: 16),
                               Row(
@@ -118,7 +118,7 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                     ),
                     title: Text(
                       state.data.name,
-                      style: Typographies.heading4,
+                      style: Typographies.heading4.copyWith(color: Colors.white),
                     ),
                   );
                 }
