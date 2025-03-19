@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/network_data_source/person_repository.dart';
 import 'package:movie/data/models/person_dateil_model.dart';

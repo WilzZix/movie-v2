@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/application/person/person_bloc.dart';
+import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
@@ -25,6 +26,16 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
     _personBloc.add(GetPersonDetailEvent(personId: widget.personId));
     _personBloc.add(GetPersonPlayedMoviesEvent(personId: widget.personId));
     _personBloc.add(GetPersonGalleryEvent(personId: widget.personId));
+    _tabController.addListener(tabChanged);
+  }
+
+  void tabChanged() {
+    if (_tabController.index == 0 && !_tabController.indexIsChanging) {
+      _personBloc.add(GetPersonPlayedMoviesEvent(personId: widget.personId));
+    } else if (_tabController.index == 1 && !_tabController.indexIsChanging) {
+      _personBloc.add(GetPersonDetailEvent(personId: widget.personId));
+      _personBloc.add(GetPersonGalleryEvent(personId: widget.personId));
+    }
   }
 
   late TabController _tabController;
@@ -44,6 +55,7 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
               builder: (context, state) {
                 if (state is PersonMovieDetailLoadedState) {
                   return SliverAppBar(
+                    floating: true,
                     expandedHeight: 300,
                     flexibleSpace: FlexibleSpaceBar(
                         background: Column(
@@ -101,12 +113,12 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
             ),
             SliverToBoxAdapter(
               child: SizedBox(
-                height: 300,
+                height: 500,
                 child: TabBarView(
                   controller: _tabController,
                   children: [
                     BlocBuilder<PersonBloc, PersonState>(
-                      buildWhen: (context, state) {
+                      buildWhen: (state, context) {
                         return state is PersonMoviesLoadedState;
                       },
                       builder: (context, state) {
@@ -117,38 +129,43 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                               crossAxisCount: 2,
                               mainAxisSpacing: 8,
                             ),
+                            itemCount: state.data.length,
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  context.pushNamed(
-                                    MovieDetailPage.tag,
-                                    extra: state.data[index].id,
-                                  );
-                                },
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 190,
-                                      height: 248,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
-                                              'https://image.tmdb.org/t/p/w1280${state.data[index].backdropPath}'),
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    context.pushNamed(
+                                      MovieDetailPage.tag,
+                                      extra: state.data[index].id,
+                                    );
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                          width: 190,
+                                          height: 248,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  'https://image.tmdb.org/t/p/w1280${state.data[index].backdropPath}'),
+                                            ),
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, top: 8),
+                                        child: IMDbTag(
+                                          title: state.data[index].voteAverage
+                                              .toStringAsFixed(1),
                                         ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
-                                      child: IMDbTag(
-                                        title: state.data[index].voteAverage
-                                            .toStringAsFixed(1),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -157,7 +174,97 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                         return const Center(child: CircularProgressIndicator());
                       },
                     ),
-                    const Text('Biography')
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          BlocBuilder<PersonBloc, PersonState>(
+                            buildWhen: (context, state) {
+                              return state is PersonMovieDetailLoadedState;
+                            },
+                            builder: (context, state) {
+                              if (state is PersonMovieDetailLoadedState) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8),
+                                  child: Text(
+                                    state.data.biography,
+                                    style: Typographies.bodyMediumMedium,
+                                  ),
+                                );
+                              }
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Gallery',
+                                  style: Typographies.heading5,
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Text(
+                                    'See all',
+                                    style: Typographies.bodyMediumSemiBold
+                                        .copyWith(
+                                            color: MainPrimaryColor.primary500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          BlocBuilder<PersonBloc, PersonState>(
+                            buildWhen: (context, state) {
+                              return state is PersonGalleryLoadedState;
+                            },
+                            builder: (context, state) {
+                              if (state is PersonGalleryLoadedState) {
+                                return SizedBox(
+                                  height: 210,
+                                  child: ListView.builder(
+                                    itemCount: state.data.length,
+                                    scrollDirection: Axis.horizontal,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: const EdgeInsets.only(right: 8),
+                                        height: 200,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              'https://image.tmdb.org/t/p/w1280${state.data[index].filePath}',
+                                            ),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).padding.bottom,
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
