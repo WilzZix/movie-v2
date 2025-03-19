@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -58,38 +60,62 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                   return SliverAppBar(
                     expandedHeight: 300,
                     flexibleSpace: FlexibleSpaceBar(
-                        background: Column(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).padding.top + 70,
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
+                      background: Stack(
+                        children: [
+                          Container(
+                            height: 450,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    "https://image.tmdb.org/t/p/w1280${state.data.profilePath}"),
+                              ),
+                            ),
                           ),
-                          child: Image.network(
-                              fit: BoxFit.fill,
-                              "https://image.tmdb.org/t/p/w1280${state.data.profilePath}"),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          DateFormat("dd MMM, yyyy")
-                              .format(DateTime.parse(state.data.birthday)),
-                          style: Typographies.bodyLargeSemiBold,
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            AppIcons.icIgIcon,
-                            AppIcons.icIgIcon,
-                            AppIcons.icIgIcon,
-                          ],
-                        )
-                      ],
-                    )),
+                          Positioned.fill(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Adjust blur intensity
+                              child: Container(
+                                color: Colors.black.withOpacity(0.2), // Optional tint
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: MediaQuery.of(context).padding.top + 70,
+                              ),
+                              Container(
+                                height: 100,
+                                width: 100,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                    fit: BoxFit.cover,
+                                    "https://image.tmdb.org/t/p/w1280${state.data.profilePath}"),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                DateFormat("dd MMM, yyyy").format(
+                                    DateTime.parse(state.data.birthday)),
+                                style: Typographies.bodyLargeSemiBold,
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  AppIcons.icIgIcon,
+                                  AppIcons.icIgIcon,
+                                  AppIcons.icIgIcon,
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     title: Text(
                       state.data.name,
                       style: Typographies.heading4,
