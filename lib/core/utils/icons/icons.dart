@@ -43,6 +43,7 @@ class AppIcons {
   static final icCalendar = _svgAsset('ic_calendar.svg');
   static final icGlobe = _svgAsset('ic_globe.svg');
   static final icSort = _svgAsset('ic_sort.svg');
+  static final icIgIcon = _svgAsset('ig_icon.svg');
 }
 
 class AppPngIcons {

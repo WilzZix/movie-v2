@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
-        BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc())
+        BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
       ],
       child: MaterialApp.router(
         color: Colors.black,

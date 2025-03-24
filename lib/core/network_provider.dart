@@ -27,7 +27,7 @@ class NetworkProvider {
           if (kDebugMode)
             LogInterceptor(
               responseHeader: true,
-              responseBody: true,
+              responseBody: false,
               requestBody: true,
               logPrint: (error) => log(
                 error.toString(),
@@ -47,4 +47,5 @@ class IRoutes {
   static const String search = '/search';
   static const String trending = '/trending/tv/day';
   static const String movieVideos = '/movie/';
+  static const String personDetail = '/person/';
 }
