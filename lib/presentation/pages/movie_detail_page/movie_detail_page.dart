@@ -424,7 +424,10 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
                                               onTap: () {
-                                                context.pushNamed(PersonPage.tag,extra: state.data[index].id);
+                                                context.pushNamed(
+                                                    PersonPage.tag,
+                                                    extra:
+                                                        state.data[index].id);
                                               },
                                               child: Container(
                                                 height: 70,
@@ -556,7 +559,9 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                 ),
               );
             }
-            return const SizedBox();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
       ),
