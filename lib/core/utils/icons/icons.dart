@@ -44,6 +44,8 @@ class AppIcons {
   static final icGlobe = _svgAsset('ic_globe.svg');
   static final icSort = _svgAsset('ic_sort.svg');
   static final icIgIcon = _svgAsset('ig_icon.svg');
+  static final icFbIcon = _svgAsset('ic_fb.svg');
+  static final icTwitter = _svgAsset('ic_twitter.svg');
 }
 
 class AppPngIcons {

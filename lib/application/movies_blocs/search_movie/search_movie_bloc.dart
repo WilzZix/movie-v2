@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart';
@@ -56,7 +57,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
             page: page,
           );
           results!.addAll(result.results!);
-          emit(SearchMovieLoadedState(MoviesResult(results: results)));
+          emit(SearchMovieLoadedState(MoviesResult(results:results)));
         case MediaType.tv:
           final result = await dataSource.searchTv(
             keyword: event.keyword!,

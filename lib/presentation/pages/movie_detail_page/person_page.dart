@@ -106,12 +106,13 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                               ),
                               const SizedBox(height: 16),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AppIcons.icIgIcon,
-                                  AppIcons.icIgIcon,
-                                  AppIcons.icIgIcon,
+                                  const SizedBox(width: 24),
+                                  AppIcons.icFbIcon,
+                                  const SizedBox(width: 24),
+                                  AppIcons.icTwitter,
                                 ],
                               )
                             ],
