@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/core/utils/typography.dart';
@@ -13,8 +14,8 @@ import 'core/utils/colors.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   NetworkProvider.initApp();
   Bloc.observer = MyGlobalObserver();
   await SharedPreferenceService.init();

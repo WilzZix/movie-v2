@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/icons/icons.dart';
@@ -27,6 +28,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     BlocProvider.of<MoviesBloc>(context).add(GetUpcomingMoviesEvent(1));
     BlocProvider.of<MoviesBloc>(context).add(GetPopularMoviesEvent(1));
     BlocProvider.of<MoviesBloc>(context).add(GetTrendingTVShowEvent(1));
+    FlutterNativeSplash.remove();
   }
 
   List<Widget> screens = [
