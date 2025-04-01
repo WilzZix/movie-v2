@@ -13,6 +13,7 @@ import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -559,8 +560,391 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                 ),
               );
             }
-            return const Center(
-              child: CircularProgressIndicator(),
+
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {},
+                              child: Container(
+                                height: 440,
+                                width: 428,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(
+                                      45,
+                                    ),
+                                    bottomRight: Radius.circular(
+                                      45,
+                                    ),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    const Spacer(),
+                                    AppIcons.icPlayVideoIcon,
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      '',
+                                      style: Typographies.heading4.copyWith(
+                                          color: MainPrimaryColor.primary100),
+                                    ),
+                                    const SizedBox(height: 30),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 24.0,
+                            right: 24,
+                            top: 24 + MediaQuery.of(context).padding.top,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppIcons.icAppIcon,
+                              AppIcons.icChromeCastIcon,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        AddButton(
+                          icon: AppIcons.icDownloadIcon,
+                        ),
+                        AddButton(
+                          icon: AppIcons.icBookMark,
+                        ),
+                        AddButton(
+                          icon: AppIcons.icSend,
+                        ),
+                        AddButton(
+                          icon: AppIcons.icMoreCircle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      children: [
+                        const VotingStarWithRating(
+                          averageVote: '',
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '•',
+                          style: Typographies.bodySmallBold,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '',
+                          style: Typographies.bodySmallBold,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '•',
+                          style: Typographies.bodySmallBold,
+                        ),
+                        const SizedBox(width: 8),
+                        // SizedBox(
+                        //   height: 20,
+                        //   child: ListView.builder(
+                        //     scrollDirection: Axis.horizontal,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     itemCount: state.data.$1.genres!.length,
+                        //     itemBuilder: (context, index) {
+                        //       return Text(
+                        //         GenreIdTOStringName.getGenreName(
+                        //             state.data.$1.genres![index].id!),
+                        //         style: Typographies.bodySmallBold,
+                        //       );
+                        //     },
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TagComponent(
+                          title: '',
+                        ),
+                        SizedBox(width: 12),
+                        TagComponent(
+                          title: '',
+                        ),
+                        SizedBox(width: 12),
+                        TagComponent(
+                          title: '',
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      '',
+                      style: Typographies.bodyMediumMedium,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  height: 114,
+                                  width: 189,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    softWrap: true,
+                                    '',
+                                    style: Typographies.bodyMediumBold,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 24)
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  TabBar(
+                    controller: _tabController,
+                    indicatorColor: Colors.blue,
+                    labelColor: Colors.blue,
+                    unselectedLabelColor: Colors.grey,
+                    tabs: const [
+                      Tab(text: 'More Like This'),
+                      Tab(text: 'About'),
+                      Tab(text: 'Comments'),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 300, // Adjust the height for the tab content
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 10,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          itemBuilder: (context, index) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 8),
+                                height: 200,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Subtitles:',
+                                      style: Typographies.bodyMediumSemiBold
+                                          .copyWith(
+                                              color: GreyScale.grayScale400),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Text(
+                                      '',
+                                      style: Typographies.bodyMediumSemiBold,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Audio Track:',
+                                      style: Typographies.bodyMediumSemiBold
+                                          .copyWith(
+                                              color: GreyScale.grayScale400),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Text(
+                                      '',
+                                      style: Typographies.bodyMediumSemiBold,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Text(
+                                  'Cast and Crew',
+                                  style: Typographies.heading4,
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              SizedBox(
+                                height: 70,
+                                child: ListView.builder(
+                                  itemCount: 10,
+                                  scrollDirection: Axis.horizontal,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      height: 70,
+                                      margin: const EdgeInsets.only(right: 8),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 70,
+                                            width: 70,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '',
+                                                style: Typographies
+                                                    .bodySmallSemiBold,
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text(
+                                                '',
+                                                style: Typographies
+                                                    .bodySmallRegular,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Gallery',
+                                      style: Typographies.heading5,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Text(
+                                        'See all',
+                                        style: Typographies.bodyMediumSemiBold
+                                            .copyWith(
+                                                color: MainPrimaryColor
+                                                    .primary500),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              SizedBox(
+                                height: 113,
+                                child: ListView.builder(
+                                  itemCount: 5,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      height: 113,
+                                      width: 189,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).padding.bottom,
+                              )
+                            ],
+                          ),
+                        ),
+                        const Center(child: Text('Comments Section')),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

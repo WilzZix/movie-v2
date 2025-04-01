@@ -104,7 +104,8 @@ class _SettingsPageState extends State<SettingsPage> {
             }
             return GestureDetector(
               onTap: () {
-                BlocProvider.of<AuthBloc>(context).add(GetRequestTokenEvent());
+              //  BlocProvider.of<AuthBloc>(context).add(GetRequestTokenEvent());
+
               },
               child: Center(
                 child: Container(

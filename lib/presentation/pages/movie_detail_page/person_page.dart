@@ -63,7 +63,7 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                       background: Stack(
                         children: [
                           Container(
-                            height: 450,
+                            height: 300,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -74,9 +74,11 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                           ),
                           Positioned.fill(
                             child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 35, sigmaY: 35), // Adjust blur intensity
+                              filter: ImageFilter.blur(sigmaX: 35, sigmaY: 35),
+                              // Adjust blur intensity
                               child: Container(
-                                color: Colors.black.withOpacity(0.2), // Optional tint
+                                color: Colors.black
+                                    .withOpacity(0.2), // Optional tint
                               ),
                             ),
                           ),
@@ -99,16 +101,18 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                               Text(
                                 DateFormat("dd MMM, yyyy").format(
                                     DateTime.parse(state.data.birthday)),
-                                style: Typographies.bodyLargeSemiBold.copyWith(color: Colors.white),
+                                style: Typographies.bodyLargeSemiBold
+                                    .copyWith(color: Colors.white),
                               ),
                               const SizedBox(height: 16),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AppIcons.icIgIcon,
-                                  AppIcons.icIgIcon,
-                                  AppIcons.icIgIcon,
+                                  const SizedBox(width: 24),
+                                  AppIcons.icFbIcon,
+                                  const SizedBox(width: 24),
+                                  AppIcons.icTwitter,
                                 ],
                               )
                             ],
@@ -118,7 +122,8 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                     ),
                     title: Text(
                       state.data.name,
-                      style: Typographies.heading4.copyWith(color: Colors.white),
+                      style:
+                          Typographies.heading4.copyWith(color: Colors.white),
                     ),
                   );
                 }
@@ -148,6 +153,8 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                       builder: (context, state) {
                         if (state is PersonMoviesLoadedState) {
                           return GridView.builder(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -155,41 +162,39 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                             ),
                             itemCount: state.data.length,
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () {
-                                    context.pushNamed(
-                                      MovieDetailPage.tag,
-                                      extra: state.data[index].id,
-                                    );
-                                  },
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                          width: 190,
-                                          height: 248,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  'https://image.tmdb.org/t/p/w1280${state.data[index].backdropPath}'),
-                                            ),
-                                          )),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8.0, top: 8),
-                                        child: IMDbTag(
-                                          title: state.data[index].voteAverage
-                                              .toStringAsFixed(1),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                              return GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {
+                                  context.pushNamed(
+                                    MovieDetailPage.tag,
+                                    extra: state.data[index].id,
+                                  );
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        width: 190,
+                                        height: 248,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                'https://image.tmdb.org/t/p/w1280${state.data[index].backdropPath}'),
+                                          ),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, top: 8),
+                                      child: IMDbTag(
+                                        title: state.data[index].voteAverage
+                                            .toStringAsFixed(1),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               );
                             },

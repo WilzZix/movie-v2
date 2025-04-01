@@ -83,8 +83,6 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     }
   }
 
-
-
   Future<void> _addSearchResultMovieToPreviousSearchResult(
       AddMovieToPreviousSearchResult event, Emitter<MoviesState> emit) async {
     try {

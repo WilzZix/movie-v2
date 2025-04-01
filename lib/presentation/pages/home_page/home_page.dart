@@ -10,6 +10,7 @@ import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'components/see_all_movies_page.dart';
 
@@ -163,8 +164,64 @@ class _HomePageState extends State<HomePage> {
                         ],
                       );
                     }
-                    return CircularProgressIndicator(
-                      color: MainPrimaryColor.primary500,
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 466,
+                            width: 428,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(
+                                  45,
+                                ),
+                                bottomRight: Radius.circular(
+                                  45,
+                                ),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                const Spacer(),
+                                AppIcons.icPlayVideoIcon,
+                                const SizedBox(height: 16),
+                                Text(
+                                  '',
+                                  style: Typographies.heading4.copyWith(
+                                      color: MainPrimaryColor.primary100),
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                              itemCount: 5,
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              itemBuilder: (context, index) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade300,
+                                  highlightColor: Colors.grey.shade100,
+                                  child: Container(
+                                    margin: const EdgeInsets.only(right: 8),
+                                    height: 50,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
@@ -261,8 +318,32 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                return CircularProgressIndicator(
-                  color: MainPrimaryColor.primary500,
+                return SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          height: 200,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 8.0, left: 8),
+                            child: SizedBox(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),
@@ -348,8 +429,32 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                return CircularProgressIndicator(
-                  color: MainPrimaryColor.primary500,
+                return SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          height: 200,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 8.0, left: 8),
+                            child: SizedBox(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),
@@ -435,8 +540,32 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                return CircularProgressIndicator(
-                  color: MainPrimaryColor.primary500,
+                return SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          height: 200,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 8.0, left: 8),
+                            child: SizedBox(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),
