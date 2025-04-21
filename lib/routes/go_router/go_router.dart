@@ -3,6 +3,7 @@ import 'package:movie/presentation/pages/bottom_navigation/bottom_navigation.dar
 import 'package:movie/presentation/pages/home_page/components/video_player_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
+import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
 
 import '../../presentation/pages/favourite_page/favourite_page.dart';
 import '../../presentation/pages/home_page/components/see_all_movies_page.dart';
@@ -13,6 +14,10 @@ class AppRouter {
   final router = GoRouter(
     initialLocation: '/',
     routes: [
+      GoRoute(
+        path: OnBoardingPage.tag,
+        builder: (_, __) => const OnBoardingPage(),
+      ),
       GoRoute(
         name: BottomNavigationPage.tag,
         path: BottomNavigationPage.tag,

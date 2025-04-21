@@ -15,7 +15,7 @@ class BottomNavigationPage extends StatefulWidget {
     super.key,
   });
 
-  static String tag = '/bottomnavigation';
+  static String tag = '/bottom-navigation';
 
   @override
   State<BottomNavigationPage> createState() => _BottomNavigationPageState();
