@@ -88,7 +88,9 @@ class _ButtonsState extends State<Buttons> {
         );
       case _ButtonType.secondary:
         return BoxDecoration(
-          color: MainPrimaryColor.primary100,
+          border: Border.all(
+            color: MainPrimaryColor.primary500,
+          ),
           borderRadius: widget.type3 == _ButtonType3.rounded
               ? BorderRadius.circular(100)
               : null,
