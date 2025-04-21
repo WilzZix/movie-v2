@@ -44,7 +44,6 @@ class _LoginAndRegistrationPageState extends State<LoginAndRegistrationPage> {
                 style: Typographies.heading2.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 60),
-
             ],
           )
         ],

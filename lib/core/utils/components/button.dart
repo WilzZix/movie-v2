@@ -3,10 +3,16 @@ import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/typography.dart';
 
 ///виды кнопок
-enum _ButtonType { primary, secondary }
+enum _ButtonType { primary, secondary, social }
 
 ///закругления кнопок
-enum _ButtonType3 { rounded, filled }
+enum _ButtonType3 {
+  rounded,
+  filled,
+  apple,
+  google,
+  facebook,
+}
 
 class Buttons extends StatefulWidget {
   const Buttons._({
@@ -41,6 +47,19 @@ class Buttons extends StatefulWidget {
           type: _ButtonType.secondary,
           onTap: onTap,
           type3: type3 ?? _ButtonType3.rounded,
+        );
+
+  const Buttons.social({
+    required String text,
+    VoidCallback? onTap,
+    required _ButtonType3 type3,
+    Key? key,
+  }) : this._(
+          key: key,
+          text: text,
+          type: _ButtonType.social,
+          onTap: onTap,
+          type3: type3,
         );
   final VoidCallback? onTap;
   final String text;
@@ -95,6 +114,15 @@ class _ButtonsState extends State<Buttons> {
               ? BorderRadius.circular(100)
               : null,
         );
+      case _ButtonType.social:
+        return BoxDecoration(
+          border: Border.all(
+            color: GreyScale.grayScale200,
+          ),
+          borderRadius: widget.type3 == _ButtonType3.rounded
+              ? BorderRadius.circular(16)
+              : null,
+        );
     }
   }
 
@@ -107,6 +135,9 @@ class _ButtonsState extends State<Buttons> {
       case _ButtonType.secondary:
         return Typographies.bodyLargeBold
             .copyWith(color: MainPrimaryColor.primary500);
+      case _ButtonType.social:
+        return Typographies.bodyLargeSemiBold
+            .copyWith(color: GreyScale.grayScale900);
     }
   }
 }
