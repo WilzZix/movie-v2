@@ -7,6 +7,7 @@ import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
 
 import '../../presentation/pages/favourite_page/favourite_page.dart';
 import '../../presentation/pages/home_page/components/see_all_movies_page.dart';
+import '../../presentation/pages/on_boarding/login_and_registration_page.dart';
 
 class AppRouter {
   AppRouter();
@@ -17,6 +18,15 @@ class AppRouter {
       GoRoute(
         path: OnBoardingPage.tag,
         builder: (_, __) => const OnBoardingPage(),
+        routes: [
+          GoRoute(
+            path: LoginAndRegistrationPage.tag,
+            name: LoginAndRegistrationPage.tag,
+            builder: (context, state) {
+              return const LoginAndRegistrationPage();
+            },
+          )
+        ],
       ),
       GoRoute(
         name: BottomNavigationPage.tag,

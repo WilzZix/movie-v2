@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/pages/on_boarding/login_and_registration_page.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -20,6 +22,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     super.initState();
     FlutterNativeSplash.remove();
   }
+
+  CarouselController carouselController = CarouselController();
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -59,45 +64,40 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         .copyWith(color: GreyScale.grayScale200),
                   ),
                   const SizedBox(height: 32),
-                  Image.asset('assets/icons/im_onboarding.png'),
-                  const SizedBox(height: 32),
-                  const Text('Pager'),
+                  SizedBox(
+                    height: 310,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      itemExtent: 400,
+                      children: [
+                        Image.asset('assets/icons/im_onboarding.png'),
+                        Image.asset('assets/icons/im_onboarding2.png'),
+                        Image.asset('assets/icons/im_onboarding3.png'),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 32),
                   Row(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        height: 8,
-                        width: 8,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        height: 8,
-                        width: 8,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        height: 8,
-                        width: 32,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: MainPrimaryColor.primary500,
-                        ),
-                      ),
+                      ScrollPager(
+                          isSelected:
+                              carouselController.initialItem == selectedIndex),
+                      ScrollPager(
+                          isSelected:
+                              carouselController.initialItem == selectedIndex),
+                      ScrollPager(
+                          isSelected:
+                              carouselController.initialItem == selectedIndex),
                     ],
                   ),
                   const SizedBox(height: 32),
-                  const Buttons.primary(text: 'Login & Registration'),
+                  Buttons.primary(
+                    text: 'Login & Registration',
+                    onTap: () {
+                      context.pushNamed(LoginAndRegistrationPage.tag);
+                    },
+                  ),
                   const SizedBox(height: 24),
                   const Buttons.secondary(text: 'Try as guest!'),
                   SizedBox(height: MediaQuery.of(context).padding.bottom)
@@ -106,6 +106,32 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class ScrollPager extends StatefulWidget {
+  const ScrollPager({super.key, required this.isSelected});
+
+  final bool isSelected;
+
+  @override
+  State<ScrollPager> createState() => _ScrollPagerState();
+}
+
+class _ScrollPagerState extends State<ScrollPager> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      height: 8,
+      width: widget.isSelected ? 32 : 8,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: widget.isSelected
+            ? MainPrimaryColor.primary500
+            : GreyScale.grayScale500,
       ),
     );
   }
