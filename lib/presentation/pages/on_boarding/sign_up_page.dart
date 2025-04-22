@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:movie/core/utils/components/inputs/input_fields.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart' show Typographies;
 
@@ -43,7 +44,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 textAlign: TextAlign.center,
                 style: Typographies.heading2.copyWith(color: Colors.white),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 200),
+              InputField(hintText: 'Test',)
             ],
           ),
         )

@@ -75,28 +75,6 @@ class MyApp extends StatelessWidget {
                 .copyWith(color: MainPrimaryColor.primary500),
             unselectedLabelStyle: Typographies.bodyXSmallSemiBold,
           ),
-          inputDecorationTheme: InputDecorationTheme(
-            fillColor: GreyScale.grayScale100,
-            focusColor: const Color(0xFFedf3ff),
-            hintStyle: Typographies.bodyMediumRegular,
-            border: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            outlineBorder: const BorderSide(),
-            disabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MainPrimaryColor.primary500),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
         ),
       ),
     );
