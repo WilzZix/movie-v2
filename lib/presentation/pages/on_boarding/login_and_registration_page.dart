@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart';
 
 class LoginAndRegistrationPage extends StatefulWidget {
   const LoginAndRegistrationPage({super.key});
@@ -90,10 +92,15 @@ class _LoginAndRegistrationPageState extends State<LoginAndRegistrationPage> {
                           .copyWith(color: GreyScale.grayScale500),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      'Sign up',
-                      style: Typographies.bodyMediumSemiBold
-                          .copyWith(color: MainPrimaryColor.primary500),
+                    GestureDetector(
+                      onTap: () {
+                        context.pushNamed(SignUpPage.tag);
+                      },
+                      child: Text(
+                        'Sign up',
+                        style: Typographies.bodyMediumSemiBold
+                            .copyWith(color: MainPrimaryColor.primary500),
+                      ),
                     )
                   ],
                 ),

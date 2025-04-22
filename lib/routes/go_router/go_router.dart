@@ -4,6 +4,8 @@ import 'package:movie/presentation/pages/home_page/components/video_player_page.
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
 import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
+import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart'
+    show SignUpPage;
 
 import '../../presentation/pages/favourite_page/favourite_page.dart';
 import '../../presentation/pages/home_page/components/see_all_movies_page.dart';
@@ -25,6 +27,15 @@ class AppRouter {
             builder: (context, state) {
               return const LoginAndRegistrationPage();
             },
+            routes: [
+              GoRoute(
+                path: SignUpPage.tag,
+                name: SignUpPage.tag,
+                builder: (context, state) {
+                  return const SignUpPage();
+                },
+              )
+            ],
           )
         ],
       ),
