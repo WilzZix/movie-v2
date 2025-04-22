@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie/core/utils/colors.dart';
+import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 
 ///виды кнопок
 enum _ButtonType { primary, secondary, social }
 
 ///закругления кнопок
-enum _ButtonType3 {
+enum ButtonType3 {
   rounded,
   filled,
   apple,
@@ -26,37 +27,37 @@ class Buttons extends StatefulWidget {
   const Buttons.primary({
     required String text,
     VoidCallback? onTap,
-    _ButtonType3? type3,
+    ButtonType3? type3,
     Key? key,
   }) : this._(
           key: key,
           text: text,
           type: _ButtonType.primary,
           onTap: onTap,
-          type3: type3 ?? _ButtonType3.rounded,
+          type3: type3 ?? ButtonType3.rounded,
         );
 
   const Buttons.secondary({
     required String text,
     VoidCallback? onTap,
-    _ButtonType3? type3,
+    ButtonType3? type3,
     Key? key,
   }) : this._(
           key: key,
           text: text,
           type: _ButtonType.secondary,
           onTap: onTap,
-          type3: type3 ?? _ButtonType3.rounded,
+          type3: type3 ?? ButtonType3.rounded,
         );
 
   const Buttons.social({
-    required String text,
+    String? text,
     VoidCallback? onTap,
-    required _ButtonType3 type3,
+    required ButtonType3 type3,
     Key? key,
   }) : this._(
           key: key,
-          text: text,
+          text: text ?? '',
           type: _ButtonType.social,
           onTap: onTap,
           type3: type3,
@@ -64,7 +65,7 @@ class Buttons extends StatefulWidget {
   final VoidCallback? onTap;
   final String text;
   final _ButtonType type;
-  final _ButtonType3 type3;
+  final ButtonType3 type3;
 
   @override
   State<Buttons> createState() => _ButtonsState();
@@ -83,25 +84,81 @@ class _ButtonsState extends State<Buttons> {
             horizontal: 16.0,
             vertical: 18,
           ),
-          child: Center(
-            child: Text(
-              widget.text,
-              style: _textStyle,
-            ),
-          ),
+          child: child(widget.type3),
         ),
       ),
     );
+  }
+
+  Widget child(ButtonType3 type) {
+    switch (type) {
+      case ButtonType3.rounded:
+        return Center(
+          child: Text(
+            widget.text,
+            style: _textStyle,
+          ),
+        );
+      case ButtonType3.filled:
+        return Center(
+          child: Text(
+            widget.text,
+            style: _textStyle,
+          ),
+        );
+      case ButtonType3.apple:
+        return Center(
+          child: Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppIcons.icApple,
+              const SizedBox(width: 12),
+              Text(
+                'Continue with Apple',
+                style: Typographies.bodyLargeSemiBold,
+              )
+            ],
+          ),
+        );
+      case ButtonType3.google:
+        return Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppIcons.icGoogle,
+              const SizedBox(width: 12),
+              Text(
+                'Continue with Google',
+                style: Typographies.bodyLargeSemiBold,
+              )
+            ],
+          ),
+        );
+      case ButtonType3.facebook:
+        return Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppIcons.icFacebook,
+              const SizedBox(width: 12),
+              Text(
+                'Continue with Facebook',
+                style: Typographies.bodyLargeSemiBold,
+              )
+            ],
+          ),
+        );
+    }
   }
 
   BoxDecoration get _boxDecoration {
     switch (widget.type) {
       case _ButtonType.primary:
         return BoxDecoration(
-          gradient: widget.type3 == _ButtonType3.rounded
+          gradient: widget.type3 == ButtonType3.rounded
               ? AppGradient.mainGradient
               : null,
-          borderRadius: widget.type3 == _ButtonType3.rounded
+          borderRadius: widget.type3 == ButtonType3.rounded
               ? BorderRadius.circular(100)
               : null,
         );
@@ -110,19 +167,16 @@ class _ButtonsState extends State<Buttons> {
           border: Border.all(
             color: MainPrimaryColor.primary500,
           ),
-          borderRadius: widget.type3 == _ButtonType3.rounded
+          borderRadius: widget.type3 == ButtonType3.rounded
               ? BorderRadius.circular(100)
               : null,
         );
       case _ButtonType.social:
         return BoxDecoration(
-          border: Border.all(
-            color: GreyScale.grayScale200,
-          ),
-          borderRadius: widget.type3 == _ButtonType3.rounded
-              ? BorderRadius.circular(16)
-              : null,
-        );
+            border: Border.all(
+              color: GreyScale.grayScale200,
+            ),
+            borderRadius: BorderRadius.circular(16));
     }
   }
 

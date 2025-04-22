@@ -46,6 +46,9 @@ class AppIcons {
   static final icIgIcon = _svgAsset('ig_icon.svg');
   static final icFbIcon = _svgAsset('ic_fb.svg');
   static final icTwitter = _svgAsset('ic_twitter.svg');
+  static final icApple = _svgAsset('ic_apple.svg');
+  static final icGoogle = _svgAsset('ic_google.svg');
+  static final icFacebook= _svgAsset('ic_facebook.svg');
 }
 
 class AppPngIcons {
