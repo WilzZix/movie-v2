@@ -14,11 +14,56 @@ class InputField extends StatefulWidget {
 
   const InputField.username({
     super.key,
+    this.hintText,
     this.suffix,
     this.suffixIcon,
     this.prefix,
-    this.prefixIcon,
+    required this.prefixIcon,
+  });
+
+  const InputField.email({
+    super.key,
     this.hintText,
+    this.suffix,
+    this.suffixIcon,
+    this.prefix,
+    required this.prefixIcon,
+  });
+
+  const InputField.password({
+    super.key,
+    this.hintText,
+    this.suffix,
+    this.suffixIcon,
+    this.prefix,
+    required this.prefixIcon,
+  });
+
+  const InputField.normal({
+    super.key,
+    this.hintText,
+    this.suffix,
+    this.suffixIcon,
+    this.prefix,
+    required this.prefixIcon,
+  });
+
+  const InputField.phone({
+    super.key,
+    this.hintText,
+    this.suffix,
+    this.suffixIcon,
+    this.prefix,
+    required this.prefixIcon,
+  });
+
+  const InputField.code({
+    super.key,
+    this.hintText,
+    this.suffix,
+    this.suffixIcon,
+    this.prefix,
+     this.prefixIcon,
   });
 
   final String? hintText;
