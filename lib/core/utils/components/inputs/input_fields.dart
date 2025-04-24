@@ -136,7 +136,7 @@ class _InputFieldState extends State<InputField> {
       case InputFieldState.defaultState:
         return GreyScale.grayScale50;
       case InputFieldState.active:
-        return GreyScale.grayScale500;
+        return const Color(0xFFE0E6F5);
       case InputFieldState.filled:
         return GreyScale.grayScale50;
     }
