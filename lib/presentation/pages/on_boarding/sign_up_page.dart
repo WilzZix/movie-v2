@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:movie/core/utils/components/inputs/input_fields.dart';
 
@@ -12,9 +11,25 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  FocusNode focusNodeDef = FocusNode();
+  FocusNode focusNodeUsername = FocusNode();
+  FocusNode focusNodeEmail = FocusNode();
+  FocusNode focusNodePassword = FocusNode();
+  FocusNode focusNodePlaceholder = FocusNode();
+  FocusNode focusNodePhone = FocusNode();
+  FocusNode focusNodeCode = FocusNode();
+  TextEditingController controllerDef = TextEditingController();
+  TextEditingController controllerUsername = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
+  TextEditingController controllerPlaceholder = TextEditingController();
+  TextEditingController controllerPhone = TextEditingController();
+  TextEditingController controllerCode = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(children: [
         // Image.asset(
         //   'assets/icons/garfild_icon.png',
@@ -44,54 +59,69 @@ class _SignUpPageState extends State<SignUpPage> {
               // const SizedBox(height: 200),
               InputField(
                 hintText: 'Placeholder',
+                focusNode: focusNodePlaceholder,
+                controller: controllerPlaceholder,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               InputField.username(
                 hintText: 'Username',
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: const Icon(Icons.person),
+                focusNode: focusNodeUsername,
+                controller: controllerUsername,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               InputField.email(
                 hintText: 'email',
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: const Icon(Icons.email),
+                focusNode: focusNodeEmail,
+                controller: controllerEmail,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               InputField.password(
                 hintText: 'Password',
-                prefixIcon: Icon(Icons.lock),
-                suffixIcon: Icon(Icons.remove_red_eye_sharp),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: const Icon(Icons.remove_red_eye_sharp),
+                focusNode: focusNodePassword,
+                controller: controllerPassword,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               InputField.phone(
                 hintText: 'Placeholder',
-                prefixIcon: Icon(Icons.person),
-                suffixIcon: Icon(Icons.keyboard_arrow_down),
+                prefixIcon: const Icon(Icons.person),
+                suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                focusNode: focusNodePhone,
+                controller: controllerPhone,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               InputField.normal(
                 hintText: '+1 000 000 000',
-                prefixIcon: Row(
+                prefixIcon: const Row(
                   children: [
                     Icon(Icons.flag),
                     SizedBox(width: 4),
                     Icon(Icons.keyboard_arrow_down),
                   ],
                 ),
+                focusNode: focusNodeDef,
+                controller: controllerDef,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
-              InputField.code(),
+              InputField.code(
+                focusNode: focusNodeCode,
+                controller: controllerCode,
+              ),
             ],
           ),
         )

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/typography.dart';
 
+enum InputFieldState { defaultState, active, filled }
+
 class InputField extends StatefulWidget {
   const InputField({
     super.key,
@@ -10,6 +12,8 @@ class InputField extends StatefulWidget {
     this.prefix,
     this.prefixIcon,
     this.hintText,
+    required this.focusNode,
+    required this.controller,
   });
 
   const InputField.username({
@@ -19,6 +23,8 @@ class InputField extends StatefulWidget {
     this.suffixIcon,
     this.prefix,
     required this.prefixIcon,
+    required this.focusNode,
+    required this.controller,
   });
 
   const InputField.email({
@@ -28,6 +34,8 @@ class InputField extends StatefulWidget {
     this.suffixIcon,
     this.prefix,
     required this.prefixIcon,
+    required this.focusNode,
+    required this.controller,
   });
 
   const InputField.password({
@@ -37,6 +45,8 @@ class InputField extends StatefulWidget {
     this.suffixIcon,
     this.prefix,
     required this.prefixIcon,
+    required this.focusNode,
+    required this.controller,
   });
 
   const InputField.normal({
@@ -46,6 +56,8 @@ class InputField extends StatefulWidget {
     this.suffixIcon,
     this.prefix,
     required this.prefixIcon,
+    required this.focusNode,
+    required this.controller,
   });
 
   const InputField.phone({
@@ -55,6 +67,8 @@ class InputField extends StatefulWidget {
     this.suffixIcon,
     this.prefix,
     required this.prefixIcon,
+    required this.focusNode,
+    required this.controller,
   });
 
   const InputField.code({
@@ -63,7 +77,9 @@ class InputField extends StatefulWidget {
     this.suffix,
     this.suffixIcon,
     this.prefix,
-     this.prefixIcon,
+    this.prefixIcon,
+    required this.focusNode,
+    required this.controller,
   });
 
   final String? hintText;
@@ -71,27 +87,103 @@ class InputField extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefix;
   final Widget? prefixIcon;
+  final FocusNode focusNode;
+  final TextEditingController controller;
 
   @override
   State<InputField> createState() => _InputFieldState();
 }
 
 class _InputFieldState extends State<InputField> {
+  InputFieldState _fieldState = InputFieldState.defaultState;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen for focus changes
+    widget.focusNode.addListener(() {
+      _updateState();
+    });
+
+    // Listen for text changes
+    widget.controller.addListener(() {
+      _updateState();
+    });
+  }
+
+  void _updateState() {
+    setState(() {
+      if (widget.focusNode.hasFocus) {
+        _fieldState = InputFieldState.active;
+      } else if (widget.controller.text.isNotEmpty) {
+        _fieldState = InputFieldState.filled;
+      } else {
+        _fieldState = InputFieldState.defaultState;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.controller.dispose();
+    widget.focusNode.dispose();
+    super.dispose();
+  }
+
+  Color containerBgColor(InputFieldState fieldState) {
+    switch (fieldState) {
+      case InputFieldState.defaultState:
+        return GreyScale.grayScale50;
+      case InputFieldState.active:
+        return GreyScale.grayScale500;
+      case InputFieldState.filled:
+        return GreyScale.grayScale50;
+    }
+  }
+
+  Color prefixIconColor(InputFieldState fieldState) {
+    switch (fieldState) {
+      case InputFieldState.defaultState:
+        return GreyScale.grayScale500;
+      case InputFieldState.active:
+        return MainPrimaryColor.primary500;
+      case InputFieldState.filled:
+        return GreyScale.grayScale900;
+    }
+  }
+
+  Color suffixIconColor(InputFieldState fieldState) {
+    switch (fieldState) {
+      case InputFieldState.defaultState:
+        return GreyScale.grayScale500;
+      case InputFieldState.active:
+        return MainPrimaryColor.primary500;
+      case InputFieldState.filled:
+        return GreyScale.grayScale900;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FormField(
       builder: (state) {
         return Container(
           decoration: BoxDecoration(
-            color: GreyScale.grayScale50,
+            color: containerBgColor(_fieldState),
             borderRadius: BorderRadius.circular(12),
           ),
           child: TextFormField(
+            style: Typographies.bodyMediumSemiBold,
+            focusNode: widget.focusNode,
+            controller: widget.controller,
             decoration: InputDecoration(
               suffix: widget.suffix,
               suffixIcon: widget.suffixIcon,
+              suffixIconColor: suffixIconColor(_fieldState),
               prefix: widget.prefix,
               prefixIcon: widget.prefixIcon,
+              prefixIconColor: prefixIconColor(_fieldState),
               hintText: widget.hintText,
               errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: SecondaryPrimaryColor.primary200),

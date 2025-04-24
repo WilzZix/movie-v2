@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
         BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
       ],
       child: MaterialApp.router(
-        color: Colors.black,
         routerConfig: AppRouter().router,
         theme: ThemeData(
           bottomSheetTheme: BottomSheetThemeData(
