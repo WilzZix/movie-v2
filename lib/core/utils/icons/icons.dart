@@ -49,11 +49,11 @@ class AppIcons {
   static final icApple = _svgAsset('ic_apple.svg');
   static final icGoogle = _svgAsset('ic_google.svg');
   static final icFacebook = _svgAsset('ic_facebook.svg');
-  static final icInputFieldPerson = _svgAsset('ic_inputfield_person.svg');
-  static final icInputFieldEmail = _svgAsset('ic_input_field_email.svg');
-  static final icInputFieldPassword = _svgAsset('ic_input_field_password.svg');
-  static final icInputFieldCloseEye = _svgAsset('ic_input_field_close_eye.svg');
-  static final icInputFieldArrowDown = _svgAsset('ic_input_field_arrow_down.svg');
+  static const String icInputFieldPerson = 'ic_inputfield_person.svg';
+  static const String icInputFieldEmail = 'ic_input_field_email.svg';
+  static const String icInputFieldPassword = 'ic_input_field_password.svg';
+  static const String icInputFieldCloseEye = 'ic_input_field_close_eye.svg';
+  static const String icInputFieldArrowDown = 'ic_input_field_arrow_down.svg';
 }
 
 class AppPngIcons {

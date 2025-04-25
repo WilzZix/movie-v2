@@ -68,7 +68,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.username(
                 hintText: 'Username',
-                prefixIcon: AppIcons.icInputFieldPerson,
                 focusNode: focusNodeUsername,
                 controller: controllerUsername,
               ),
@@ -77,7 +76,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.email(
                 hintText: 'email',
-                prefixIcon: AppIcons.icInputFieldEmail,
                 focusNode: focusNodeEmail,
                 controller: controllerEmail,
               ),
@@ -86,8 +84,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.password(
                 hintText: 'Password',
-                suffixIcon: AppIcons.icInputFieldCloseEye,
-                prefixIcon: AppIcons.icInputFieldPassword,
                 focusNode: focusNodePassword,
                 controller: controllerPassword,
               ),
@@ -96,8 +92,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.phone(
                 hintText: 'Placeholder',
-                prefixIcon: AppIcons.icInputFieldPerson,
-                suffixIcon: AppIcons.icInputFieldArrowDown,
                 focusNode: focusNodePhone,
                 controller: controllerPhone,
               ),
@@ -106,13 +100,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.normal(
                 hintText: '+1 000 000 000',
-                prefixIcon: const Row(
-                  children: [
-                    Icon(Icons.flag),
-                    SizedBox(width: 4),
-                    Icon(Icons.keyboard_arrow_down),
-                  ],
-                ),
                 focusNode: focusNodeDef,
                 controller: controllerDef,
               ),

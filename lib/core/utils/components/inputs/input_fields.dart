@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:movie/core/utils/colors.dart';
+import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 
 enum InputFieldState { defaultState, active, filled }
@@ -8,9 +10,9 @@ class InputField extends StatefulWidget {
   const InputField({
     super.key,
     this.suffix,
-    this.suffixIcon,
+    this.suffixIconPath,
     this.prefix,
-    this.prefixIcon,
+    this.prefixIconPath,
     this.hintText,
     required this.focusNode,
     required this.controller,
@@ -20,73 +22,68 @@ class InputField extends StatefulWidget {
     super.key,
     this.hintText,
     this.suffix,
-    this.suffixIcon,
+    this.suffixIconPath,
     this.prefix,
-    this.prefixIcon,
     required this.focusNode,
     required this.controller,
-  });
+  }) : prefixIconPath = AppIcons.icInputFieldPerson;
 
   const InputField.email({
     super.key,
     this.hintText,
     this.suffix,
-    this.suffixIcon,
+    this.suffixIconPath,
     this.prefix,
-    required this.prefixIcon,
     required this.focusNode,
     required this.controller,
-  });
+  }) : prefixIconPath = AppIcons.icInputFieldEmail;
 
   const InputField.password({
     super.key,
     this.hintText,
     this.suffix,
-    this.suffixIcon,
     this.prefix,
-    required this.prefixIcon,
     required this.focusNode,
     required this.controller,
-  });
+  })  : prefixIconPath = AppIcons.icInputFieldPassword,
+        suffixIconPath = AppIcons.icInputFieldCloseEye;
 
   const InputField.normal({
     super.key,
     this.hintText,
     this.suffix,
-    this.suffixIcon,
+    this.suffixIconPath,
     this.prefix,
-    required this.prefixIcon,
     required this.focusNode,
     required this.controller,
-  });
+  }) : prefixIconPath = '';
 
   const InputField.phone({
     super.key,
     this.hintText,
     this.suffix,
-    this.suffixIcon,
     this.prefix,
-    required this.prefixIcon,
     required this.focusNode,
     required this.controller,
-  });
+  })  : prefixIconPath = AppIcons.icInputFieldPerson,
+        suffixIconPath = AppIcons.icInputFieldArrowDown;
 
   const InputField.code({
     super.key,
     this.hintText,
     this.suffix,
-    this.suffixIcon,
+    this.suffixIconPath,
     this.prefix,
-    this.prefixIcon,
+    this.prefixIconPath,
     required this.focusNode,
     required this.controller,
   });
 
   final String? hintText;
   final Widget? suffix;
-  final Widget? suffixIcon;
+  final String? suffixIconPath;
   final Widget? prefix;
-  final Widget? prefixIcon;
+  final String? prefixIconPath;
   final FocusNode focusNode;
   final TextEditingController controller;
 
@@ -164,6 +161,20 @@ class _InputFieldState extends State<InputField> {
     }
   }
 
+  Widget prefixIcon(String path, InputFieldState fieldState) {
+    return SvgPicture.asset(
+      path,
+      color: prefixIconColor(fieldState),
+    );
+  }
+
+  Widget suffixIcon(String path, InputFieldState fieldState) {
+    return SvgPicture.asset(
+      path,
+      color: prefixIconColor(fieldState),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FormField(
@@ -179,23 +190,21 @@ class _InputFieldState extends State<InputField> {
             controller: widget.controller,
             decoration: InputDecoration(
               suffix: widget.suffix,
-              suffixIcon: widget.suffixIcon != null
+              suffixIcon: widget.suffixIconPath != null
                   ? Padding(
                       padding: const EdgeInsets.only(
                           top: 18.0, left: 12, bottom: 18, right: 20),
-                      child: widget.suffixIcon,
+                      child: suffixIcon(widget.suffixIconPath!, _fieldState),
                     )
                   : null,
-              suffixIconColor: suffixIconColor(_fieldState),
               prefix: widget.prefix,
-              prefixIcon: widget.prefixIcon != null
+              prefixIcon: widget.prefixIconPath != null
                   ? Padding(
                       padding: const EdgeInsets.only(
                           top: 18.0, left: 20, bottom: 18, right: 12),
-                      child: widget.prefixIcon,
+                      child: prefixIcon(widget.prefixIconPath!, _fieldState),
                     )
                   : null,
-              prefixIconColor: prefixIconColor(_fieldState),
               hintText: widget.hintText,
               errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: SecondaryPrimaryColor.primary200),
