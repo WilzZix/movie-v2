@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 enum InputFieldState { defaultState, active, filled }
+
+final uzPhoneMask = MaskTextInputFormatter(
+  mask: '+998 ## ### ## ##',
+  filter: {"#": RegExp(r'\d')},
+);
 
 class InputField extends StatefulWidget {
   const InputField({
@@ -14,39 +21,50 @@ class InputField extends StatefulWidget {
     this.prefix,
     this.prefixIconPath,
     this.hintText,
+    this.inputFormatter,
     required this.focusNode,
     required this.controller,
-  });
+    this.fieldWidth,
+  }) : textInputType = TextInputType.text;
 
   const InputField.username({
     super.key,
     this.hintText,
     this.suffix,
+    this.inputFormatter,
     this.suffixIconPath,
     this.prefix,
     required this.focusNode,
     required this.controller,
-  }) : prefixIconPath = AppIcons.icInputFieldPerson;
+    this.fieldWidth,
+  })  : prefixIconPath = AppIcons.icInputFieldPerson,
+        textInputType = TextInputType.text;
 
   const InputField.email({
     super.key,
     this.hintText,
     this.suffix,
+    this.inputFormatter,
     this.suffixIconPath,
     this.prefix,
     required this.focusNode,
     required this.controller,
-  }) : prefixIconPath = AppIcons.icInputFieldEmail;
+    this.fieldWidth,
+  })  : prefixIconPath = AppIcons.icInputFieldEmail,
+        textInputType = TextInputType.emailAddress;
 
   const InputField.password({
     super.key,
     this.hintText,
     this.suffix,
     this.prefix,
+    this.inputFormatter,
     required this.focusNode,
     required this.controller,
+    this.fieldWidth,
   })  : prefixIconPath = AppIcons.icInputFieldPassword,
-        suffixIconPath = AppIcons.icInputFieldCloseEye;
+        suffixIconPath = AppIcons.icInputFieldCloseEye,
+        textInputType = TextInputType.visiblePassword;
 
   const InputField.normal({
     super.key,
@@ -54,38 +72,49 @@ class InputField extends StatefulWidget {
     this.suffix,
     this.suffixIconPath,
     this.prefix,
+    this.inputFormatter,
     required this.focusNode,
     required this.controller,
-  }) : prefixIconPath = AppIcons.icInputFieldCloseEye;
+    this.fieldWidth,
+  })  : prefixIconPath = AppIcons.icInputFieldCloseEye,
+        textInputType = TextInputType.text;
 
-  const InputField.phone({
+  InputField.phone({
     super.key,
     this.hintText,
     this.suffix,
     this.prefix,
     required this.focusNode,
     required this.controller,
+    this.fieldWidth,
   })  : prefixIconPath = AppIcons.icInputFieldPerson,
-        suffixIconPath = AppIcons.icInputFieldArrowDown;
+        suffixIconPath = AppIcons.icInputFieldArrowDown,
+        textInputType = TextInputType.phone,
+        inputFormatter = uzPhoneMask;
 
   const InputField.code({
     super.key,
     this.hintText,
     this.suffix,
     this.suffixIconPath,
+    this.inputFormatter,
     this.prefix,
     this.prefixIconPath,
     required this.focusNode,
     required this.controller,
-  });
+  })  : fieldWidth = 78,
+        textInputType = TextInputType.phone;
 
   final String? hintText;
   final Widget? suffix;
   final String? suffixIconPath;
   final Widget? prefix;
   final String? prefixIconPath;
+  final double? fieldWidth;
   final FocusNode focusNode;
   final TextEditingController controller;
+  final TextInputType textInputType;
+  final MaskTextInputFormatter? inputFormatter;
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -180,12 +209,18 @@ class _InputFieldState extends State<InputField> {
     return FormField(
       builder: (state) {
         return Container(
+          width: widget.fieldWidth,
           decoration: BoxDecoration(
             color: containerBgColor(_fieldState),
             borderRadius: BorderRadius.circular(12),
           ),
           child: TextFormField(
+            textAlign:
+                widget.fieldWidth != null ? TextAlign.center : TextAlign.start,
             style: Typographies.bodyMediumSemiBold,
+            inputFormatters:
+                widget.inputFormatter != null ? [widget.inputFormatter!] : null,
+            keyboardType: widget.textInputType,
             focusNode: widget.focusNode,
             controller: widget.controller,
             decoration: InputDecoration(
@@ -234,5 +269,14 @@ class _InputFieldState extends State<InputField> {
         );
       },
     );
+  }
+}
+
+class TextInputFormat extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    // TODO: implement formatEditUpdate
+    throw UnimplementedError();
   }
 }

@@ -45,72 +45,75 @@ class _SignUpPageState extends State<SignUpPage> {
         // ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 130 + MediaQuery.of(context).padding.top,
-              ),
-              // AppIcons.icAppIcon,
-              // const SizedBox(height: 32),
-              // Text(
-              //   'Login to Your Account',
-              //   textAlign: TextAlign.center,
-              //   style: Typographies.heading2.copyWith(color: Colors.white),
-              // ),
-              // const SizedBox(height: 200),
-              InputField(
-                hintText: 'Placeholder',
-                focusNode: focusNodePlaceholder,
-                controller: controllerPlaceholder,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              InputField.username(
-                hintText: 'Username',
-                focusNode: focusNodeUsername,
-                controller: controllerUsername,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              InputField.email(
-                hintText: 'email',
-                focusNode: focusNodeEmail,
-                controller: controllerEmail,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              InputField.password(
-                hintText: 'Password',
-                focusNode: focusNodePassword,
-                controller: controllerPassword,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              InputField.phone(
-                hintText: 'Placeholder',
-                focusNode: focusNodePhone,
-                controller: controllerPhone,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              InputField.normal(
-                hintText: '+1 000 000 000',
-                focusNode: focusNodeDef,
-                controller: controllerDef,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              InputField.code(
-                focusNode: focusNodeCode,
-                controller: controllerCode,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 130 + MediaQuery.of(context).padding.top,
+                ),
+                // AppIcons.icAppIcon,
+                // const SizedBox(height: 32),
+                // Text(
+                //   'Login to Your Account',
+                //   textAlign: TextAlign.center,
+                //   style: Typographies.heading2.copyWith(color: Colors.white),
+                // ),
+                // const SizedBox(height: 200),
+                InputField(
+                  hintText: 'Placeholder',
+                  focusNode: focusNodePlaceholder,
+                  controller: controllerPlaceholder,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InputField.username(
+                  hintText: 'Username',
+                  focusNode: focusNodeUsername,
+                  controller: controllerUsername,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InputField.email(
+                  hintText: 'email',
+                  focusNode: focusNodeEmail,
+                  controller: controllerEmail,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InputField.password(
+                  hintText: 'Password',
+                  focusNode: focusNodePassword,
+                  controller: controllerPassword,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InputField.phone(
+                  hintText: 'Placeholder',
+                  focusNode: focusNodePhone,
+                  controller: controllerPhone,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InputField.normal(
+                  hintText: '+1 000 000 000',
+                  focusNode: focusNodeDef,
+                  controller: controllerDef,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InputField.code(
+                  focusNode: focusNodeCode,
+                  controller: controllerCode,
+                ),
+              ],
+            ),
           ),
         )
       ]),
