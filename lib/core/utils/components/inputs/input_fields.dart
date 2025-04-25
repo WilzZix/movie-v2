@@ -22,7 +22,7 @@ class InputField extends StatefulWidget {
     this.suffix,
     this.suffixIcon,
     this.prefix,
-    required this.prefixIcon,
+    this.prefixIcon,
     required this.focusNode,
     required this.controller,
   });
@@ -179,10 +179,22 @@ class _InputFieldState extends State<InputField> {
             controller: widget.controller,
             decoration: InputDecoration(
               suffix: widget.suffix,
-              suffixIcon: widget.suffixIcon,
+              suffixIcon: widget.suffixIcon != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          top: 18.0, left: 12, bottom: 18, right: 20),
+                      child: widget.suffixIcon,
+                    )
+                  : null,
               suffixIconColor: suffixIconColor(_fieldState),
               prefix: widget.prefix,
-              prefixIcon: widget.prefixIcon,
+              prefixIcon: widget.prefixIcon != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          top: 18.0, left: 20, bottom: 18, right: 12),
+                      child: widget.prefixIcon,
+                    )
+                  : null,
               prefixIconColor: prefixIconColor(_fieldState),
               hintText: widget.hintText,
               errorBorder: OutlineInputBorder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie/core/utils/components/inputs/input_fields.dart';
+import 'package:movie/core/utils/icons/icons.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -67,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.username(
                 hintText: 'Username',
-                prefixIcon: const Icon(Icons.person),
+                prefixIcon: AppIcons.icInputFieldPerson,
                 focusNode: focusNodeUsername,
                 controller: controllerUsername,
               ),
@@ -76,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.email(
                 hintText: 'email',
-                prefixIcon: const Icon(Icons.email),
+                prefixIcon: AppIcons.icInputFieldEmail,
                 focusNode: focusNodeEmail,
                 controller: controllerEmail,
               ),
@@ -85,8 +86,8 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.password(
                 hintText: 'Password',
-                prefixIcon: const Icon(Icons.lock),
-                suffixIcon: const Icon(Icons.remove_red_eye_sharp),
+                suffixIcon: AppIcons.icInputFieldCloseEye,
+                prefixIcon: AppIcons.icInputFieldPassword,
                 focusNode: focusNodePassword,
                 controller: controllerPassword,
               ),
@@ -95,8 +96,8 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               InputField.phone(
                 hintText: 'Placeholder',
-                prefixIcon: const Icon(Icons.person),
-                suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                prefixIcon: AppIcons.icInputFieldPerson,
+                suffixIcon: AppIcons.icInputFieldArrowDown,
                 focusNode: focusNodePhone,
                 controller: controllerPhone,
               ),
