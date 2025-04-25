@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/datasources/network_data_source/moviedb.dart';
@@ -39,11 +38,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       RequestTokenModel requestTokenModel =
           await repository.getRequestToken(clientId: apiKey);
       try {
-        await FlutterWebAuth.authenticate(
-          url:
-              'https://www.themoviedb.org/authenticate/${requestTokenModel.requestToken}?redirect_to=$redirectUri',
-          callbackUrlScheme: 'your.app',
-        );
+        // await FlutterWebAuth.authenticate(
+        //   url:
+        //       'https://www.themoviedb.org/authenticate/${requestTokenModel.requestToken}?redirect_to=$redirectUri',
+        //   callbackUrlScheme: 'your.app',
+        // );
       } catch (e) {
         log(e.toString());
       }
