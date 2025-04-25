@@ -56,7 +56,7 @@ class InputField extends StatefulWidget {
     this.prefix,
     required this.focusNode,
     required this.controller,
-  }) : prefixIconPath = '';
+  }) : prefixIconPath = AppIcons.icInputFieldCloseEye;
 
   const InputField.phone({
     super.key,
@@ -163,14 +163,14 @@ class _InputFieldState extends State<InputField> {
 
   Widget prefixIcon(String path, InputFieldState fieldState) {
     return SvgPicture.asset(
-      path,
+      'assets/icons/$path',
       color: prefixIconColor(fieldState),
     );
   }
 
   Widget suffixIcon(String path, InputFieldState fieldState) {
     return SvgPicture.asset(
-      path,
+      'assets/icons/$path',
       color: prefixIconColor(fieldState),
     );
   }
