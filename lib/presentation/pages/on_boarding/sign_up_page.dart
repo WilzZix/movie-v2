@@ -1,6 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:movie/core/utils/colors.dart';
+import 'package:movie/core/utils/components/button.dart';
+import 'package:movie/core/utils/components/checkbox.dart';
 import 'package:movie/core/utils/components/inputs/input_fields.dart';
 import 'package:movie/core/utils/icons/icons.dart';
+import 'package:movie/core/utils/typography.dart' show Typographies;
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -32,57 +38,41 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        // Image.asset(
-        //   'assets/icons/garfild_icon.png',
-        //   fit: BoxFit.fill,
-        // ),
-        // BackdropFilter(
-        //   filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-        //   child: const SizedBox(
-        //     width: 200,
-        //     height: 200,
-        //   ),
-        // ),
+        Image.asset(
+          'assets/icons/garfild_icon.png',
+          fit: BoxFit.fill,
+        ),
+        BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+          child: const SizedBox(
+            width: 200,
+            height: 200,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 130 + MediaQuery.of(context).padding.top,
                 ),
-                // AppIcons.icAppIcon,
-                // const SizedBox(height: 32),
-                // Text(
-                //   'Login to Your Account',
-                //   textAlign: TextAlign.center,
-                //   style: Typographies.heading2.copyWith(color: Colors.white),
-                // ),
-                // const SizedBox(height: 200),
-                InputField(
-                  hintText: 'Placeholder',
-                  focusNode: focusNodePlaceholder,
-                  controller: controllerPlaceholder,
+                AppIcons.icAppIcon,
+                const SizedBox(height: 32),
+                Text(
+                  'Login to Your Account',
+                  textAlign: TextAlign.center,
+                  style: Typographies.heading2.copyWith(color: Colors.white),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                InputField.username(
-                  hintText: 'Username',
-                  focusNode: focusNodeUsername,
-                  controller: controllerUsername,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 200),
                 InputField.email(
                   hintText: 'email',
                   focusNode: focusNodeEmail,
                   controller: controllerEmail,
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 20,
                 ),
                 InputField.password(
                   hintText: 'Password',
@@ -90,28 +80,107 @@ class _SignUpPageState extends State<SignUpPage> {
                   controller: controllerPassword,
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 20,
                 ),
-                InputField.phone(
-                  hintText: 'Placeholder',
-                  focusNode: focusNodePhone,
-                  controller: controllerPhone,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                InputField.normal(
-                  hintText: '+1 000 000 000',
-                  focusNode: focusNodeDef,
-                  controller: controllerDef,
+                Row(
+                  children: [
+                    const AppCheckbox(),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Remember me',
+                      style: Typographies.bodyMediumSemiBold,
+                    )
+                  ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 20,
                 ),
-                InputField.code(
-                  focusNode: focusNodeCode,
-                  controller: controllerCode,
+                const Buttons.primary(text: 'Sign up'),
+                const SizedBox(height: 37),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          height: 1,
+                          color: GreyScale.grayScale200,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      const Text('or continue with'),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Divider(
+                          height: 1,
+                          color: GreyScale.grayScale200,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 87,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: GreyScale.grayScale200,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 18.0, bottom: 18, right: 32, left: 32),
+                        child: AppIcons.icGoogle,
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Container(
+                      height: 60,
+                      width: 87,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: GreyScale.grayScale200,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 18.0, bottom: 18, right: 32, left: 32),
+                        child: AppIcons.icApple,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 37),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account?',
+                      style: Typographies.bodyMediumRegular
+                          .copyWith(color: GreyScale.grayScale500),
+                    ),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'Sign in',
+                        style: Typographies.bodyMediumSemiBold
+                            .copyWith(color: MainPrimaryColor.primary500),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).padding.bottom,
+                )
               ],
             ),
           ),
