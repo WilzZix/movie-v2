@@ -40,7 +40,7 @@ class _LoginAndRegistrationPageState extends State<LoginAndRegistrationPage> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 130 + MediaQuery.of(context).padding.top,
+                  height:MediaQuery.of(context).padding.top,
                 ),
                 AppIcons.icAppIcon,
                 const SizedBox(height: 32),

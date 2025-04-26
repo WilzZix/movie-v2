@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 130 + MediaQuery.of(context).padding.top,
+                  height: MediaQuery.of(context).padding.top,
                 ),
                 AppIcons.icAppIcon,
                 const SizedBox(height: 32),
@@ -65,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   textAlign: TextAlign.center,
                   style: Typographies.heading2.copyWith(color: Colors.white),
                 ),
-                const SizedBox(height: 200),
+                const SizedBox(height: 100),
                 InputField.email(
                   hintText: 'email',
                   focusNode: focusNodeEmail,
