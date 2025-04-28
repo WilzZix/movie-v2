@@ -271,12 +271,3 @@ class _InputFieldState extends State<InputField> {
     );
   }
 }
-
-class TextInputFormat extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    // TODO: implement formatEditUpdate
-    throw UnimplementedError();
-  }
-}
