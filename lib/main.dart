@@ -47,10 +47,15 @@ class _MyAppState extends State<MyApp> {
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
         BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
-        BlocProvider<CoreCubit>(create: (context) => CoreCubit()),
+        BlocProvider<CoreCubit>(
+            create: (context) => CoreCubit()..getAppTheme()),
       ],
       child: BlocListener<CoreCubit, CoreState>(
         listener: (context, state) {
+          if (state is ApplicationThemeChanged) {
+            appTheme = state.themeData;
+            setState(() {});
+          }
           if (state is ApplicationThemeLoaded) {
             appTheme = state.themeData;
             setState(() {});

@@ -37,6 +37,13 @@ class SharedPreferenceService {
   static int? getAccountId() =>
       _instance?.getInt(SharedPrefsKeyStrings.accountId);
 
+  static String getAppTheme() =>
+      _instance?.getString(SharedPrefsKeyStrings.appTheme) ?? 'dark';
+
+  Future<void> setAppTheme(String appTheme) async {
+    _instance?.setString(SharedPrefsKeyStrings.appTheme, appTheme);
+  }
+
   //for delete data
   static Future<bool> remove(String key) async => await _instance!.remove(key);
 
@@ -48,4 +55,5 @@ class SharedPrefsKeyStrings {
   static String userRequestTokenKey = 'requestToken';
   static String userSessionIdKey = 'requestToken';
   static String accountId = 'accountId';
+  static String appTheme = 'appTheme';
 }
