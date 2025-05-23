@@ -7,6 +7,7 @@ import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
 
 import 'application/auth/auth_bloc.dart';
+import 'application/core_cubit.dart';
 import 'application/movies_blocs/movies/movies_bloc.dart';
 import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'core/network_provider.dart';
@@ -22,8 +23,15 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeData appTheme = ThemeData();
 
   @override
   Widget build(BuildContext context) {
@@ -39,41 +47,18 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
         BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
+        BlocProvider<CoreCubit>(create: (context) => CoreCubit()),
       ],
-      child: MaterialApp.router(
-        routerConfig: AppRouter().router,
-        theme: ThemeData(
-          bottomSheetTheme: BottomSheetThemeData(
-            dragHandleColor: GreyScale.grayScale200,
-            backgroundColor: const Color(0xFFFEFEFE),
-          ),
-          appBarTheme: const AppBarTheme(
-            color: Colors.transparent,
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-          ),
-          tabBarTheme: TabBarTheme(
-            labelStyle: Typographies.bodyLargeSemiBold.copyWith(
-              color: MainPrimaryColor.primary500,
-            ),
-            unselectedLabelStyle: Typographies.bodyLargeSemiBold,
-          ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: const Color(0xD9181A20),
-            type: BottomNavigationBarType.fixed,
-            selectedIconTheme: IconThemeData(
-              color: MainPrimaryColor.primary500,
-            ),
-            unselectedIconTheme: IconThemeData(
-              color: GreyScale.grayScale500,
-            ),
-            unselectedItemColor: GreyScale.grayScale500,
-            selectedItemColor: MainPrimaryColor.primary500,
-            selectedLabelStyle: Typographies.bodyXSmallSemiBold
-                .copyWith(color: MainPrimaryColor.primary500),
-            unselectedLabelStyle: Typographies.bodyXSmallSemiBold,
-          ),
+      child: BlocListener<CoreCubit, CoreState>(
+        listener: (context, state) {
+          if (state is ApplicationThemeLoaded) {
+            appTheme = state.themeData;
+            setState(() {});
+          }
+        },
+        child: MaterialApp.router(
+          routerConfig: AppRouter().router,
+          theme: appTheme,
         ),
       ),
     );
