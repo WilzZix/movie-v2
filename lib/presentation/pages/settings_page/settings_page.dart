@@ -231,10 +231,10 @@ class ProfileDeleteItem extends StatefulWidget {
   final Function() onTap;
 
   @override
-  State<ProfileItem> createState() => _ProfileItemDeleteState();
+  State<ProfileDeleteItem> createState() => _ProfileItemDeleteState();
 }
 
-class _ProfileItemDeleteState extends State<ProfileItem> {
+class _ProfileItemDeleteState extends State<ProfileDeleteItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
