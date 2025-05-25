@@ -49,6 +49,11 @@ class AppIcons {
   static final icApple = _svgAsset('ic_apple.svg');
   static final icGoogle = _svgAsset('ic_google.svg');
   static final icFacebook = _svgAsset('ic_facebook.svg');
+  static final icProfileNotification = _svgAsset('ic_profile_notification.svg');
+  static final icProfileChangeLanguage = _svgAsset('ic_profile_change_language.svg');
+  static final icProfileAutoPlayVideos = _svgAsset('ic_auto_play_videos.svg');
+  static final icProfileNightMode = _svgAsset('ic_night_mode.svg');
+  static final icProfileLightMode = _svgAsset('ic_profile_light_mode.svg');
   static const String icInputFieldPerson = 'ic_inputfield_person.svg';
   static const String icInputFieldEmail = 'ic_input_field_email.svg';
   static const String icInputFieldPassword = 'ic_input_field_password.svg';
