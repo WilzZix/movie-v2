@@ -37,6 +37,10 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
+              Container(decoration: BoxDecoration(),),
+              SizedBox(
+                height: 48,
+              ),
               ProfileItemWithAction(
                 title: 'Notification',
                 icon: AppIcons.icProfileNotification,
@@ -94,8 +98,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 height: 24,
               ),
               ProfileItem(
-                title: 'Contact Support ',
-                icon: AppIcons.icApple,
+                title: 'Contact Support',
+                icon: AppIcons.icProfileContactSupport,
                 onTap: () {},
               ),
               const SizedBox(
@@ -103,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ProfileItem(
                 title: 'Privacy Policy',
-                icon: AppIcons.icApple,
+                icon: AppIcons.icProfilePrivacyPolicy,
                 onTap: () {},
               ),
               const SizedBox(
@@ -111,7 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ProfileItem(
                 title: 'About Us',
-                icon: AppIcons.icApple,
+                icon: AppIcons.icProfileAboutUs,
                 onTap: () {},
               ),
               const SizedBox(
@@ -119,12 +123,15 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ProfileItem(
                 title: 'Change Profile',
-                icon: AppIcons.icApple,
+                icon: AppIcons.icProfileChangeProfile,
                 onTap: () {},
+              ),
+              const SizedBox(
+                height: 24,
               ),
               ProfileDeleteItem(
                 title: 'Delete Profile',
-                icon: AppIcons.icApple,
+                icon: AppIcons.icProfileDeleteProfile,
                 onTap: () {},
               )
             ],
