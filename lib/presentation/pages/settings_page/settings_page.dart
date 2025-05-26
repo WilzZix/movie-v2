@@ -8,6 +8,7 @@ import 'package:movie/core/utils/typography.dart';
 import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
 
 import '../../../core/utils/icons/icons.dart';
+import 'edit_profile.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -152,7 +153,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ProfileItem(
                 title: 'Change Profile',
                 icon: AppIcons.icProfileChangeProfile,
-                onTap: () {},
+                onTap: () {
+                  context.pushNamed(EditProfile.tag);
+                },
               ),
               const SizedBox(
                 height: 24,
