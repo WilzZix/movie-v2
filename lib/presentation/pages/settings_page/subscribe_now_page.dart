@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/pages/settings_page/payment_page.dart'
+    show PaymentPage;
 
 import '../../../core/utils/icons/icons.dart' show AppIcons;
 
@@ -18,6 +21,7 @@ class _SubscribeNowPageState extends State<SubscribeNowPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFEFEFE),
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
       ),
@@ -100,8 +104,8 @@ class _SubscribeNowPageState extends State<SubscribeNowPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12.5),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: GreyScale.grayScale300),
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Row(
                   children: [
                     AppIcons.icProfileSubscribetionCheckboxUnselected,
@@ -138,7 +142,12 @@ class _SubscribeNowPageState extends State<SubscribeNowPage> {
               const SizedBox(
                 height: 24,
               ),
-              const Buttons.primary(text: 'Continue for Payment'),
+              Buttons.primary(
+                text: 'Continue for Payment',
+                onTap: () {
+                  context.pushNamed(PaymentPage.tag);
+                },
+              ),
               const SizedBox(
                 height: 24,
               ),
