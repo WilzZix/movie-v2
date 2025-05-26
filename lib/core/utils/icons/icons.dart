@@ -49,6 +49,8 @@ class AppIcons {
   static final icApple = _svgAsset('ic_apple.svg');
   static final icGoogle = _svgAsset('ic_google.svg');
   static final icFacebook = _svgAsset('ic_facebook.svg');
+  static final icPayPal = _svgAsset('ic_paypal.svg');
+  static final icMasterCard = _svgAsset('ic_mastercard.svg');
   static final icProfileNotification = _svgAsset('ic_profile_notification.svg');
   static final icProfileChangeLanguage = _svgAsset('ic_profile_change_language.svg');
   static final icProfileAutoPlayVideos = _svgAsset('ic_auto_play_videos.svg');

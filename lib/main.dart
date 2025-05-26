@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:movie/application/actors/actors_bloc.dart';
+import 'package:movie/core/utils/application_theme.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeData appTheme = ThemeData();
+  ThemeData appTheme = ApplicationTheme.light;
 
   @override
   Widget build(BuildContext context) {
