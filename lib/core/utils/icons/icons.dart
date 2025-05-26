@@ -60,6 +60,10 @@ class AppIcons {
   static final icProfileChangeProfile = _svgAsset('ic_profile_change_profile.svg');
   static final icProfileDeleteProfile = _svgAsset('ic_delete_profile.svg');
   static final icProfilePremium = _svgAsset('ic_profile_premium.svg');
+  static final icProfileSubscribe = _svgAsset('ic_subscribe.svg');
+  static final icProfileSubscribetionItem = _svgAsset('ic_subscribetion.svg');
+  static final icProfileSubscribetionCheckboxSelected = _svgAsset('ic_subs_checkbox_selected.svg');
+  static final icProfileSubscribetionCheckboxUnselected = _svgAsset('ic_subs_checkbox_unselected.svg');
   static const String icInputFieldPerson = 'ic_inputfield_person.svg';
   static const String icInputFieldEmail = 'ic_input_field_email.svg';
   static const String icInputFieldPassword = 'ic_input_field_password.svg';

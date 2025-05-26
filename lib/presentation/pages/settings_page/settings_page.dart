@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie/application/auth/auth_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
 
 import '../../../core/utils/icons/icons.dart';
 
@@ -37,26 +39,30 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: MainPrimaryColor.primary100,
-                  border: Border.all(color: MainPrimaryColor.primary500)
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppIcons.icProfilePremium,
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      'Subscribe Now',
-                      style: Typographies.heading5
-                          .copyWith(color: MainPrimaryColor.primary500),
-                    )
-                  ],
+              GestureDetector(
+                onTap: () {
+                  context.pushNamed(SubscribeNowPage.tag);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      color: MainPrimaryColor.primary100,
+                      border: Border.all(color: MainPrimaryColor.primary500)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppIcons.icProfilePremium,
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Subscribe Now',
+                        style: Typographies.heading5
+                            .copyWith(color: MainPrimaryColor.primary500),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

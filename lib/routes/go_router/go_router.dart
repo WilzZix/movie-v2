@@ -6,6 +6,7 @@ import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
 import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
 import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart'
     show SignUpPage;
+import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
 
 import '../../presentation/pages/favourite_page/favourite_page.dart';
 import '../../presentation/pages/home_page/components/see_all_movies_page.dart';
@@ -83,6 +84,10 @@ class AppRouter {
           )
         ],
       ),
+      GoRoute(
+          path: SubscribeNowPage.tag,
+          name: SubscribeNowPage.tag,
+          builder: (_, __) => const SubscribeNowPage())
     ],
   );
 }
