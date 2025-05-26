@@ -37,8 +37,29 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              Container(decoration: BoxDecoration(),),
-              SizedBox(
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  color: MainPrimaryColor.primary100,
+                  border: Border.all(color: MainPrimaryColor.primary500)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppIcons.icProfilePremium,
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      'Subscribe Now',
+                      style: Typographies.heading5
+                          .copyWith(color: MainPrimaryColor.primary500),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
                 height: 48,
               ),
               ProfileItemWithAction(

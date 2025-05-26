@@ -15,7 +15,7 @@ class AppRouter {
   AppRouter();
 
   final router = GoRouter(
-    initialLocation: '/',
+    initialLocation: BottomNavigationPage.tag,
     routes: [
       GoRoute(
         path: OnBoardingPage.tag,

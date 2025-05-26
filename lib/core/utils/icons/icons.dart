@@ -59,6 +59,7 @@ class AppIcons {
   static final icProfileAboutUs = _svgAsset('ic_about_us.svg');
   static final icProfileChangeProfile = _svgAsset('ic_profile_change_profile.svg');
   static final icProfileDeleteProfile = _svgAsset('ic_delete_profile.svg');
+  static final icProfilePremium = _svgAsset('ic_profile_premium.svg');
   static const String icInputFieldPerson = 'ic_inputfield_person.svg';
   static const String icInputFieldEmail = 'ic_input_field_email.svg';
   static const String icInputFieldPassword = 'ic_input_field_password.svg';
