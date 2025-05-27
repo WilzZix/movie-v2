@@ -52,20 +52,28 @@ class AppIcons {
   static final icPayPal = _svgAsset('ic_paypal.svg');
   static final icMasterCard = _svgAsset('ic_mastercard.svg');
   static final icProfileNotification = _svgAsset('ic_profile_notification.svg');
-  static final icProfileChangeLanguage = _svgAsset('ic_profile_change_language.svg');
+  static final icProfileChangeLanguage =
+      _svgAsset('ic_profile_change_language.svg');
   static final icProfileAutoPlayVideos = _svgAsset('ic_auto_play_videos.svg');
   static final icProfileNightMode = _svgAsset('ic_night_mode.svg');
   static final icProfileLightMode = _svgAsset('ic_profile_light_mode.svg');
-  static final icProfileContactSupport = _svgAsset('ic_profile_contact_support.svg');
-  static final icProfilePrivacyPolicy = _svgAsset('ic_profile_privacy_policy.svg');
+  static final icProfileContactSupport =
+      _svgAsset('ic_profile_contact_support.svg');
+  static final icProfilePrivacyPolicy =
+      _svgAsset('ic_profile_privacy_policy.svg');
   static final icProfileAboutUs = _svgAsset('ic_about_us.svg');
-  static final icProfileChangeProfile = _svgAsset('ic_profile_change_profile.svg');
+  static final icProfileChangeProfile =
+      _svgAsset('ic_profile_change_profile.svg');
   static final icProfileDeleteProfile = _svgAsset('ic_delete_profile.svg');
   static final icProfilePremium = _svgAsset('ic_profile_premium.svg');
   static final icProfileSubscribe = _svgAsset('ic_subscribe.svg');
   static final icProfileSubscribetionItem = _svgAsset('ic_subscribetion.svg');
-  static final icProfileSubscribetionCheckboxSelected = _svgAsset('ic_subs_checkbox_selected.svg');
-  static final icProfileSubscribetionCheckboxUnselected = _svgAsset('ic_subs_checkbox_unselected.svg');
+  static final icVerticalDivider = _svgAsset('ic_vertical_divider.svg');
+  static final icVoice = _svgAsset('ic_voice.svg');
+  static final icProfileSubscribetionCheckboxSelected =
+      _svgAsset('ic_subs_checkbox_selected.svg');
+  static final icProfileSubscribetionCheckboxUnselected =
+      _svgAsset('ic_subs_checkbox_unselected.svg');
   static const String icInputFieldPerson = 'ic_inputfield_person.svg';
   static const String icInputFieldEmail = 'ic_input_field_email.svg';
   static const String icInputFieldPassword = 'ic_input_field_password.svg';

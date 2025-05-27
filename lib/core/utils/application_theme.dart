@@ -34,6 +34,11 @@ class ApplicationTheme {
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
       ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
+      ),
+
       labelStyle: const TextStyle(color: Colors.grey),
     ),
     brightness: Brightness.dark,
