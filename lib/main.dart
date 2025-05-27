@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -14,11 +15,15 @@ import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'core/network_provider.dart';
 import 'core/utils/colors.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   NetworkProvider.initApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Bloc.observer = MyGlobalObserver();
   await SharedPreferenceService.init();
   runApp(const MyApp());
