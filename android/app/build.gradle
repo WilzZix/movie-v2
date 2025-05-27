@@ -26,8 +26,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.movie"
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -61,6 +60,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace "com.example.movie"
 }
 
 flutter {

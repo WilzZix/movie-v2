@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/core/utils/application_theme.dart';
-import 'package:movie/core/utils/typography.dart';
 import 'package:movie/routes/go_router/go_router.dart';
 
 import 'application/auth/auth_bloc.dart';
@@ -13,7 +13,6 @@ import 'application/core_cubit.dart';
 import 'application/movies_blocs/movies/movies_bloc.dart';
 import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'core/network_provider.dart';
-import 'core/utils/colors.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
 import 'firebase_options.dart';
 
@@ -25,6 +24,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Bloc.observer = MyGlobalObserver();
+  await FirebaseAnalytics.instance.logAppOpen();
   await SharedPreferenceService.init();
   runApp(const MyApp());
 }
