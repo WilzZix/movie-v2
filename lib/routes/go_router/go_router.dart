@@ -6,6 +6,7 @@ import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
 import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
 import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart'
     show SignUpPage;
+import 'package:movie/presentation/pages/on_boarding/signin_page.dart';
 import 'package:movie/presentation/pages/settings_page/edit_profile.dart';
 import 'package:movie/presentation/pages/settings_page/payment_page.dart';
 import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
@@ -18,7 +19,7 @@ class AppRouter {
   AppRouter();
 
   final router = GoRouter(
-    initialLocation: BottomNavigationPage.tag,
+    initialLocation: '/',
     routes: [
       GoRoute(
         path: OnBoardingPage.tag,
@@ -39,7 +40,11 @@ class AppRouter {
                 },
               )
             ],
-          )
+          ),
+          GoRoute(
+              path: SignInPage.tag,
+              name: SignInPage.tag,
+              builder: (_, __) => const SignInPage())
         ],
       ),
       GoRoute(

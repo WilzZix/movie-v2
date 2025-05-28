@@ -7,6 +7,7 @@ import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart';
+import 'package:movie/presentation/pages/on_boarding/signin_page.dart' show SignInPage;
 
 class LoginAndRegistrationPage extends StatefulWidget {
   const LoginAndRegistrationPage({super.key});
@@ -67,7 +68,9 @@ class _LoginAndRegistrationPageState extends State<LoginAndRegistrationPage> {
             const SizedBox(height: 24),
             Buttons.primary(
               text: 'Sign in',
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(SignInPage.tag);
+              },
             ),
             const SizedBox(height: 60),
             Row(

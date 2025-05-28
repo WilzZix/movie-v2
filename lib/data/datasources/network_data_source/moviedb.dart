@@ -3,7 +3,7 @@ import 'package:movie/core/network_provider.dart';
 import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
 import 'package:movie/data/models/user_model.dart';
-import 'package:movie/domain/repositories/i_firebase_auth.dart';
+import 'package:movie/domain/repositories/i_movie_auth.dart';
 
 class FirebaseAuthRepository implements MovieDBAuth {
   @override

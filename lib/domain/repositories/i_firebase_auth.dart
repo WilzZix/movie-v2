@@ -1,13 +1,15 @@
-import 'package:movie/data/models/request_token_model.dart';
-import 'package:movie/data/models/session_id_model.dart';
-import 'package:movie/data/models/user_model.dart';
+import 'dart:async';
 
-abstract class MovieDBAuth {
-  Future<RequestTokenModel> getRequestToken({required String clientId});
+import 'package:firebase_auth/firebase_auth.dart';
 
-  Future<SessionIdModel> getSessionId(
-      {required String requestToken, required String clientId});
+abstract class IFirebaseAuth {
+  FutureOr<UserCredential> userRegisterWithEmailAndPassword(
+      {required String email, required String password});
 
-  Future<AccountModel> getAccount(
-      {required String sessionId, required String clientId});
+  FutureOr<UserCredential> userLoginWithEmailAndPassword(
+      {required String email, required String password});
+
+  FutureOr<void> signOutRequest();
+
+  Stream<User?> get authStateChanges;
 }

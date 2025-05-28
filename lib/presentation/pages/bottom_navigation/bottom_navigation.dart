@@ -36,7 +36,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     const SearchPage(),
     const FavouritePage(),
     const SettingsPage(),
-    const SettingsPage(),
   ];
 
   int selectedItem = 0;
@@ -60,11 +59,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             icon: AppIcons.icExploreIcon,
             activeIcon: AppIcons.icExploreIconUnselected,
             label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            label: 'Live TV',
-            icon: AppIcons.icLiveIcon,
-            activeIcon: AppIcons.icLiveIconSelected,
           ),
           BottomNavigationBarItem(
             label: 'My List',

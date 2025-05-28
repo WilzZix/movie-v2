@@ -10,6 +10,7 @@ import 'package:movie/routes/go_router/go_router.dart';
 
 import 'application/auth/auth_bloc.dart';
 import 'application/core_cubit.dart';
+import 'application/firebase_auth/firebase_auth_bloc.dart';
 import 'application/movies_blocs/movies/movies_bloc.dart';
 import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'core/network_provider.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => AuthBloc()..add(CheckUserLogInStatus()),
         ),
         BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
+        BlocProvider<FirebaseAuthBloc>(create: (context) => FirebaseAuthBloc()),
         BlocProvider<CoreCubit>(
             create: (context) => CoreCubit()..getAppTheme()),
       ],
