@@ -7,6 +7,7 @@ import 'package:movie/application/auth/auth_bloc.dart';
 import 'package:movie/application/firebase_auth/firebase_auth_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
 import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
 
 import '../../../core/utils/icons/icons.dart';
@@ -162,12 +163,20 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(
                 height: 24,
               ),
-              ProfileDeleteItem(
-                title: 'Delete Profile',
-                icon: AppIcons.icProfileDeleteProfile,
-                onTap: () {
-                  BlocProvider.of<FirebaseAuthBloc>(context).add(SignOutRequested());
+              BlocListener<FirebaseAuthBloc, FirebaseAuthState>(
+                listener: (context, state) {
+                  if (state is Unauthenticated) {
+                    context.go(OnBoardingPage.tag);
+                  }
                 },
+                child: ProfileDeleteItem(
+                  title: 'Delete Profile',
+                  icon: AppIcons.icProfileDeleteProfile,
+                  onTap: () {
+                    BlocProvider.of<FirebaseAuthBloc>(context)
+                        .add(SignOutRequested());
+                  },
+                ),
               )
             ],
           ),

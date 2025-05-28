@@ -30,9 +30,10 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
     on<RegisterWithEmailAndPassword>((event, emit) async {
       try {
         UserCredential userCredential =
-        await repository.userRegisterWithEmailAndPassword(
-            email: event.email, password: event.password);
-        emit(UserRegisteredWithEmailAndPassword(userCredential: userCredential));
+            await repository.userRegisterWithEmailAndPassword(
+                email: event.email, password: event.password);
+        emit(
+            UserRegisteredWithEmailAndPassword(userCredential: userCredential));
       } on FirebaseAuthException catch (e) {
         emit(UserLoginError(exception: e));
       }
@@ -46,6 +47,7 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
     });
     on<SignOutRequested>((event, emit) {
       repository.signOutRequest();
+      emit(Unauthenticated());
     });
   }
 }
