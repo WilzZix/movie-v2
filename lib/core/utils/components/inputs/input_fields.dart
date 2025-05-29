@@ -25,6 +25,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    required this.validator,
   }) : textInputType = TextInputType.text;
 
   const InputField.username({
@@ -37,6 +38,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldPerson,
         textInputType = TextInputType.text;
 
@@ -50,6 +52,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldEmail,
         textInputType = TextInputType.emailAddress;
 
@@ -62,6 +65,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldPassword,
         suffixIconPath = AppIcons.icInputFieldCloseEye,
         textInputType = TextInputType.visiblePassword;
@@ -76,6 +80,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldCloseEye,
         textInputType = TextInputType.text;
 
@@ -87,6 +92,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldPerson,
         suffixIconPath = AppIcons.icInputFieldArrowDown,
         textInputType = TextInputType.phone,
@@ -102,6 +108,7 @@ class InputField extends StatefulWidget {
     this.prefixIconPath,
     required this.focusNode,
     required this.controller,
+    required this.validator,
   })  : fieldWidth = 78,
         textInputType = TextInputType.phone;
 
@@ -115,6 +122,7 @@ class InputField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final MaskTextInputFormatter? inputFormatter;
+  final String? Function(String?) validator;
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -206,68 +214,65 @@ class _InputFieldState extends State<InputField> {
 
   @override
   Widget build(BuildContext context) {
-    return FormField(
-      builder: (state) {
-        return Container(
-          width: widget.fieldWidth,
-          decoration: BoxDecoration(
-            color: containerBgColor(_fieldState),
+    return Container(
+      width: widget.fieldWidth,
+      decoration: BoxDecoration(
+        color: containerBgColor(_fieldState),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: TextFormField(
+        validator: widget.validator,
+        textAlign:
+            widget.fieldWidth != null ? TextAlign.center : TextAlign.start,
+        style: Typographies.bodyMediumSemiBold,
+        inputFormatters:
+            widget.inputFormatter != null ? [widget.inputFormatter!] : null,
+        keyboardType: widget.textInputType,
+        focusNode: widget.focusNode,
+        controller: widget.controller,
+        decoration: InputDecoration(
+          suffix: widget.suffix,
+          suffixIcon: widget.suffixIconPath != null
+              ? Padding(
+                  padding: const EdgeInsets.only(
+                      top: 18.0, left: 12, bottom: 18, right: 20),
+                  child: suffixIcon(widget.suffixIconPath!, _fieldState),
+                )
+              : null,
+          prefix: widget.prefix,
+          prefixIcon: widget.prefixIconPath != null
+              ? Padding(
+                  padding: const EdgeInsets.only(
+                      top: 18.0, left: 20, bottom: 18, right: 12),
+                  child: prefixIcon(widget.prefixIconPath!, _fieldState),
+                )
+              : null,
+          hintText: widget.hintText,
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: SecondaryPrimaryColor.primary200),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: TextFormField(
-            textAlign:
-                widget.fieldWidth != null ? TextAlign.center : TextAlign.start,
-            style: Typographies.bodyMediumSemiBold,
-            inputFormatters:
-                widget.inputFormatter != null ? [widget.inputFormatter!] : null,
-            keyboardType: widget.textInputType,
-            focusNode: widget.focusNode,
-            controller: widget.controller,
-            decoration: InputDecoration(
-              suffix: widget.suffix,
-              suffixIcon: widget.suffixIconPath != null
-                  ? Padding(
-                      padding: const EdgeInsets.only(
-                          top: 18.0, left: 12, bottom: 18, right: 20),
-                      child: suffixIcon(widget.suffixIconPath!, _fieldState),
-                    )
-                  : null,
-              prefix: widget.prefix,
-              prefixIcon: widget.prefixIconPath != null
-                  ? Padding(
-                      padding: const EdgeInsets.only(
-                          top: 18.0, left: 20, bottom: 18, right: 12),
-                      child: prefixIcon(widget.prefixIconPath!, _fieldState),
-                    )
-                  : null,
-              hintText: widget.hintText,
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: SecondaryPrimaryColor.primary200),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: MainPrimaryColor.primary500),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: MainPrimaryColor.primary500),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              hintStyle: Typographies.bodyMediumRegular.copyWith(
-                color: GreyScale.grayScale500,
-              ),
-            ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(12),
           ),
-        );
-      },
+          disabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: MainPrimaryColor.primary500),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: MainPrimaryColor.primary500),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          hintStyle: Typographies.bodyMediumRegular.copyWith(
+            color: GreyScale.grayScale500,
+          ),
+        ),
+      ),
     );
   }
 }

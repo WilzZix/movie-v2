@@ -24,6 +24,7 @@ class _EditProfileState extends State<EditProfile> {
   FocusNode focusNodeGender = FocusNode();
   TextEditingController stateController = TextEditingController();
   FocusNode focusNodeState = FocusNode();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -52,44 +53,47 @@ class _EditProfileState extends State<EditProfile> {
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          children: [
-            InputField(focusNode: focusNodeName, controller: nameController),
-            const SizedBox(
-              height: 24,
-            ),
-            InputField(
-                focusNode: focusNodeSurname, controller: surNameController),
-            const SizedBox(
-              height: 24,
-            ),
-            InputField.email(
-                focusNode: focusNodeEmail, controller: emailController),
-            const SizedBox(
-              height: 24,
-            ),
-            InputField.phone(
-                focusNode: focusNodePhone, controller: phoneController),
-            const SizedBox(
-              height: 24,
-            ),
-            InputField.phone(
-              focusNode: focusNodeGender,
-              controller: genderController,
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            InputField.phone(
-                focusNode: focusNodeState, controller: stateController),
-            const SizedBox(
-              height: 24,
-            ),
-            const SizedBox(
-              height: 42,
-            ),
-            const Buttons.primary(text: 'Update')
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              // InputField(focusNode: focusNodeName, controller: nameController),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // InputField(
+              //     focusNode: focusNodeSurname, controller: surNameController),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // InputField.email(
+              //     focusNode: focusNodeEmail, controller: emailController),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // InputField.phone(
+              //     focusNode: focusNodePhone, controller: phoneController),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // InputField.phone(
+              //   focusNode: focusNodeGender,
+              //   controller: genderController,
+              // ),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // InputField.phone(
+              //     focusNode: focusNodeState, controller: stateController),
+              const SizedBox(
+                height: 24,
+              ),
+              const SizedBox(
+                height: 42,
+              ),
+              const Buttons.primary(text: 'Update')
+            ],
+          ),
         ),
       )),
     );
