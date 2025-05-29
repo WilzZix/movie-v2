@@ -26,6 +26,7 @@ class InputField extends StatefulWidget {
     required this.controller,
     this.fieldWidth,
     required this.validator,
+    this.obscureText = false,
   }) : textInputType = TextInputType.text;
 
   const InputField.username({
@@ -38,6 +39,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    this.obscureText = false,
     required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldPerson,
         textInputType = TextInputType.text;
@@ -52,6 +54,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    this.obscureText = false,
     required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldEmail,
         textInputType = TextInputType.emailAddress;
@@ -65,6 +68,7 @@ class InputField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
+    this.obscureText = true,
     required this.validator,
   })  : prefixIconPath = AppIcons.icInputFieldPassword,
         suffixIconPath = AppIcons.icInputFieldCloseEye,
@@ -73,6 +77,7 @@ class InputField extends StatefulWidget {
   const InputField.normal({
     super.key,
     this.hintText,
+    this.obscureText = false,
     this.suffix,
     this.suffixIconPath,
     this.prefix,
@@ -89,6 +94,7 @@ class InputField extends StatefulWidget {
     this.hintText,
     this.suffix,
     this.prefix,
+    this.obscureText = false,
     required this.focusNode,
     required this.controller,
     this.fieldWidth,
@@ -103,6 +109,7 @@ class InputField extends StatefulWidget {
     this.hintText,
     this.suffix,
     this.suffixIconPath,
+    this.obscureText = false,
     this.inputFormatter,
     this.prefix,
     this.prefixIconPath,
@@ -121,6 +128,7 @@ class InputField extends StatefulWidget {
   final FocusNode focusNode;
   final TextEditingController controller;
   final TextInputType textInputType;
+  final bool obscureText;
   final MaskTextInputFormatter? inputFormatter;
   final String? Function(String?) validator;
 
@@ -221,6 +229,7 @@ class _InputFieldState extends State<InputField> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextFormField(
+        obscureText: widget.obscureText,
         validator: widget.validator,
         textAlign:
             widget.fieldWidth != null ? TextAlign.center : TextAlign.start,
