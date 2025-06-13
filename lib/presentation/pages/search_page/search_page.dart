@@ -43,6 +43,7 @@ class _SearchPageState extends State<SearchPage> {
       controller.addListener(searchMovie);
       scrollController.addListener(_loadMore);
     });
+    context.read<RecommendedMoviesCubit>().getRecommendedMovies(movieId: 238);
   }
 
   void searchMovie() {
@@ -291,66 +292,62 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                BlocProvider<RecommendedMoviesCubit>(
-                  create: (context) => RecommendedMoviesCubit()
-                    ..getRecommendedMovies(movieId: 238),
-                  child: BlocBuilder<RecommendedMoviesCubit,
-                      RecommendedMoviesState>(builder: (context, state) {
-                    if (state is RecommendedVideosLoadedState) {
-                      return SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: state.data.results!.length,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () {
-                                context.pushNamed(MovieDetailPage.tag,
-                                    extra: state.data.results![index].id);
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 8),
-                                height: 200,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                      'https://image.tmdb.org/t/p/w1280${state.data.results![index].backdropPath}',
-                                    ),
+                BlocBuilder<RecommendedMoviesCubit, RecommendedMoviesState>(
+                    builder: (context, state) {
+                  if (state is RecommendedVideosLoadedState) {
+                    return SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.data.results!.length,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              context.pushNamed(MovieDetailPage.tag,
+                                  extra: state.data.results![index].id);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              height: 200,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w1280${state.data.results![index].backdropPath}',
                                   ),
-                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8.0, left: 8),
-                                  child: SizedBox(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        IMDbTag(
-                                          title: state
-                                              .data.results![index].voteAverage!
-                                              .toStringAsFixed(1),
-                                        ),
-                                      ],
-                                    ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, left: 8),
+                                child: SizedBox(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      IMDbTag(
+                                        title: state
+                                            .data.results![index].voteAverage!
+                                            .toStringAsFixed(1),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      );
-                    }
-                    return CircularProgressIndicator(
-                        color: MainPrimaryColor.primary500);
-                  }),
-                ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return CircularProgressIndicator(
+                      color: MainPrimaryColor.primary500);
+                }),
               ],
             ),
           );
@@ -530,5 +527,3 @@ class _FilterBottomPartState extends State<FilterBottomPart> {
     }
   }
 }
-
-

@@ -12,7 +12,7 @@ movies, TV shows, and series. Dive into the world of entertainment with the foll
 Movie & TV Show Details: Access detailed information about movies and TV shows, including cast,
 synopsis, release dates, and more.
 Trailers & Videos: Watch official trailers and exclusive videos right from the app.
-User Accounts & Login: Securely log in to create personalized watchlists and access your account on
+User Accounts & Login: Securely log in to create personalized watch lists and access your account on
 any device.
 Wishlist: Add movies, TV shows, or series to your wishlist for future viewing.
 Top Picks & Recommendations: Get curated top movie picks and personalized recommendations.
