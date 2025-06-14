@@ -27,7 +27,7 @@ class NetworkProvider {
           if (kDebugMode)
             LogInterceptor(
               responseHeader: true,
-              responseBody: false,
+              responseBody: true,
               requestBody: true,
               logPrint: (error) => log(
                 error.toString(),
