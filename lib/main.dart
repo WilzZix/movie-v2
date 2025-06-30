@@ -40,7 +40,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeData appTheme = ApplicationTheme.light;
-
+  final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
           }
         },
         child: MaterialApp.router(
-          routerConfig: AppRouter().router,
+          routerConfig: _appRouter.router,
           theme: appTheme,
         ),
       ),

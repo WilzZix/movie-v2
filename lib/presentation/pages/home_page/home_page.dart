@@ -114,53 +114,38 @@ class _HomePageState extends State<HomePage> {
                                 viewportFraction: 1),
                           ),
                           const SizedBox(height: 24),
-                          BlocBuilder<MoviesBloc, MoviesState>(
-                            buildWhen: (context, state) {
-                              return state is UpcomingMoviesLoadedState;
-                            },
-                            builder: (context, state) {
-                              if (state is UpcomingMoviesLoadedState) {
-                                return SizedBox(
-                                  height: 50,
-                                  child: ListView.builder(
-                                    itemCount: state.data.results!.length,
-                                    scrollDirection: Axis.horizontal,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap: () {
-                                          context.pushNamed(MovieDetailPage.tag,
-                                              extra: state
-                                                  .data.results![index].id);
-                                        },
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(right: 8),
-                                          height: 50,
-                                          width: 90,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                'https://image.tmdb.org/t/p/w1280${state.data.results![index].backdropPath}',
-                                              ),
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
+                          SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                              itemCount: state.data.results!.length,
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    context.pushNamed(MovieDetailPage.tag,
+                                        extra: state.data.results![index].id);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(right: 8),
+                                    height: 50,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                          'https://image.tmdb.org/t/p/w1280${state.data.results![index].backdropPath}',
                                         ),
-                                      );
-                                    },
+                                      ),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
                                   ),
                                 );
-                              }
-                              return CircularProgressIndicator(
-                                color: MainPrimaryColor.primary500,
-                              );
-                            },
-                          ),
+                              },
+                            ),
+                          )
                         ],
                       );
                     }
