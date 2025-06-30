@@ -21,7 +21,6 @@ class AppRouter {
 
   final router = GoRouter(
     initialLocation: '/',
-    observers: [LoggingNavigatorObserver()],
     routes: [
       GoRoute(
         path: OnBoardingPage.tag,
@@ -109,26 +108,4 @@ class AppRouter {
           builder: (_, __) => const EditProfile())
     ],
   );
-}
-
-class LoggingNavigatorObserver extends NavigatorObserver {
-  @override
-  void didPush(Route route, Route? previousRoute) {
-    debugPrint('PUSH: ${route.settings.name ?? route.runtimeType}');
-  }
-
-  @override
-  void didPop(Route route, Route? previousRoute) {
-    debugPrint('PUSH: ${route.settings.name ?? route.runtimeType}');
-  }
-
-  @override
-  void didRemove(Route route, Route? previousRoute) {
-    debugPrint('PUSH: ${route.settings.name ?? route.runtimeType}');
-  }
-
-  @override
-  void didReplace({Route? newRoute, Route? oldRoute}) {
-    debugPrint('PUSH: ${newRoute?.settings.name ?? oldRoute.runtimeType}');
-  }
 }
