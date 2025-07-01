@@ -76,6 +76,7 @@ class _SearchPageState extends State<SearchPage> {
             onTap: () {
               showModalBottomSheet(
                 showDragHandle: true,
+                backgroundColor: Colors.white,
                 isScrollControlled: true,
                 context: context,
                 builder: (_) {

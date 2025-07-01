@@ -109,7 +109,7 @@ class _ButtonsState extends State<Buttons> {
       case ButtonType3.apple:
         return Center(
           child: Row(
-         mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppIcons.icApple,
               const SizedBox(width: 12),
@@ -155,18 +155,18 @@ class _ButtonsState extends State<Buttons> {
     switch (widget.type) {
       case _ButtonType.primary:
         return BoxDecoration(
-          gradient: widget.type3 == ButtonType3.rounded
-              ? AppGradient.mainGradient
-              : null,
-          borderRadius: widget.type3 == ButtonType3.rounded
-              ? BorderRadius.circular(100)
-              : null,
-        );
+            gradient: widget.type3 == ButtonType3.rounded
+                ? AppGradient.mainGradient
+                : null,
+            borderRadius: widget.type3 == ButtonType3.rounded
+                ? BorderRadius.circular(100)
+                : null,
+            color: widget.type3 == ButtonType3.rounded
+                ? MainPrimaryColor.primary100
+                : null);
       case _ButtonType.secondary:
         return BoxDecoration(
-          border: Border.all(
-            color: MainPrimaryColor.primary500,
-          ),
+          color: MainPrimaryColor.primary100,
           borderRadius: widget.type3 == ButtonType3.rounded
               ? BorderRadius.circular(100)
               : null,
