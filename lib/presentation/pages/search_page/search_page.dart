@@ -76,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
             onTap: () {
               showModalBottomSheet(
                 showDragHandle: true,
-                backgroundColor: Colors.white,
+                backgroundColor: GreyScale.grayScale100,
                 isScrollControlled: true,
                 context: context,
                 builder: (_) {
@@ -160,8 +160,11 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                             const SizedBox(height: 44),
-                            FilterBottomPart(
-                              movieType: mediaType,
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: FilterBottomPart(
+                                movieType: mediaType,
+                              ),
                             ),
                             const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 24.0),
