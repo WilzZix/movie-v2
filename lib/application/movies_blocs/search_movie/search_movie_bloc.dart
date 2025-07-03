@@ -23,6 +23,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
 
   NetworkMoviesDataSource dataSource = NetworkMoviesDataSource();
   SharedPreferenceService sharedPreferences = SharedPreferenceService();
+  SearchArguments? arguments;
   int page = 1;
   String keyword = '';
   List<Result>? results = [];
@@ -34,6 +35,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
     emit(SearchMovieLoadingState());
     page = 1;
     try {
+      arguments = event.arguments;
       keyword = event.keyword!;
       mediaType = event.arguments!.mediaType!;
       switch (mediaType) {
@@ -57,7 +59,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
             page: page,
           );
           results!.addAll(result.results!);
-          emit(SearchMovieLoadedState(MoviesResult(results:results)));
+          emit(SearchMovieLoadedState(MoviesResult(results: results)));
         case MediaType.tv:
           final result = await dataSource.searchTv(
             keyword: event.keyword!,

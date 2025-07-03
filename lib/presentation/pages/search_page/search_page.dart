@@ -5,6 +5,8 @@ import 'package:movie/application/movies_blocs/recommended_movies/recommended_mo
 import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
+import 'package:movie/core/utils/components/checkbox.dart';
+import 'package:movie/core/utils/components/selected_filter_items.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
@@ -70,7 +72,65 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         title: SearchBarComponent(controller: controller),
+        bottom: AppBarBottom(
+          preferredSize: const Size(120, 38),
+          child: BlocBuilder<SearchMovieBloc, SearchMovieState>(
+            builder: (context, state) {
+              if (state is SearchMovieLoadedState) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          const SelectedFilterItems(
+                            title: 'Uzbekistan',
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          if (BlocProvider.of<SearchMovieBloc>(context)
+                              .arguments!
+                              .mediaType!
+                              .name
+                              .isNotEmpty)
+                            SelectedFilterItems(
+                              title: BlocProvider.of<SearchMovieBloc>(context)
+                                  .arguments!
+                                  .mediaType!
+                                  .name
+                                  .toUpperCase(),
+                            ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          if (BlocProvider.of<SearchMovieBloc>(context)
+                                      .arguments!
+                                      .releaseYear !=
+                                  null &&
+                              BlocProvider.of<SearchMovieBloc>(context)
+                                  .arguments!
+                                  .releaseYear!
+                                  .isNotEmpty)
+                            SelectedFilterItems(
+                              title: BlocProvider.of<SearchMovieBloc>(context)
+                                  .arguments!
+                                  .releaseYear!,
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ),
         actions: [
           GestureDetector(
             onTap: () {
@@ -530,4 +590,9 @@ class _FilterBottomPartState extends State<FilterBottomPart> {
         );
     }
   }
+}
+
+class AppBarBottom extends PreferredSize {
+  const AppBarBottom(
+      {super.key, required super.preferredSize, required super.child});
 }

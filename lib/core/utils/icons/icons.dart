@@ -66,6 +66,7 @@ class AppIcons {
       _svgAsset('ic_profile_change_profile.svg');
   static final icProfileDeleteProfile = _svgAsset('ic_delete_profile.svg');
   static final icProfilePremium = _svgAsset('ic_profile_premium.svg');
+  static final icClose = _svgAsset('ic_close.svg');
   static final icProfileSubscribe = _svgAsset('ic_subscribe.svg');
   static final icProfileSubscribetionItem = _svgAsset('ic_subscribetion.svg');
   static final icVerticalDivider = _svgAsset('ic_vertical_divider.svg');
