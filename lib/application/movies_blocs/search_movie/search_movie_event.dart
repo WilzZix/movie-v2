@@ -18,5 +18,6 @@ class AddMovieToPreviousSearchResult extends SearchMovieEvent {
 }
 
 class GetPreviousSearchResult extends SearchMovieEvent {}
+
 ///Load more
 class LoadMoreEvent extends SearchMovieEvent {}

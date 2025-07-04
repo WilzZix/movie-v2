@@ -35,7 +35,6 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
     emit(SearchMovieLoadingState());
     page = 1;
     try {
-      arguments = event.arguments;
       keyword = event.keyword!;
       mediaType = event.arguments!.mediaType!;
       switch (mediaType) {

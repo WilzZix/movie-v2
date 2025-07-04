@@ -5,7 +5,6 @@ import 'package:movie/application/movies_blocs/recommended_movies/recommended_mo
 import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
-import 'package:movie/core/utils/components/checkbox.dart';
 import 'package:movie/core/utils/components/selected_filter_items.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
