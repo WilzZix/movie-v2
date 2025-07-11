@@ -4,6 +4,21 @@ import 'package:movie/core/utils/typography.dart';
 
 class ApplicationTheme {
   static final ThemeData light = ThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      type: BottomNavigationBarType.fixed,
+      selectedIconTheme: IconThemeData(
+        color: MainPrimaryColor.primary500,
+      ),
+      unselectedIconTheme: IconThemeData(
+        color: GreyScale.grayScale500,
+      ),
+      unselectedItemColor: GreyScale.grayScale500,
+      selectedItemColor: MainPrimaryColor.primary500,
+      selectedLabelStyle: Typographies.bodyXSmallSemiBold
+          .copyWith(color: MainPrimaryColor.primary500),
+      unselectedLabelStyle: Typographies.bodyXSmallSemiBold,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       prefixIconColor: Colors.white,
