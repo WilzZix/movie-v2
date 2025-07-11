@@ -5,34 +5,28 @@ class Typographies {
   Typographies();
 
   ///Heading
-  static TextStyle heading1 = TextStyle(
+  static TextStyle heading1 = const TextStyle(
     fontWeight: FontWeight.bold,
-    color: GreyScale.grayScale900,
     fontSize: 48,
   );
-  static TextStyle heading2 = TextStyle(
+  static TextStyle heading2 = const TextStyle(
     fontWeight: FontWeight.bold,
-    color: GreyScale.grayScale900,
     fontSize: 40,
   );
-  static TextStyle heading3 = TextStyle(
+  static TextStyle heading3 = const TextStyle(
     fontWeight: FontWeight.bold,
-    color: GreyScale.grayScale900,
     fontSize: 32,
   );
-  static TextStyle heading4 = TextStyle(
+  static TextStyle heading4 = const TextStyle(
     fontWeight: FontWeight.bold,
-    color: GreyScale.grayScale900,
     fontSize: 24,
   );
-  static TextStyle heading5 = TextStyle(
+  static TextStyle heading5 = const TextStyle(
     fontWeight: FontWeight.bold,
-    color: GreyScale.grayScale900,
     fontSize: 20,
   );
-  static TextStyle heading6 = TextStyle(
+  static TextStyle heading6 = const TextStyle(
     fontWeight: FontWeight.bold,
-    color: GreyScale.grayScale900,
     fontSize: 18,
   );
 
