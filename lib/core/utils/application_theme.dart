@@ -4,6 +4,25 @@ import 'package:movie/core/utils/typography.dart';
 
 class ApplicationTheme {
   static final ThemeData light = ThemeData(
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      prefixIconColor: Colors.white,
+      suffixIconColor: Colors.white,
+      fillColor: GreyScale.grayScale50,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.grey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
+      ),
+      labelStyle: const TextStyle(color: Colors.grey),
+    ),
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
     textTheme: const TextTheme(
@@ -25,7 +44,7 @@ class ApplicationTheme {
       filled: true,
       prefixIconColor: Colors.white,
       suffixIconColor: Colors.white,
-      fillColor: Colors.grey.shade900,
+      fillColor: DarkColors.dark2,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: Colors.grey),
@@ -38,7 +57,6 @@ class ApplicationTheme {
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
       ),
-
       labelStyle: const TextStyle(color: Colors.grey),
     ),
     brightness: Brightness.dark,
