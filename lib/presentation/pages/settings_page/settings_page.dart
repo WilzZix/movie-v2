@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/application/auth/auth_bloc.dart';
+import 'package:movie/application/core_cubit.dart';
 import 'package:movie/application/firebase_auth/firebase_auth_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/typography.dart';
@@ -28,6 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
     BlocProvider.of<AuthBloc>(context).add(CheckUserLogInStatus());
   }
+
+  bool isDarkMode = true;
 
   @override
   Widget build(BuildContext context) {
@@ -111,14 +114,26 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(
                 height: 24,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AppThemeModeWidget(
-                    isDarkModeItem: true,
+                  GestureDetector(
+                    onTap: () {
+                      context.read<CoreCubit>().changeTheme('dark');
+                      isDarkMode = true;
+                    },
+                    child: AppThemeModeWidget(
+                      isDarkModeItem: isDarkMode,
+                    ),
                   ),
-                  AppThemeModeWidget(
-                    isDarkModeItem: false,
+                  GestureDetector(
+                    onTap: () {
+                      context.read<CoreCubit>().changeTheme('light');
+                      isDarkMode = false;
+                    },
+                    child: AppThemeModeWidget(
+                      isDarkModeItem: !isDarkMode,
+                    ),
                   )
                 ],
               ),
