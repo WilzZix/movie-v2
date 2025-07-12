@@ -12,16 +12,17 @@ class CoreCubit extends Cubit<CoreState> {
 
   Future<void> changeTheme(String themeMode) async {
     if (themeMode == 'light') {
+      sharedPreferenceService.setAppTheme(themeMode);
       emit(ApplicationThemeChanged(themeData: ApplicationTheme.light));
-      sharedPreferenceService.setAppTheme(themeMode);
     } else {
-      emit(ApplicationThemeChanged(themeData: ApplicationTheme.dark));
       sharedPreferenceService.setAppTheme(themeMode);
+      emit(ApplicationThemeChanged(themeData: ApplicationTheme.dark));
     }
   }
 
   Future<void> getAppTheme() async {
-    if (SharedPreferenceService.getAppTheme() == 'dark') {
+    final theme = SharedPreferenceService.getAppTheme();
+    if (theme == 'dark') {
       emit(ApplicationThemeLoaded(themeData: ApplicationTheme.dark));
     } else {
       emit(ApplicationThemeLoaded(themeData: ApplicationTheme.light));

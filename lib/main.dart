@@ -41,6 +41,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ThemeData appTheme = ApplicationTheme.light;
   final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -56,25 +57,24 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<SeeAllMoviesBloc>(create: (context) => SeeAllMoviesBloc()),
         BlocProvider<FirebaseAuthBloc>(create: (context) => FirebaseAuthBloc()),
-        BlocProvider<RecommendedMoviesCubit>(create: (context) => RecommendedMoviesCubit()),
+        BlocProvider<RecommendedMoviesCubit>(
+            create: (context) => RecommendedMoviesCubit()),
         BlocProvider<CoreCubit>(
             create: (context) => CoreCubit()..getAppTheme()),
       ],
-      child: BlocListener<CoreCubit, CoreState>(
-        listener: (context, state) {
+      child: BlocBuilder<CoreCubit, CoreState>(
+        builder: (context, state) {
           if (state is ApplicationThemeChanged) {
             appTheme = state.themeData;
-            setState(() {});
           }
           if (state is ApplicationThemeLoaded) {
             appTheme = state.themeData;
-            setState(() {});
           }
+          return MaterialApp.router(
+            routerConfig: _appRouter.router,
+            theme: appTheme,
+          );
         },
-        child: MaterialApp.router(
-          routerConfig: _appRouter.router,
-          theme: appTheme,
-        ),
       ),
     );
   }
