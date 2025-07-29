@@ -73,63 +73,6 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         toolbarHeight: 70,
         title: SearchBarComponent(controller: controller),
-        bottom: AppBarBottom(
-          preferredSize: const Size(120, 38),
-          child: BlocBuilder<SearchMovieBloc, SearchMovieState>(
-            builder: (context, state) {
-              if (state is SearchMovieLoadedState) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          const SelectedFilterItems(
-                            title: 'Uzbekistan',
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          if (BlocProvider.of<SearchMovieBloc>(context)
-                              .arguments!
-                              .mediaType!
-                              .name
-                              .isNotEmpty)
-                            SelectedFilterItems(
-                              title: BlocProvider.of<SearchMovieBloc>(context)
-                                  .arguments!
-                                  .mediaType!
-                                  .name
-                                  .toUpperCase(),
-                            ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          if (BlocProvider.of<SearchMovieBloc>(context)
-                                      .arguments!
-                                      .releaseYear !=
-                                  null &&
-                              BlocProvider.of<SearchMovieBloc>(context)
-                                  .arguments!
-                                  .releaseYear!
-                                  .isNotEmpty)
-                            SelectedFilterItems(
-                              title: BlocProvider.of<SearchMovieBloc>(context)
-                                  .arguments!
-                                  .releaseYear!,
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-              return const SizedBox();
-            },
-          ),
-        ),
         actions: [
           GestureDetector(
             onTap: () {

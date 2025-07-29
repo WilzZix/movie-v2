@@ -49,7 +49,7 @@ class Result {
   final String? mediaType;
   final bool? adult;
   final String? originalLanguage;
-  final List<int>? genreIds;
+  final List<int> genreIds;
   final double? popularity;
   final String? releaseDate;
   final bool? video;
@@ -69,7 +69,7 @@ class Result {
     this.mediaType,
     this.adult,
     this.originalLanguage,
-    this.genreIds,
+    required this.genreIds,
     this.popularity,
     this.releaseDate,
     this.video,
@@ -91,7 +91,6 @@ class Result {
       mediaType: json['media_type'],
       adult: json['adult'],
       originalLanguage: json['original_language'],
-      genreIds: json['genre_ids'].cast<int>() ?? 0,
       popularity: json['popularity'],
       releaseDate: json['release_date'],
       video: json['video'],
@@ -100,6 +99,7 @@ class Result {
       name: json['name'],
       originalName: json['original_name'],
       firstAirDate: json['first_air_date'],
+      genreIds: [],
     );
   }
 

@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                                                   MainPrimaryColor.primary100),
                                         ),
                                         const SizedBox(height: 16),
-                                        if (i.genreIds!.isNotEmpty)
+                                        if (i.genreIds.isNotEmpty)
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                                               TagComponent(
                                                 title: GenreIdTOStringName
                                                     .getGenreName(
-                                                        i.genreIds!.first ?? 0),
+                                                        i.genreIds.first),
                                               ),
                                               const SizedBox(width: 12),
                                               TagComponent(
