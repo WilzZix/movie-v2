@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/datasources/network_data_source/moviedb.dart';
 import 'package:movie/data/models/request_token_model.dart';
@@ -34,7 +34,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(RequestTokenInProgress());
       const apiKey = '26f62c7bb1573534f581d047e25069e8';
-      const redirectUri = 'your.app://callback';
       RequestTokenModel requestTokenModel =
           await repository.getRequestToken(clientId: apiKey);
       try {

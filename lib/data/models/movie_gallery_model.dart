@@ -32,9 +32,9 @@ class ImageData {
   static List<ImageData> fetchData(Map<String, dynamic> json) {
     List data = json['backdrops'];
     List<ImageData> result = [];
-    data.forEach((value) {
+    for (var value in data) {
       result.add(ImageData.fromJson(value));
-    });
+    }
     return result;
   }
 

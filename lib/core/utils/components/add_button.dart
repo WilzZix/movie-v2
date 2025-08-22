@@ -13,7 +13,7 @@ class AddButton extends StatelessWidget {
       width: 46,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: MainPrimaryColor.primary500.withOpacity(0.08),
+        color: MainPrimaryColor.primary500.withValues(alpha: 0.08),
       ),
       child: Center(
         child: icon,

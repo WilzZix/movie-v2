@@ -17,9 +17,9 @@ class GenreModel {
   static List<GenreModel> fetchData(Map<String, dynamic> json) {
     List data = json['genres'];
     List<GenreModel> result = [];
-    data.forEach((value) {
+    for (var value in data) {
       result.add(GenreModel.fromJson(value));
-    });
+    }
     return result;
   }
 }

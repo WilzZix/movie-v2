@@ -25,9 +25,9 @@ class MovieVideos {
   static List<MovieVideos> fetchData(Map<String, dynamic> json) {
     List data = json['results'];
     List<MovieVideos> result = [];
-    data.forEach((value) {
+    for (var value in data) {
       result.add(MovieVideos.fromJson(value));
-    });
+    }
     return result;
   }
 

@@ -78,7 +78,7 @@ class _PersonPageState extends State<PersonPage> with TickerProviderStateMixin {
                               // Adjust blur intensity
                               child: Container(
                                 color: Colors.black
-                                    .withOpacity(0.2), // Optional tint
+                                    .withValues(alpha: 0.2), // Optional tint
                               ),
                             ),
                           ),

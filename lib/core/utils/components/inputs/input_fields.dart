@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/icons/icons.dart';

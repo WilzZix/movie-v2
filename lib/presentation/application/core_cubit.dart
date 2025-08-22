@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:movie/core/utils/application_theme.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 

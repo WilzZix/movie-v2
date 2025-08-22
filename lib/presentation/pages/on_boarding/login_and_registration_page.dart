@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/core/utils/colors.dart';
@@ -7,7 +5,8 @@ import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart';
-import 'package:movie/presentation/pages/on_boarding/signin_page.dart' show SignInPage;
+import 'package:movie/presentation/pages/on_boarding/signin_page.dart'
+    show SignInPage;
 
 class LoginAndRegistrationPage extends StatefulWidget {
   const LoginAndRegistrationPage({super.key});

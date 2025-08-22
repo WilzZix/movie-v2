@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/icons/icons.dart';
-import 'package:movie/core/utils/typography.dart';
 
 class SearchBarComponent extends StatefulWidget {
   const SearchBarComponent({super.key, required this.controller});
@@ -14,7 +12,6 @@ class SearchBarComponent extends StatefulWidget {
 
 class _SearchBarComponentState extends State<SearchBarComponent> {
   final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
 
   TextEditingController get _controller => widget.controller;
 
@@ -22,9 +19,7 @@ class _SearchBarComponentState extends State<SearchBarComponent> {
   void initState() {
     super.initState();
     _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
+      setState(() {});
     });
   }
 
@@ -42,8 +37,7 @@ class _SearchBarComponentState extends State<SearchBarComponent> {
       decoration: InputDecoration(
         hintText: 'Search',
         suffixIcon: Padding(
-          padding:
-              const EdgeInsets.only(  left: 20, right: 12),
+          padding: const EdgeInsets.only(left: 20, right: 12),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

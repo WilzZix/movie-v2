@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie/core/utils/colors.dart';
 
 class Typographies {
   Typographies();

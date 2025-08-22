@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie/core/utils/components/button.dart' show Buttons;
-import 'package:movie/core/utils/components/inputs/input_fields.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -55,7 +54,7 @@ class _EditProfileState extends State<EditProfile> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: const Column(
             children: [
               // InputField(focusNode: focusNodeName, controller: nameController),
               // const SizedBox(
@@ -85,13 +84,13 @@ class _EditProfileState extends State<EditProfile> {
               // ),
               // InputField.phone(
               //     focusNode: focusNodeState, controller: stateController),
-              const SizedBox(
+              SizedBox(
                 height: 24,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 42,
               ),
-              const Buttons.primary(text: 'Update')
+              Buttons.primary(text: 'Update')
             ],
           ),
         ),

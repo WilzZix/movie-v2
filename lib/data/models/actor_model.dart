@@ -63,9 +63,9 @@ class ActorModel {
   static List<ActorModel> fetchData(Map<String, dynamic> json) {
     List data = json['cast'];
     List<ActorModel> list = [];
-    data.forEach((value) {
+    for (var value in data) {
       list.add(ActorModel.fromJson(value));
-    });
+    }
     return list;
   }
 

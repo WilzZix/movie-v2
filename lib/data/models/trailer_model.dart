@@ -25,9 +25,9 @@ class TrailerVideo {
   static List<TrailerVideo> fetchData(Map<String, dynamic> json) {
     List data = json['results'];
     List<TrailerVideo> result = [];
-    data.forEach((value) {
+    for (var value in data) {
       result.add(TrailerVideo.fromJson(value));
-    });
+    }
     return result;
   }
 

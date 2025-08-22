@@ -38,7 +38,7 @@ class PopularMovieItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
               border: Border.all(
                 color: Colors.white,
               ),
@@ -65,11 +65,11 @@ class PopularMovieItem extends StatelessWidget {
                         width: 100,
                         height: 20,
                         child: ListView.builder(
-                          itemCount: movieResult.genreIds!.length,
+                          itemCount: movieResult.genreIds.length,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (BuildContext context, int index) {
                             return GenreBuilder(
-                              genreId: movieResult.genreIds!,
+                              genreId: movieResult.genreIds,
                             );
                           },
                         ),

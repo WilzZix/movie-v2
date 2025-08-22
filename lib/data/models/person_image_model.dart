@@ -32,9 +32,9 @@ class ImageDetailModel {
   static List<ImageDetailModel> fetchData(Map<String, dynamic> json) {
     List data = json['profiles'];
     List<ImageDetailModel> result = [];
-    data.forEach((value) {
+    for (var value in data) {
       result.add(ImageDetailModel.fromJson(value));
-    });
+    }
     return result;
   }
 

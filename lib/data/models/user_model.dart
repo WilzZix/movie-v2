@@ -18,7 +18,7 @@ class AccountModel {
 
   AccountModel.fromJson(Map<String, dynamic> json) {
     avatar =
-        json['avatar'] != null ? new Avatar.fromJson(json['avatar']) : null;
+        json['avatar'] != null ? Avatar.fromJson(json['avatar']) : null;
     id = json['id'];
     iso6391 = json['iso_639_1'];
     iso31661 = json['iso_3166_1'];
@@ -50,9 +50,9 @@ class Avatar {
 
   Avatar.fromJson(Map<String, dynamic> json) {
     gravatar = json['gravatar'] != null
-        ? new Gravatar.fromJson(json['gravatar'])
+        ? Gravatar.fromJson(json['gravatar'])
         : null;
-    tmdb = json['tmdb'] != null ? new Tmdb.fromJson(json['tmdb']) : null;
+    tmdb = json['tmdb'] != null ? Tmdb.fromJson(json['tmdb']) : null;
   }
 
   Map<String, dynamic> toJson() {
