@@ -2,13 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
-import 'package:movie/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 import 'package:shimmer/shimmer.dart';
 

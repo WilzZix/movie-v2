@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie/presentation/pages/bottom_navigation/bottom_navigation.dart';
+import 'package:movie/presentation/pages/favourite_page/favourite_page.dart';
+import 'package:movie/presentation/pages/home_page/components/see_all_movies_page.dart';
 import 'package:movie/presentation/pages/home_page/components/video_player_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
+import 'package:movie/presentation/pages/on_boarding/login_and_registration_page.dart';
 import 'package:movie/presentation/pages/on_boarding/onboarding_page.dart';
 import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart'
     show SignUpPage;
@@ -11,10 +13,6 @@ import 'package:movie/presentation/pages/on_boarding/signin_page.dart';
 import 'package:movie/presentation/pages/settings_page/edit_profile.dart';
 import 'package:movie/presentation/pages/settings_page/payment_page.dart';
 import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
-
-import '../../presentation/pages/favourite_page/favourite_page.dart';
-import '../../presentation/pages/home_page/components/see_all_movies_page.dart';
-import '../../presentation/pages/on_boarding/login_and_registration_page.dart';
 
 class AppRouter {
   AppRouter();

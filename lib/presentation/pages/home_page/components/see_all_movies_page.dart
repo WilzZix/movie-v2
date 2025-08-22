@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/presentation/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 
 class SeeAllMoviesPage extends StatefulWidget {

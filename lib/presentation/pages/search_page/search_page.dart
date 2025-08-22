@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
-import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
-import 'package:movie/core/utils/components/selected_filter_items.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/presentation/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
+import 'package:movie/presentation/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 import 'package:movie/presentation/pages/search_page/search_arguments.dart';
 
@@ -69,6 +68,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -226,7 +226,8 @@ class _SearchPageState extends State<SearchPage> {
               height: 56,
               width: 56,
               decoration: BoxDecoration(
-                color: const Color(0xFFedf3ff),
+                color:
+                    !isDark ? const Color(0xFF192337) : const Color(0xFFEDF3FF),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Center(child: AppIcons.icFilter),

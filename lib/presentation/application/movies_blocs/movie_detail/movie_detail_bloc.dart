@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart';
+import 'package:movie/data/models/default_model.dart';
 import 'package:movie/data/models/movie_gallery_model.dart';
 
-import '../../../data/models/default_model.dart';
 
 part 'movie_detail_event.dart';
 

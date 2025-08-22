@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/firebase_auth/firebase_auth_bloc.dart';
 import 'package:movie/core/utils/components/button.dart';
 import 'package:movie/core/utils/components/inputs/input_fields.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/application/firebase_auth/firebase_auth_bloc.dart';
 import 'package:movie/presentation/pages/bottom_navigation/bottom_navigation.dart';
 
 class SignInPage extends StatefulWidget {
@@ -75,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
 
                       // Simple email RegExp
                       final emailRegex =
-                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                          RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (!emailRegex.hasMatch(value)) {
                         return 'Enter a valid email address';
                       }
@@ -103,7 +103,7 @@ class _SignInPageState extends State<SignInPage> {
                       if (!RegExp(r'[0-9]').hasMatch(value)) {
                         return 'Must contain at least one number';
                       }
-                      if (!RegExp(r'[!@#\$&*~]').hasMatch(value)) {
+                      if (!RegExp(r'[!@#$&*~]').hasMatch(value)) {
                         return 'Must contain at least one special character (!@#\$&*~)';
                       }
                       return null;

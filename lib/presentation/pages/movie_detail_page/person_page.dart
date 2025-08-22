@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:movie/application/person/person_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/application/person/person_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 
 class PersonPage extends StatefulWidget {

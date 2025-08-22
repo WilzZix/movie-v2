@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
-import 'package:movie/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/core/utils/icons/icons.dart';
+import 'package:movie/presentation/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/search_movie/search_movie_bloc.dart';
 import 'package:movie/presentation/pages/home_page/home_page.dart';
 
 import '../favourite_page/favourite_page.dart';

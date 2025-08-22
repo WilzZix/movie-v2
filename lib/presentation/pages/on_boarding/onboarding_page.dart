@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/firebase_auth/firebase_auth_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/button.dart';
-import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/application/firebase_auth/firebase_auth_bloc.dart';
 import 'package:movie/presentation/pages/bottom_navigation/bottom_navigation.dart';
 import 'package:movie/presentation/pages/on_boarding/login_and_registration_page.dart';
 

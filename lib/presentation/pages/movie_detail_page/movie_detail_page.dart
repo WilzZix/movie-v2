@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/actors/actors_bloc.dart';
-import 'package:movie/application/movies_blocs/movie_detail/movie_detail_bloc.dart';
-import 'package:movie/application/movies_blocs/movie_trailer_videos/trailer_videos_cubit.dart';
-import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
-import 'package:movie/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/add_button.dart';
 import 'package:movie/core/utils/components/tags.dart';
 import 'package:movie/core/utils/helpfull_functions/helpfull_functions.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/application/actors/actors_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/movie_detail/movie_detail_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/movie_trailer_videos/trailer_videos_cubit.dart';
+import 'package:movie/presentation/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
 import 'package:movie/presentation/pages/movie_detail_page/person_page.dart';
 import 'package:shimmer/shimmer.dart';
 

@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'package:movie/application/actors/actors_bloc.dart';
 import 'package:movie/core/utils/application_theme.dart';
-import 'package:movie/routes/go_router/go_router.dart';
+import 'package:movie/presentation/application/actors/actors_bloc.dart';
+import 'package:movie/presentation/application/auth/auth_bloc.dart';
+import 'package:movie/presentation/application/core_cubit.dart';
+import 'package:movie/presentation/application/firebase_auth/firebase_auth_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/movies/movies_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
+import 'package:movie/presentation/application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
+import 'package:movie/presentation/routes/go_router/go_router.dart';
 
-import 'application/auth/auth_bloc.dart';
-import 'application/core_cubit.dart';
-import 'application/firebase_auth/firebase_auth_bloc.dart';
-import 'application/movies_blocs/movies/movies_bloc.dart';
-import 'application/movies_blocs/recommended_movies/recommended_movies_cubit.dart';
-import 'application/movies_blocs/see_all_movies/see_all_movies_bloc.dart';
+
 import 'core/network_provider.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
 import 'firebase_options.dart';

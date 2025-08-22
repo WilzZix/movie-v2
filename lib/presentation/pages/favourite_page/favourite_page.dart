@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie/application/auth/auth_bloc.dart';
-import 'package:movie/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
+import 'package:movie/presentation/application/auth/auth_bloc.dart';
+import 'package:movie/presentation/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page/movie_detail_page.dart';
 
 import '../home_page/components/movie_list_item.dart';
