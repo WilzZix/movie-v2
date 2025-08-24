@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie/core/inject/inject.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/components/add_button.dart';
 import 'package:movie/core/utils/components/tags.dart';
@@ -48,15 +49,15 @@ class _MovieDetailPageState extends State<MovieDetailPage>
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => MovieDetailBloc()
+          create: (context) => MovieDetailBloc(inject())
             ..add(GetMovieGalleryEvent(movieId: widget.movieId)),
         ),
         BlocProvider(
-          create: (context) =>
-              TrailerVideosCubit()..getTrailerVideos(movieId: widget.movieId),
+          create: (context) => TrailerVideosCubit(inject())
+            ..getTrailerVideos(movieId: widget.movieId),
         ),
         BlocProvider(
-          create: (context) => RecommendedMoviesCubit()
+          create: (context) => RecommendedMoviesCubit(inject())
             ..getRecommendedMovies(movieId: widget.movieId),
         )
       ],

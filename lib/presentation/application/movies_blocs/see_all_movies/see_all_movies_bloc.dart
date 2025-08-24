@@ -5,16 +5,17 @@ import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/domain/repositories/i_movies_repository.dart';
 
 part 'see_all_movies_event.dart';
 
 part 'see_all_movies_state.dart';
 
 class SeeAllMoviesBloc extends Bloc<SeeAllMoviesEvent, SeeAllMoviesState> {
-  NetworkMoviesDataSource dataSource = NetworkMoviesDataSource();
+  final IMoviesRepository dataSource;
   SharedPreferenceService sharedPreferences = SharedPreferenceService();
 
-  SeeAllMoviesBloc() : super(SeeAllMoviesInitial()) {
+  SeeAllMoviesBloc(this.dataSource) : super(SeeAllMoviesInitial()) {
     on<FetchSeeAllMoviesEvent>((event, emit) async {
       try {
         switch (event.type) {

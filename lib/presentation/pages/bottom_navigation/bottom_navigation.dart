@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:movie/core/inject/inject.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/presentation/application/movies_blocs/movies/movies_bloc.dart';
 import 'package:movie/presentation/application/movies_blocs/search_movie/search_movie_bloc.dart';
@@ -73,7 +74,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         ],
       ),
       body: BlocProvider<SearchMovieBloc>(
-        create: (context) => SearchMovieBloc(),
+        create: (context) => SearchMovieBloc(inject()),
         child: IndexedStack(
           index: selectedItem,
           children: screens,

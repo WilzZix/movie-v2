@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movie/core/network_provider.dart';
 import 'package:movie/data/models/actor_model.dart';
 import 'package:movie/data/models/default_model.dart';
@@ -12,6 +13,7 @@ import 'package:movie/domain/repositories/i_movies_repository.dart';
 
 import '../../../core/utils/error_to_user_message.dart';
 
+@Singleton(as: IMoviesRepository)
 class NetworkMoviesDataSource extends IMoviesRepository {
   @override
   Future<MoviesResult> getTopRatedMovies({required int page}) async {

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movie/core/network_provider.dart';
 import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
 import 'package:movie/data/models/user_model.dart';
 import 'package:movie/domain/repositories/i_movie_auth.dart';
 
+@Singleton(as: MovieDBAuth)
 class FirebaseAuthRepository implements MovieDBAuth {
   @override
   Future<AccountModel> getAccount(

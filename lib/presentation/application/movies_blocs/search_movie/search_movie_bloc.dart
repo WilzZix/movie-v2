@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/domain/repositories/i_movies_repository.dart';
 import 'package:movie/presentation/pages/search_page/search_arguments.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,13 +16,13 @@ part 'search_movie_event.dart';
 part 'search_movie_state.dart';
 
 class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
-  SearchMovieBloc() : super(SearchMovieInitial()) {
+  SearchMovieBloc(this.dataSource) : super(SearchMovieInitial()) {
     on<SearchEventInitial>(_searchMovie);
     on<LoadMoreEvent>(_loadMore);
     on<GetPreviousSearchResult>(_getPreviousSearchResult);
   }
 
-  NetworkMoviesDataSource dataSource = NetworkMoviesDataSource();
+  final IMoviesRepository dataSource;
   SharedPreferenceService sharedPreferences = SharedPreferenceService();
   SearchArguments? arguments;
   int page = 1;

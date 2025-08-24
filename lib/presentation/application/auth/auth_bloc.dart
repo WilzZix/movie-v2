@@ -7,13 +7,14 @@ import 'package:movie/data/datasources/network_data_source/moviedb.dart';
 import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
 import 'package:movie/data/models/user_model.dart';
+import 'package:movie/domain/repositories/i_movie_auth.dart';
 
 part 'auth_event.dart';
 
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial()) {
+  AuthBloc(this.repository) : super(AuthInitial()) {
     on<CheckUserLogInStatus>(_checkUserLoginStatus);
     on<GetRequestTokenEvent>(_getRequestToken);
     on<GetSessionIdEvent>(_getSessionIdEvent);
@@ -21,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutEvent>(_logout);
   }
 
-  FirebaseAuthRepository repository = FirebaseAuthRepository();
+  final MovieDBAuth repository;
   SharedPreferenceService sharedPreferenceService = SharedPreferenceService();
 
   Future<void> _checkUserLoginStatus(

@@ -2,12 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart';
 import 'package:movie/data/models/genre_model.dart';
+import 'package:movie/domain/repositories/i_movies_repository.dart';
 
 part 'filter_genre_state.dart';
 
 class FilterGenreCubit extends Cubit<FilterGenreState> {
-  FilterGenreCubit() : super(FilterGenreInitial());
-  NetworkMoviesDataSource networkMoviesDataSource = NetworkMoviesDataSource();
+  FilterGenreCubit(this.networkMoviesDataSource) : super(FilterGenreInitial());
+  final IMoviesRepository networkMoviesDataSource;
 
   Future<void> loadMovieGenres() async {
     emit(MovieGenreLoadingState());

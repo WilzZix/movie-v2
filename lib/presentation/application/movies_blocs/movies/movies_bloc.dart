@@ -9,6 +9,7 @@ import 'package:movie/data/datasources/network_data_source/network_movies_dataso
 import 'package:movie/data/models/movie_videos.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/domain/repositories/i_movies_repository.dart';
 import 'package:movie/presentation/pages/search_page/search_arguments.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,7 @@ part 'movies_event.dart';
 part 'movies_state.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
-  MoviesBloc() : super(MoviesInitial()) {
+  MoviesBloc(this.dataSource) : super(MoviesInitial()) {
     on<GetTopRatedMoviesEvent>(_getTopRatedMovies);
     on<GetUpcomingMoviesEvent>(_getUpcomingMovies);
     on<GetPopularMoviesEvent>(_getPopularMovies);
@@ -30,7 +31,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     on<GetTrendingTVShowEvent>(_getTrendingTVShow);
   }
 
-  NetworkMoviesDataSource dataSource = NetworkMoviesDataSource();
+  final IMoviesRepository dataSource;
   SharedPreferenceService sharedPreferences = SharedPreferenceService();
   int page = 1;
   String keyword = '';
