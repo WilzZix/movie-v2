@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart';
 import 'package:movie/data/models/movies_model.dart';
 import 'package:movie/domain/repositories/i_movies_repository.dart';
 

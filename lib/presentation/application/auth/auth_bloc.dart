@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
-import 'package:movie/data/datasources/network_data_source/moviedb.dart';
 import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
 import 'package:movie/data/models/user_model.dart';
