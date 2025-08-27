@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movie/domain/repositories/i_firebase_auth.dart';
-
+@Singleton(as: IFirebaseAuth)
 class FirebaseAuthImpl extends IFirebaseAuth {
   @override
   FutureOr<UserCredential> userLoginWithEmailAndPassword(

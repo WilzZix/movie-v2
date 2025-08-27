@@ -1,16 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:movie/data/datasources/network_data_source/firebase_auth.dart';
+import 'package:movie/domain/repositories/i_firebase_auth.dart';
 
 part 'firebase_auth_event.dart';
 
 part 'firebase_auth_state.dart';
 
 class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
-  FirebaseAuthBloc() : super(FirebaseAuthInitial()) {
-    FirebaseAuthImpl repository = FirebaseAuthImpl();
-
+  FirebaseAuthBloc(this.repository) : super(FirebaseAuthInitial()) {
     on<LoginWithEmailAndPassword>((event, emit) async {
       try {
         UserCredential userCredential =
@@ -44,4 +42,6 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
       emit(Unauthenticated());
     });
   }
+
+  final IFirebaseAuth repository;
 }

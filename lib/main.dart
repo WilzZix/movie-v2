@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<SeeAllMoviesBloc>(
             create: (context) => SeeAllMoviesBloc(inject())),
-        BlocProvider<FirebaseAuthBloc>(create: (context) => FirebaseAuthBloc()),
+        BlocProvider<FirebaseAuthBloc>(create: (context) => FirebaseAuthBloc(inject())),
         BlocProvider<RecommendedMoviesCubit>(
             create: (context) => RecommendedMoviesCubit(inject())),
         BlocProvider<CoreCubit>(
