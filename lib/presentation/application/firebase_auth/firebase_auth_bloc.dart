@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
@@ -9,6 +11,10 @@ part 'firebase_auth_state.dart';
 
 class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
   FirebaseAuthBloc(this.repository) : super(FirebaseAuthInitial()) {
+    late final StreamSubscription<User?> _authStateSubscription;
+    _authStateSubscription = repository.authStateChanges.listen(
+      (user) => add(AuthStateChanged(user)),
+    );
     on<LoginWithEmailAndPassword>((event, emit) async {
       try {
         UserCredential userCredential =
