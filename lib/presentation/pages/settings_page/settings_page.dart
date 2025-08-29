@@ -12,6 +12,7 @@ import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
 
 import '../../../core/utils/icons/icons.dart';
 import 'edit_profile.dart';
+import 'select_language_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -91,7 +92,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ProfileItemWithAction(
                 title: 'Language',
                 icon: AppIcons.icProfileChangeLanguage,
-                onTap: () {},
+                onTap: () {
+                  context.pushNamed(SelectLanguagePage.tag);
+                },
                 action: Text(
                   'English(US)',
                   style: Typographies.bodyXLargeRegular,

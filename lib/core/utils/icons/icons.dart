@@ -71,6 +71,8 @@ class AppIcons {
   static final icProfileSubscribetionItem = _svgAsset('ic_subscribetion.svg');
   static final icVerticalDivider = _svgAsset('ic_vertical_divider.svg');
   static final icVoice = _svgAsset('ic_voice.svg');
+  static final icEnglishLanguage = _svgAsset('english_language_icon.svg');
+  static final icSpainLanguage = _svgAsset('spain_language_icons.svg');
   static final icProfileSubscribetionCheckboxSelected =
       _svgAsset('ic_subs_checkbox_selected.svg');
   static final icProfileSubscribetionCheckboxUnselected =

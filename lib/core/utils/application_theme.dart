@@ -43,10 +43,10 @@ class ApplicationTheme {
     textTheme: const TextTheme(
       bodyLarge: TextStyle(fontSize: 16),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
-      titleTextStyle: TextStyle(fontSize: 20),
+      titleTextStyle: Typographies.heading4.copyWith(color: Colors.black),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -84,10 +84,11 @@ class ApplicationTheme {
       dragHandleColor: GreyScale.grayScale200,
       backgroundColor: const Color(0xFFFEFEFE),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
+      titleTextStyle: Typographies.heading4,
       color: Colors.transparent,
-      iconTheme: IconThemeData(
-        color: Colors.black,
+      iconTheme: const IconThemeData(
+        color: Colors.white,
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

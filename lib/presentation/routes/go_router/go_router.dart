@@ -12,6 +12,7 @@ import 'package:movie/presentation/pages/on_boarding/sign_up_page.dart'
 import 'package:movie/presentation/pages/on_boarding/signin_page.dart';
 import 'package:movie/presentation/pages/settings_page/edit_profile.dart';
 import 'package:movie/presentation/pages/settings_page/payment_page.dart';
+import 'package:movie/presentation/pages/settings_page/select_language_page.dart';
 import 'package:movie/presentation/pages/settings_page/subscribe_now_page.dart';
 
 class AppRouter {
@@ -87,7 +88,11 @@ class AppRouter {
             builder: (_, state) => VideoPlayerPage(
               videoId: state.extra as String,
             ),
-          )
+          ),
+          GoRoute(
+              path: SelectLanguagePage.tag,
+              name: SelectLanguagePage.tag,
+              builder: (_, __) => const SelectLanguagePage())
         ],
       ),
       GoRoute(
