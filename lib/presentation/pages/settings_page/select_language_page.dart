@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/core/utils/colors.dart';
 import 'package:movie/core/utils/icons/icons.dart';
 import 'package:movie/core/utils/typography.dart';
+import 'package:movie/presentation/application/language/language_cubit.dart';
 
 class SelectLanguagePage extends StatefulWidget {
   const SelectLanguagePage({
@@ -34,6 +36,8 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
               setState(() {
                 selectedLanguageIndex = 0;
               });
+              BlocProvider.of<LanguageCubit>(context)
+                  .changeLanguage(Language(name: 'English', code: 'en-US'));
             },
             child: LanguageItem(
               icon: AppIcons.icEnglishLanguage,
@@ -47,6 +51,8 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
               setState(() {
                 selectedLanguageIndex = 1;
               });
+              BlocProvider.of<LanguageCubit>(context)
+                  .changeLanguage(Language(name: 'Spain', code: 'es-ES'));
             },
             child: LanguageItem(
               icon: AppIcons.icSpainLanguage,
@@ -60,6 +66,8 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
               setState(() {
                 selectedLanguageIndex = 2;
               });
+              BlocProvider.of<LanguageCubit>(context)
+                  .changeLanguage(Language(name: 'Russia', code: 'ru-RU'));
             },
             child: LanguageItem(
               icon: AppIcons.icSpainLanguage,
@@ -73,6 +81,8 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
               setState(() {
                 selectedLanguageIndex = 3;
               });
+              BlocProvider.of<LanguageCubit>(context)
+                  .changeLanguage(Language(name: 'Uzbek', code: 'uz'));
             },
             child: LanguageItem(
               icon: AppIcons.icEnglishLanguage,

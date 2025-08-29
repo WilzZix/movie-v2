@@ -1,5 +1,8 @@
+import 'package:injectable/injectable.dart';
+import 'package:movie/presentation/application/language/language_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@Singleton()
 class SharedPreferenceService {
   static SharedPreferences? _instance;
 
@@ -44,6 +47,20 @@ class SharedPreferenceService {
     _instance?.setString(SharedPrefsKeyStrings.appTheme, appTheme);
   }
 
+  Future<void> setAppLanguage(Language appLanguage) async {
+    _instance?.setString(
+        SharedPrefsKeyStrings.appLanguage, appLanguage.toJson());
+  }
+
+  static Language? getAppLanguage() {
+    String? appLanguageString =
+        _instance?.getString(SharedPrefsKeyStrings.appLanguage);
+    if (appLanguageString != null) {
+      return Language.fromJson(appLanguageString);
+    }
+    return Language(name: 'English', code: 'en-US');
+  }
+
   //for delete data
   static Future<bool> remove(String key) async => await _instance!.remove(key);
 
@@ -56,4 +73,5 @@ class SharedPrefsKeyStrings {
   static String userSessionIdKey = 'requestToken';
   static String accountId = 'accountId';
   static String appTheme = 'appTheme';
+  static String appLanguage = 'appLanguage';
 }

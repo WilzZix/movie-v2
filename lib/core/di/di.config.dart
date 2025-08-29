@@ -10,6 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart'
+    as _i1066;
 import 'package:movie/data/datasources/network_data_source/firebase_auth.dart'
     as _i819;
 import 'package:movie/data/datasources/network_data_source/moviedb.dart'
@@ -31,6 +33,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.singleton<_i1066.SharedPreferenceService>(
+        () => _i1066.SharedPreferenceService());
     gh.singleton<_i1053.IFirebaseAuth>(() => _i819.FirebaseAuthImpl());
     gh.singleton<_i734.MovieDBAuth>(() => _i1043.FirebaseAuthRepository());
     gh.singleton<_i589.IMoviesRepository>(

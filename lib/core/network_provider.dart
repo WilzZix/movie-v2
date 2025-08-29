@@ -3,9 +3,13 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie/core/utils/interceptor.dart';
+import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 
 class NetworkProvider {
   static late Dio dio;
+  final SharedPreferenceService sharedPreferenceService;
+
+  NetworkProvider(this.sharedPreferenceService);
 
   static Future<void> initApp() async {
     dio = Dio(
@@ -17,8 +21,8 @@ class NetworkProvider {
           'accept': 'application-json',
         },
         queryParameters: {
-          'language': 'ru',
-          'region': 'ru',
+          'language': SharedPreferenceService.getAppLanguage()!.code,
+          'region': SharedPreferenceService.getAppLanguage()!.code,
         },
       ),
     )..interceptors.addAll(

@@ -19,6 +19,7 @@ import 'core/di/di.dart';
 import 'core/network_provider.dart';
 import 'data/datasources/local_data_source/shared_preference_service.dart';
 import 'firebase_options.dart';
+import 'presentation/application/language/language_cubit.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -61,25 +62,35 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<SeeAllMoviesBloc>(
             create: (context) => SeeAllMoviesBloc(inject())),
-        BlocProvider<FirebaseAuthBloc>(create: (context) => FirebaseAuthBloc(inject())),
+        BlocProvider<FirebaseAuthBloc>(
+            create: (context) => FirebaseAuthBloc(inject())),
+        BlocProvider<LanguageCubit>(
+            create: (context) => LanguageCubit(inject())),
         BlocProvider<RecommendedMoviesCubit>(
             create: (context) => RecommendedMoviesCubit(inject())),
         BlocProvider<CoreCubit>(
             create: (context) => CoreCubit()..getAppTheme()),
       ],
-      child: BlocBuilder<CoreCubit, CoreState>(
-        builder: (context, state) {
-          if (state is ApplicationThemeChanged) {
-            appTheme = state.themeData;
+      child: BlocListener<LanguageCubit, LanguageState>(
+        listener: (context, state) {
+          if (state is LanguageChangedState) {
+            NetworkProvider.initApp();
           }
-          if (state is ApplicationThemeLoaded) {
-            appTheme = state.themeData;
-          }
-          return MaterialApp.router(
-            routerConfig: _appRouter.router,
-            theme: appTheme,
-          );
         },
+        child: BlocBuilder<CoreCubit, CoreState>(
+          builder: (context, state) {
+            if (state is ApplicationThemeChanged) {
+              appTheme = state.themeData;
+            }
+            if (state is ApplicationThemeLoaded) {
+              appTheme = state.themeData;
+            }
+            return MaterialApp.router(
+              routerConfig: _appRouter.router,
+              theme: appTheme,
+            );
+          },
+        ),
       ),
     );
   }
