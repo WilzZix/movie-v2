@@ -9,6 +9,7 @@ import 'package:movie/data/models/movies_model.dart';
 import 'package:movie/domain/repositories/i_movies_repository.dart';
 import 'package:movie/presentation/pages/search_page/search_arguments.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'search_movie_event.dart';
 
@@ -16,9 +17,14 @@ part 'search_movie_state.dart';
 
 class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   SearchMovieBloc(this.dataSource) : super(SearchMovieInitial()) {
-    on<SearchEventInitial>(_searchMovie);
+    on<SearchEventInitial>(_searchMovie,
+        transformer: debounce(const Duration(milliseconds: 500)));
     on<LoadMoreEvent>(_loadMore);
     on<GetPreviousSearchResult>(_getPreviousSearchResult);
+  }
+
+  EventTransformer<T> debounce<T>(Duration duration) {
+    return (events, mapper) => events.debounceTime(duration).switchMap(mapper);
   }
 
   final IMoviesRepository dataSource;
