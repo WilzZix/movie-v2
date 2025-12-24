@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -8,8 +9,10 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:movie/data/api/api.dart' as _i999;
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart'
     as _i1066;
 import 'package:movie/data/datasources/network_data_source/firebase_auth.dart'
@@ -36,9 +39,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i1066.SharedPreferenceService>(
         () => _i1066.SharedPreferenceService());
     gh.singleton<_i1053.IFirebaseAuth>(() => _i819.FirebaseAuthImpl());
-    gh.singleton<_i734.MovieDBAuth>(() => _i1043.FirebaseAuthRepository());
+    gh.singleton<_i999.MovieApi>(() => _i999.MovieApi.new(gh<_i361.Dio>()));
     gh.singleton<_i589.IMoviesRepository>(
         () => _i549.NetworkMoviesDataSource());
+    gh.singleton<_i734.MovieDBAuth>(
+        () => _i1043.FirebaseAuthRepository(gh<_i999.MovieApi>()));
     return this;
   }
 }
