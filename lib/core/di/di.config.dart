@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -39,7 +39,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i1066.SharedPreferenceService>(
         () => _i1066.SharedPreferenceService());
     gh.singleton<_i1053.IFirebaseAuth>(() => _i819.FirebaseAuthImpl());
-    gh.singleton<_i999.MovieApi>(() => _i999.MovieApi.new(gh<_i361.Dio>()));
+    gh.singleton<_i999.MovieApi>(() => _i999.MovieApi(gh<_i361.Dio>()));
     gh.singleton<_i589.IMoviesRepository>(
         () => _i549.NetworkMoviesDataSource());
     gh.singleton<_i734.MovieDBAuth>(

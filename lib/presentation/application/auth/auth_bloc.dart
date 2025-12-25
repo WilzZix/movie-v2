@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
 import 'package:movie/data/models/request_token_model.dart';
+import 'package:movie/data/models/result_entity.dart';
 import 'package:movie/data/models/session_id_model.dart';
 import 'package:movie/data/models/user_model.dart';
 import 'package:movie/domain/repositories/i_movie_auth.dart';
@@ -24,18 +25,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final MovieDBAuth repository;
   SharedPreferenceService sharedPreferenceService = SharedPreferenceService();
 
-  Future<void> _checkUserLoginStatus(
-      CheckUserLogInStatus event, Emitter<AuthState> emit) async {
+  Future<void> _checkUserLoginStatus(CheckUserLogInStatus event, Emitter<AuthState> emit) async {
     emit(UserLoginStatus(SharedPreferenceService.getUserAuthStatus() ?? false));
   }
 
-  Future<void> _getRequestToken(
-      GetRequestTokenEvent event, Emitter<AuthState> emit) async {
+  Future<void> _getRequestToken(GetRequestTokenEvent event, Emitter<AuthState> emit) async {
     try {
       emit(RequestTokenInProgress());
       const apiKey = '26f62c7bb1573534f581d047e25069e8';
-      RequestTokenModel requestTokenModel =
-          await repository.getRequestToken(clientId: apiKey);
+      RequestTokenModel requestTokenModel = await repository.getRequestToken(clientId: apiKey);
       try {
         // await FlutterWebAuth.authenticate(
         //   url:
@@ -45,20 +43,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         log(e.toString());
       }
-      sharedPreferenceService
-          .setUserRequestToken(requestTokenModel.requestToken!);
+      sharedPreferenceService.setUserRequestToken(requestTokenModel.requestToken!);
       add(GetSessionIdEvent(requestTokenModel, apiKey));
     } catch (e) {
       emit(RequestTokenGettingError(e.toString()));
     }
   }
 
-  Future<void> _getSessionIdEvent(
-      GetSessionIdEvent event, Emitter<AuthState> emit) async {
+  Future<void> _getSessionIdEvent(GetSessionIdEvent event, Emitter<AuthState> emit) async {
     try {
-      SessionIdModel sessionIdModel = await repository.getSessionId(
-          requestToken: event.requestTokenModel.requestToken!,
-          clientId: event.clientId);
+      SessionIdModel sessionIdModel =
+          await repository.getSessionId(requestToken: event.requestTokenModel.requestToken!, clientId: event.clientId);
       sharedPreferenceService.setSessionId(sessionIdModel.sessionId!);
       add(
         GetAccountIdEvent(
@@ -71,16 +66,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _getAccountId(
-      GetAccountIdEvent event, Emitter<AuthState> emit) async {
-    try {
-      AccountModel accountModel = await repository.getAccount(
-          sessionId: event.sessionId, clientId: event.clientId);
-      sharedPreferenceService.setUserAuthStatus(true);
-      sharedPreferenceService.setAccountId(accountModel.id!);
-      emit(AccountIdTook(accountModel.id!.toString()));
-    } catch (e) {
-      emit(GetAccountIdError(e.toString()));
+  Future<void> _getAccountId(GetAccountIdEvent event, Emitter<AuthState> emit) async {
+    final result = await repository.getAccount(sessionId: event.sessionId, clientId: event.clientId);
+    switch (result) {
+      case SuccessEntity<AccountModel>():
+        sharedPreferenceService.setUserAuthStatus(true);
+        sharedPreferenceService.setAccountId(result.data.id!);
+        emit(AccountIdTook(result.data.id!.toString()));
+
+      case FailureEntity<Exception>():
+        emit(GetAccountIdError(result.toString()));
     }
   }
 
