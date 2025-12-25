@@ -7,6 +7,12 @@ const _requestTimeoutInMilliseconds = 45000;
 
 @module
 abstract class DioProvider {
+  @Named("Host")
+  String get host => const String.fromEnvironment(
+        'BASE_URL',
+        defaultValue: 'https://api.themoviedb.org/3',
+      );
+
   @singleton
   Future<Dio> getAuthorizedDioClient({
     @Named("Host") required String host,
