@@ -10,7 +10,7 @@ abstract class DioProvider {
   @Named("Host")
   String get host => const String.fromEnvironment(
         'BASE_URL',
-        defaultValue: 'https://api.themoviedb.org/3',
+        defaultValue: 'https://movie_api.themoviedb.org/3',
       );
 
   @singleton

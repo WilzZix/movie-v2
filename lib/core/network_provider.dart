@@ -43,7 +43,7 @@ class NetworkProvider {
 }
 
 class IRoutes {
-  static const String baseUrl = 'https://api.themoviedb.org/3';
+  static const String baseUrl = 'https://movie_api.themoviedb.org/3';
   static const String topRated = '/movie/top_rated';
   static const String popularMovies = '/movie/popular';
   static const String upcomingMovies = '/movie/upcoming';

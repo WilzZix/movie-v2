@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:movie/data/api/movie_api.dart';
+
 import 'package:movie/data/datasources/network_data_source/base_repository.dart';
 import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
@@ -7,6 +7,7 @@ import 'package:movie/data/models/user_model.dart';
 import 'package:movie/domain/repositories/i_movie_auth.dart';
 
 import '../../models/result_entity.dart';
+import '../../movie_api/movie_api.dart';
 
 @Singleton(as: MovieDBAuth)
 class FirebaseAuthRepository extends BaseRepository implements MovieDBAuth {

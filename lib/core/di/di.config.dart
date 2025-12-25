@@ -13,7 +13,6 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:movie/core/dio/dio_provider.dart' as _i500;
-import 'package:movie/data/api/movie_api.dart' as _i732;
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart'
     as _i1066;
 import 'package:movie/data/datasources/network_data_source/firebase_auth.dart'
@@ -22,6 +21,8 @@ import 'package:movie/data/datasources/network_data_source/moviedb.dart'
     as _i1043;
 import 'package:movie/data/datasources/network_data_source/network_movies_datasource.dart'
     as _i549;
+import 'package:movie/data/movie_api/movie_api.dart' as _i756;
+import 'package:movie/data/network_movie_api/network_movie_api.dart' as _i667;
 import 'package:movie/domain/repositories/i_firebase_auth.dart' as _i1053;
 import 'package:movie/domain/repositories/i_movie_auth.dart' as _i734;
 import 'package:movie/domain/repositories/i_movies_repository.dart' as _i589;
@@ -49,10 +50,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i549.NetworkMoviesDataSource());
     gh.singletonAsync<_i361.Dio>(() => dioProvider.getAuthorizedDioClient(
         host: gh<String>(instanceName: 'Host')));
-    gh.singletonAsync<_i732.MovieApi>(
-        () async => _i732.MovieApi(await getAsync<_i361.Dio>()));
+    gh.singletonAsync<_i756.MovieApi>(
+        () async => _i756.MovieApi(await getAsync<_i361.Dio>()));
+    gh.singletonAsync<_i667.NetworkMovieApi>(
+        () async => _i667.NetworkMovieApi(await getAsync<_i361.Dio>()));
     gh.singletonAsync<_i734.MovieDBAuth>(() async =>
-        _i1043.FirebaseAuthRepository(await getAsync<_i732.MovieApi>()));
+        _i1043.FirebaseAuthRepository(await getAsync<_i756.MovieApi>()));
     return this;
   }
 }
