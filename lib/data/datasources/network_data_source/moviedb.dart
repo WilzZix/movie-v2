@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movie/core/network_provider.dart';
-import 'package:movie/data/api/api.dart';
+import 'package:movie/data/api/movie_api.dart';
 import 'package:movie/data/datasources/network_data_source/base_repository.dart';
 import 'package:movie/data/models/request_token_model.dart';
 import 'package:movie/data/models/session_id_model.dart';
@@ -22,25 +20,12 @@ class FirebaseAuthRepository extends BaseRepository implements MovieDBAuth {
   }
 
   @override
-  Future<RequestTokenModel> getRequestToken({required String clientId}) async {
-    final Response response = await NetworkProvider.dio.get(
-      '${IRoutes.baseUrl}/authentication/token/new',
-      queryParameters: {
-        'api_key': clientId,
-      },
-    );
-    return RequestTokenModel.fromJson(response.data);
+  Future<ResultEntity<RequestTokenModel>> getRequestToken({required String clientId}) async {
+    return safeCall(() => _movieApi.getRequestToken(clientId: clientId));
   }
 
   @override
-  Future<SessionIdModel> getSessionId({required String requestToken, required String clientId}) async {
-    final Response response = await NetworkProvider.dio.post(
-      '${IRoutes.baseUrl}/authentication/session/new',
-      queryParameters: {
-        'request_token': requestToken,
-        'api_key': clientId,
-      },
-    );
-    return SessionIdModel.fromJson(response.data);
+  Future<ResultEntity<SessionIdModel>> getSessionId({required String requestToken, required String clientId}) async {
+    return safeCall(() => _movieApi.getSessionId(requestToken: requestToken, clientId: clientId));
   }
 }

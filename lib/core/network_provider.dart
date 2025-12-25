@@ -17,7 +17,7 @@ class NetworkProvider {
         baseUrl: IRoutes.baseUrl,
         headers: {
           'Authorization':
-              ' Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNmY2MmM3YmIxNTczNTM0ZjU4MWQwNDdlMjUwNjllOCIsIm5iZiI6MTczMDAxOTk1My4xODgzNjUsInN1YiI6IjVmODA5NzBiMDIxY2VlMDAzNTM5ZjQxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0jy86fHM-xtnCYl_kuQrh3wth5qmWtSbYHf6wkkeltU',
+              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNmY2MmM3YmIxNTczNTM0ZjU4MWQwNDdlMjUwNjllOCIsIm5iZiI6MTczMDAxOTk1My4xODgzNjUsInN1YiI6IjVmODA5NzBiMDIxY2VlMDAzNTM5ZjQxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0jy86fHM-xtnCYl_kuQrh3wth5qmWtSbYHf6wkkeltU',
           'accept': 'application-json',
         },
         queryParameters: {

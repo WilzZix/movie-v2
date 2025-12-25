@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/data/datasources/local_data_source/shared_preference_service.dart';
@@ -30,39 +28,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _getRequestToken(GetRequestTokenEvent event, Emitter<AuthState> emit) async {
-    try {
-      emit(RequestTokenInProgress());
-      const apiKey = '26f62c7bb1573534f581d047e25069e8';
-      RequestTokenModel requestTokenModel = await repository.getRequestToken(clientId: apiKey);
-      try {
-        // await FlutterWebAuth.authenticate(
-        //   url:
-        //       'https://www.themoviedb.org/authenticate/${requestTokenModel.requestToken}?redirect_to=$redirectUri',
-        //   callbackUrlScheme: 'your.app',
-        // );
-      } catch (e) {
-        log(e.toString());
-      }
-      sharedPreferenceService.setUserRequestToken(requestTokenModel.requestToken!);
-      add(GetSessionIdEvent(requestTokenModel, apiKey));
-    } catch (e) {
-      emit(RequestTokenGettingError(e.toString()));
+    emit(RequestTokenInProgress());
+    const apiKey = '26f62c7bb1573534f581d047e25069e8';
+    final result = await repository.getRequestToken(clientId: apiKey);
+    switch (result) {
+      case SuccessEntity<RequestTokenModel>():
+        sharedPreferenceService.setUserRequestToken(result.data.requestToken!);
+        add(GetSessionIdEvent(result.data, apiKey));
+
+      case FailureEntity<Exception>():
+        emit(RequestTokenGettingError(result.toString()));
     }
   }
 
   Future<void> _getSessionIdEvent(GetSessionIdEvent event, Emitter<AuthState> emit) async {
-    try {
-      SessionIdModel sessionIdModel =
-          await repository.getSessionId(requestToken: event.requestTokenModel.requestToken!, clientId: event.clientId);
-      sharedPreferenceService.setSessionId(sessionIdModel.sessionId!);
-      add(
-        GetAccountIdEvent(
-          event.clientId,
-          sessionIdModel.sessionId!,
-        ),
-      );
-    } catch (e) {
-      emit(GetSessionIdError(e.toString()));
+    final result =
+        await repository.getSessionId(requestToken: event.requestTokenModel.requestToken!, clientId: event.clientId);
+    switch (result) {
+      case SuccessEntity<SessionIdModel>():
+        sharedPreferenceService.setSessionId(result.data.sessionId!);
+        add(
+          GetAccountIdEvent(
+            event.clientId,
+            result.data.sessionId!,
+          ),
+        );
+      case FailureEntity<Exception>():
+        emit(GetSessionIdError(result.toString()));
     }
   }
 
