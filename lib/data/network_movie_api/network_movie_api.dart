@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movie/data/datasources/network_data_source/base_repository.dart';
 import 'package:movie/data/models/actor_model.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:retrofit/retrofit.dart';

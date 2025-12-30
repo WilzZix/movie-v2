@@ -14,7 +14,7 @@ abstract class BaseRepository {
     try {
       final result = await apiCall();
       return SuccessEntity(
-        data: result.data,
+        data: result.results,
       );
     } on DioException catch (e) {
       log('Base repo error ${e.toString()}');

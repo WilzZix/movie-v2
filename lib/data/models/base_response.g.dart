@@ -11,9 +11,7 @@ _BaseResponse<T> _$BaseResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     _BaseResponse<T>(
-      success: json['success'] as bool,
-      message: json['message'] as String?,
-      data: fromJsonT(json['data']),
+      results: fromJsonT(json['results']),
     );
 
 Map<String, dynamic> _$BaseResponseToJson<T>(
@@ -21,7 +19,5 @@ Map<String, dynamic> _$BaseResponseToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'success': instance.success,
-      'message': instance.message,
-      'data': toJsonT(instance.data),
+      'results': toJsonT(instance.results),
     };

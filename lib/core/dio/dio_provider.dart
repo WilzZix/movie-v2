@@ -7,38 +7,26 @@ const _requestTimeoutInMilliseconds = 45000;
 
 @module
 abstract class DioProvider {
-  @Named("Host")
-  String get host => const String.fromEnvironment(
-        'BASE_URL',
-        defaultValue: 'https://movie_api.themoviedb.org/3',
-      );
-
   @singleton
-  Future<Dio> getAuthorizedDioClient({
-    @Named("Host") required String host,
-  }) async {
-    final baseUrl = _buildBaseUrl(host);
-    final authorizedDioClient = _createDioClient(baseUrl);
+  Future<Dio> getAuthorizedDioClient() async {
+    final authorizedDioClient = _createDioClient();
     authorizedDioClient.interceptors.addAll([
       AuthorizedRequestInterceptor(SharedPreferenceService()),
     ]);
     return authorizedDioClient;
   }
 
-  Dio _createDioClient(
-    String baseUrl, {
+  Dio _createDioClient({
     int requestTimeoutInMilliseconds = _requestTimeoutInMilliseconds,
   }) {
     final options = BaseOptions(
-      baseUrl: baseUrl,
+      baseUrl: 'https://api.themoviedb.org/3',
       receiveDataWhenStatusError: true,
       connectTimeout: Duration(milliseconds: requestTimeoutInMilliseconds),
       receiveTimeout: Duration(milliseconds: requestTimeoutInMilliseconds),
     );
     return Dio(options);
   }
-
-  String _buildBaseUrl(String host) => host;
 }
 
 class AuthorizedRequestInterceptor extends QueuedInterceptor {

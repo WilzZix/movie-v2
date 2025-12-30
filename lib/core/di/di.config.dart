@@ -39,15 +39,10 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioProvider = _$DioProvider();
+    gh.singletonAsync<_i361.Dio>(() => dioProvider.getAuthorizedDioClient());
     gh.singleton<_i1066.SharedPreferenceService>(
         () => _i1066.SharedPreferenceService());
     gh.singleton<_i1053.IFirebaseAuth>(() => _i819.FirebaseAuthImpl());
-    gh.factory<String>(
-      () => dioProvider.host,
-      instanceName: 'Host',
-    );
-    gh.singletonAsync<_i361.Dio>(() => dioProvider.getAuthorizedDioClient(
-        host: gh<String>(instanceName: 'Host')));
     gh.singletonAsync<_i756.MovieApi>(
         () async => _i756.MovieApi(await getAsync<_i361.Dio>()));
     gh.singletonAsync<_i667.NetworkMovieApi>(

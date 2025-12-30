@@ -14,9 +14,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$BaseResponse<T> {
-  bool get success;
-  String? get message;
-  T get data;
+  T get results;
 
   /// Create a copy of BaseResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -34,19 +32,17 @@ mixin _$BaseResponse<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is BaseResponse<T> &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other.results, results));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, success, message, const DeepCollectionEquality().hash(data));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(results));
 
   @override
   String toString() {
-    return 'BaseResponse<$T>(success: $success, message: $message, data: $data)';
+    return 'BaseResponse<$T>(results: $results)';
   }
 }
 
@@ -56,7 +52,7 @@ abstract mixin class $BaseResponseCopyWith<T, $Res> {
           BaseResponse<T> value, $Res Function(BaseResponse<T>) _then) =
       _$BaseResponseCopyWithImpl;
   @useResult
-  $Res call({bool success, String? message, T data});
+  $Res call({T results});
 }
 
 /// @nodoc
@@ -72,22 +68,12 @@ class _$BaseResponseCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? success = null,
-    Object? message = freezed,
-    Object? data = freezed,
+    Object? results = freezed,
   }) {
     return _then(_self.copyWith(
-      success: null == success
-          ? _self.success
-          : success // ignore: cast_nullable_to_non_nullable
-              as bool,
-      message: freezed == message
-          ? _self.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      data: freezed == data
-          ? _self.data
-          : data // ignore: cast_nullable_to_non_nullable
+      results: freezed == results
+          ? _self.results
+          : results // ignore: cast_nullable_to_non_nullable
               as T,
     ));
   }
@@ -186,13 +172,13 @@ extension BaseResponsePatterns<T> on BaseResponse<T> {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(bool success, String? message, T data)? $default, {
+    TResult Function(T results)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _BaseResponse() when $default != null:
-        return $default(_that.success, _that.message, _that.data);
+        return $default(_that.results);
       case _:
         return orElse();
     }
@@ -213,12 +199,12 @@ extension BaseResponsePatterns<T> on BaseResponse<T> {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(bool success, String? message, T data) $default,
+    TResult Function(T results) $default,
   ) {
     final _that = this;
     switch (_that) {
       case _BaseResponse():
-        return $default(_that.success, _that.message, _that.data);
+        return $default(_that.results);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -238,12 +224,12 @@ extension BaseResponsePatterns<T> on BaseResponse<T> {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(bool success, String? message, T data)? $default,
+    TResult? Function(T results)? $default,
   ) {
     final _that = this;
     switch (_that) {
       case _BaseResponse() when $default != null:
-        return $default(_that.success, _that.message, _that.data);
+        return $default(_that.results);
       case _:
         return null;
     }
@@ -253,18 +239,13 @@ extension BaseResponsePatterns<T> on BaseResponse<T> {
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
 class _BaseResponse<T> implements BaseResponse<T> {
-  const _BaseResponse(
-      {required this.success, this.message, required this.data});
+  const _BaseResponse({required this.results});
   factory _BaseResponse.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
       _$BaseResponseFromJson(json, fromJsonT);
 
   @override
-  final bool success;
-  @override
-  final String? message;
-  @override
-  final T data;
+  final T results;
 
   /// Create a copy of BaseResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -284,19 +265,17 @@ class _BaseResponse<T> implements BaseResponse<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BaseResponse<T> &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other.results, results));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, success, message, const DeepCollectionEquality().hash(data));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(results));
 
   @override
   String toString() {
-    return 'BaseResponse<$T>(success: $success, message: $message, data: $data)';
+    return 'BaseResponse<$T>(results: $results)';
   }
 }
 
@@ -308,7 +287,7 @@ abstract mixin class _$BaseResponseCopyWith<T, $Res>
       __$BaseResponseCopyWithImpl;
   @override
   @useResult
-  $Res call({bool success, String? message, T data});
+  $Res call({T results});
 }
 
 /// @nodoc
@@ -324,22 +303,12 @@ class __$BaseResponseCopyWithImpl<T, $Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? success = null,
-    Object? message = freezed,
-    Object? data = freezed,
+    Object? results = freezed,
   }) {
     return _then(_BaseResponse<T>(
-      success: null == success
-          ? _self.success
-          : success // ignore: cast_nullable_to_non_nullable
-              as bool,
-      message: freezed == message
-          ? _self.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      data: freezed == data
-          ? _self.data
-          : data // ignore: cast_nullable_to_non_nullable
+      results: freezed == results
+          ? _self.results
+          : results // ignore: cast_nullable_to_non_nullable
               as T,
     ));
   }
