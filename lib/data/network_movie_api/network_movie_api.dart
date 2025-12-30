@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie/data/datasources/network_data_source/base_repository.dart';
+import 'package:movie/data/models/actor_model.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -37,9 +39,7 @@ abstract class NetworkMovieApi {
 
   @POST('/account/{accountId}/watchlist')
   Future<BaseResponse<DefaultModel>> addMovieWatchList(
-      {@Query('media_id') required int mediaId,
-      required int? accountId,
-      @Query('session_id') required String sessionId});
+      {required int? accountId, @Query('session_id') required String sessionId});
 
   @GET('/account/{accountId}/watchlist/movies')
   Future<BaseResponse<MoviesResult>> getWatchListMovies({
@@ -97,4 +97,7 @@ abstract class NetworkMovieApi {
     @Query('query') required String keyword,
     @Query('page') required int page,
   });
+
+  @GET('/movie/{movieId}/credits')
+  Future<BaseResponse<List<ActorModel>>> fetchMovieActor({@Query('movieId') required int movieId});
 }

@@ -181,15 +181,11 @@ class _NetworkMovieApi implements NetworkMovieApi {
 
   @override
   Future<BaseResponse<DefaultModel>> addMovieWatchList({
-    required int mediaId,
     required int? accountId,
     required String sessionId,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'media_id': mediaId,
-      r'session_id': sessionId,
-    };
+    final queryParameters = <String, dynamic>{r'session_id': sessionId};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -581,6 +577,44 @@ class _NetworkMovieApi implements NetworkMovieApi {
       _value = BaseResponse<MoviesResult>.fromJson(
         _result.data!,
         (json) => MoviesResult.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BaseResponse<List<ActorModel>>> fetchMovieActor({
+    required int movieId,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'movieId': movieId};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<BaseResponse<List<ActorModel>>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/movie/{movieId}/credits',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<ActorModel>> _value;
+    try {
+      _value = BaseResponse<List<ActorModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<ActorModel>(
+                  (i) => ActorModel.fromJson(i as Map<String, dynamic>),
+                )
+                .toList()
+            : List.empty(),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, _result);

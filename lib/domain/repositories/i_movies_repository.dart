@@ -4,66 +4,67 @@ import 'package:movie/data/models/genre_model.dart';
 import 'package:movie/data/models/movie_gallery_model.dart';
 import 'package:movie/data/models/movies_detail_model.dart';
 import 'package:movie/data/models/movies_model.dart';
+import 'package:movie/data/models/result_entity.dart';
 import 'package:movie/data/models/trailer_model.dart';
 
 import '../../data/models/movie_videos.dart';
 
 abstract class IMoviesRepository {
-  Future<MoviesResult> getTopRatedMovies({required int page});
+  Future<ResultEntity<MoviesResult>> getTopRatedMovies({required int page});
 
-  Future<MoviesResult> getUpcomingMovies({required int page});
+  Future<ResultEntity<MoviesResult>> getUpcomingMovies({required int page});
 
-  Future<MoviesResult> getPopularMovies({required int page});
+  Future<ResultEntity<MoviesResult>> getPopularMovies({required int page});
 
-  Future<MoviesResult> getTrendingTVShow({required int page});
+  Future<ResultEntity<MoviesResult>> getTrendingTVShow({required int page});
 
-  Future<MovieDetailsPage> getMovieDetails({required int movieId});
+  Future<ResultEntity<MovieDetailsPage>> getMovieDetails({required int movieId});
 
-  Future<List<MovieVideos>> getMovieVideos({required int movieId});
+  Future<ResultEntity<List<MovieVideos>>> getMovieVideos({required int movieId});
 
-  Future<List<ActorModel>> fetchMovieActor({required int movieId});
+  Future<ResultEntity<List<ActorModel>>> fetchMovieActor({required int movieId});
 
-  Future<MoviesResult> search({
+  Future<ResultEntity<MoviesResult>> search({
     required String keyword,
     required int page,
   });
 
-  Future<MoviesResult> searchMovie({
+  Future<ResultEntity<MoviesResult>> searchMovie({
     required String keyword,
     required int page,
   });
 
-  Future<MoviesResult> searchTv({
+  Future<ResultEntity<MoviesResult>> searchTv({
     required String keyword,
     required int page,
   });
 
-  Future<MoviesResult> searchPerson({
+  Future<ResultEntity<MoviesResult>> searchPerson({
     required String keyword,
     required int page,
   });
 
-  Future<MoviesResult> searchCollection({
+  Future<ResultEntity<MoviesResult>> searchCollection({
     required String keyword,
     required int page,
   });
 
-  Future<DefaultModel> addMovieWatchList({
+  Future<ResultEntity<DefaultModel>> addMovieWatchList({
     required int movieId,
     required int accountId,
     required String sessionId,
   });
 
-  Future<MoviesResult> getWatchListMovies({
+  Future<ResultEntity<MoviesResult>> getWatchListMovies({
     required int accountId,
     required String sessionId,
   });
 
-  Future<List<TrailerVideo>> getMovieTrailer({required int movieId});
+  Future<ResultEntity<List<TrailerVideo>>> getMovieTrailer({required int movieId});
 
-  Future<MoviesResult> getRecommendedMovies({required int movieId});
+  Future<ResultEntity<MoviesResult>> getRecommendedMovies({required int movieId});
 
-  Future<List<ImageData>> getMovieGallery({required int movieId});
+  Future<ResultEntity<List<ImageData>>> getMovieGallery({required int movieId});
 
-  Future<List<GenreModel>> getMovieGenres();
+  Future<ResultEntity<List<GenreModel>>> getMovieGenres();
 }
